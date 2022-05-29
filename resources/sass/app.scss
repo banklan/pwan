@@ -1,0 +1,208 @@
+// Fonts
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300&family=Montserrat:wght@300;400&family=Poppins:wght@300&display=swap');
+
+// Variables
+@import 'variables';
+
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';
+
+$white: #fff;
+$light: rgba($white, 0.7);
+$dark: #080814;
+$primary: #001659;
+$primary_variant: #3E4095;
+$secondary: #E20000;
+$transition: all 400ms ease;
+
+body{
+    font-family: 'Montserrat', sans-serif;
+    scroll-behavior: smooth;
+    // color: #080814;
+    color: #1d1d1d;
+    // background: #5e6400;
+}
+
+.welcome_banner{
+    margin-top: -5rem;
+    height: 100vh;
+    width: 100vw;
+    background-image: linear-gradient(to bottom right,  rgba(0, 22, 89, 0.68), rgba(12, 62, 211, 0.9)),url('images/assets/header.jpg');
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .banner_caption{
+        margin-top: 9rem;
+        // min-height: 10rem;
+        background: transparent;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        color: #fff;
+
+        h1{
+            font-weight: 400;
+            line-height: 1.6;
+            text-align: center;
+            font-size: 4.7rem;
+        }
+        p{
+            font-size: 1.65rem;
+            font-weight: 400;
+        }
+        .v-btn{
+            text-align: center;
+        }
+
+        @media screen and (max-width:1030px){
+            h1{
+                font-size: 2.5rem;
+            }
+            h3{
+                font-size: 1.6rem;
+            }
+        }
+        h3{
+            // font-family:  'Lato', sans-serif;
+            font-size: 2rem;
+            font-weight: 300;
+        }
+    }
+
+    @media screen and (max-width: 900px){
+        .banner_caption{
+            margin: 6rem 2rem 2rem 2rem !important;
+            padding-bottom: 3rem;
+
+            h1{
+                font-size: 2.2rem;
+                margin-bottom: 1rem;
+            }
+
+            h3{
+                font-size: 1.6rem;
+            }
+        }
+    }
+    @media screen and (max-width: 722px){
+        .banner_caption{
+            height: 19rem;
+        }
+    }
+    @media screen and (max-width: 600px){
+        .banner_caption{
+            padding-top: 3rem !important;
+            // padding-top: 1.2rem;
+            // height: 20rem;
+
+            h1{
+                font-size: 3.0rem !important;
+            }
+        }
+        .v-btn{
+            margin-top: -5rem !important;
+            width: 50% !important;
+        }
+    }
+}
+.cont{
+    width: 80%;
+    margin: 0 auto;
+}
+.section_header{
+    padding-right: 7px;
+    color: $secondary;
+    width: 20px !important;
+}
+.section_head{
+    font-size: 1.5rem;
+    text-align: center;
+    margin: 5rem auto 3rem;
+    padding: 0.8rem auto;
+    color: #3a3a3a;
+}
+.cta{
+    text-align: center;
+    margin-top: 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    // width: 30%;
+
+    .btn-cta{
+        align-self: center !important;
+        justify-self: center !important;
+        text-align: center !important;
+        transition: $transition;
+
+        &:hover{
+            background: transparent !important;
+            border: 1px solid $secondary !important;
+            color: $secondary !important;
+            font-weight: bold !important;
+        }
+    }
+
+    .v-btn{
+        justify-self: center !important;
+    }
+}
+
+.v-btn{
+    text-decoration: none !important;
+}
+.v-btn i.uil{
+    font-size: 1rem !important;
+    // margin-top: -1rem;
+}
+.upper_row{
+    width: 100%;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+    gap: 2rem;
+
+    .search{
+        display: flex;
+        justify-content: center;
+        text-align: center;
+
+        .search_field{
+            width: 60%;
+        }
+    }
+}
+
+@media screen and (max-width: 722px){
+    .upper_row{
+        width: 100%;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: 22% 78%;
+        gap: 1rem;
+        .back{
+            overflow: hidden;
+            // background: green;
+        }
+        .search{
+            display: flex;
+            justify-content: center;
+            text-align: center;
+            width: 100%;
+            margin-right: 3rem;
+            // background: red;
+
+            .search_field{
+                width: 90%;
+                padding-right: 3rem;
+            }
+        }
+    }
+}
+
