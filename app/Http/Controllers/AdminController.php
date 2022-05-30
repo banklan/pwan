@@ -640,4 +640,110 @@ class AdminController extends Controller
 
         return response()->json($news, 200);
     }
+
+    public function getNewsPost($id){
+        $post = NewsPost::findOrFail($id);
+
+        return response()->json($post, 200);
+    }
+
+    public function delNewsPost($id){
+        $post = NewsPost::findOrFail($id);
+        $file = $post->file;
+        $filePath = public_path('/images/news/'.$file);
+        if(file_exists($filePath)){
+            unlink($filePath);
+        }
+        $post->delete();
+
+        return response()->json(['message' => 'Deleted!'], 200);
+    }
+
+    public function changeNewsPostFeature($id){
+        $post = NewsPost::findOrFail($id);
+        if($post->is_featured){
+            $post->update(['is_featured' => false]);
+        }else{
+            $post->update(['is_featured' => true]);
+        }
+
+        return response()->json($post->is_featured, 200);
+    }
+
+    public function changeNewsPostApproval($id){
+        $post = NewsPost::findorFail($id);
+        $admin = auth('admin-api')->user()->id;
+        if($post->is_approved){
+            $post->update(['is_approved' => false, 'admin_id' => $admin]);
+        }else{
+            $post->update(['is_approved' => true, 'admin_id' => null]);
+        }
+
+        return response()->json($post->is_approved, 200);
+    }
+
+    public function delPostFile($id){
+        $post = NewsPost::findOrFail($id);
+
+        // delete in storage
+        $filePath = public_path('/images/news/'.$post->file);
+        if(file_exists($filePath)){
+            unlink($filePath);
+        }
+        $post->update(['file' => null]);
+
+        return response()->json($post, 200);
+    }
+
+    public function updateNewsPost($id, Request $request){
+        $this->validate($request, [
+            'post.title' => 'required|min:5|max:300',
+            'post.detail' => 'required|min:10|max:1000',
+        ]);
+
+        $post = NewsPost::findorFail($id);
+        $post->update(['title' => $request->post['title'], 'detail' => $request->post['detail']]);
+
+        return response()->json($post, 200);
+    }
+
+    public function updateNewsPostFile(Request $request, $id){
+        $this->validate($request, [
+            'image' => 'mimes:jpeg,jpg,bmp,png,gif,pdf,mp4'
+        ]);
+
+        $post = NewsPost::findOrFail($id);
+
+        // unlink old file if exist
+        $oldFile = $post->file;
+        if($oldFile){
+            $filePath = public_path('/images/news/'.$oldFile);
+            if(file_exists($filePath)){
+                unlink($filePath);
+            }
+        }
+
+        $file = $request->file;
+        if($file){
+            $pool = '0123456789abcdefghijklmnopqrstuvwxyz@&';
+            $ext = $file->getClientOriginalExtension();
+            $filename = substr(str_shuffle($pool), 0, 8).".".$ext;
+
+            //save new file in folder
+            $file_loc = public_path('/images/news/'.$filename);
+            if(in_array($ext, ['jpeg', 'jpg', 'png', 'bmp', 'gif', 'pdf', 'mp4'])){
+                $img = Image::make($file)->resize(380, 320, function($constraint){
+                    $constraint->aspectRatio(); 
+                });
+                // $fixedImg = $img->stream();
+                // Storage::disk('s3')->put($file_loc, $fixedImg->__toString());
+                
+                $img->sharpen(1)->save($file_loc);
+            }
+
+            $post->update(['file' => $filename]);
+
+            return response()->json($filename, 200);
+        }
+    }
 }

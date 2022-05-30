@@ -38,6 +38,7 @@ import AdminTestimonialDetail from './components/admin/AdminTestimonialDetail';
 import AdminUpdateTestimonial from './components/admin/AdminUpdateTestimonial';
 import AdminNewsList from './components/admin/AdminNewsList';
 import AdminNewsPostDetail from './components/admin/AdminNewsPostDetail';
+import AdminUpdateNewsPost from './components/admin/AdminUpdateNewsPost';
 
 
 export default [
@@ -173,6 +174,12 @@ export default [
     },
     {
         path: '/admin/testimonials', name: 'AdminTestimonialList', component: AdminTestimonialList,
+        meta: {
+            requireAdminsAuth: true
+        },
+    },
+    {
+        path: '/admin/news/update/:id', name: 'AdminUpdateNewsPost', component: AdminUpdateNewsPost,
         meta: {
             requireAdminsAuth: true
         },

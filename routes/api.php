@@ -90,6 +90,13 @@ Route::group(['prefix' => 'auth-admin', 'middleware' => ['assign.guard:admin-api
     Route::post('del_testimonial_pic/{id}', 'AdminController@delTestimonialPic');
     Route::post('update_testimonial_pic/{id}', 'AdminController@updateTestimonialPic');
     Route::get('get_paginated_news', 'AdminController@getPgntdNews');
+    Route::get('get_news_post/{id}', 'AdminController@getNewsPost');
+    Route::post('delete_news_post/{id}', 'AdminController@delNewsPost');
+    Route::post('change_news_post_feature/{id}', 'AdminController@changeNewsPostFeature');
+    Route::post('change_news_post_approval/{id}', 'AdminController@changeNewsPostApproval');
+    Route::post('del_post_file/{id}', 'AdminController@delPostFile');
+    Route::post('update_news_post/{id}', 'AdminController@updateNewsPost');
+    Route::post('update_news_post_file/{id}', 'AdminController@updateNewsPostFile');
 
 });
 

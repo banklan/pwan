@@ -16,7 +16,7 @@ class CreateTableForNewsposts extends Migration
         Schema::create('news_posts', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('user_id')->unsigned();
-            $table->bigInteger('admin_id')->unsigned();
+            $table->bigInteger('admin_id')->unsigned()->nullable();
             $table->string('title');
             $table->string('detail');
             $table->string('file')->nullable();

@@ -264,7 +264,6 @@ export default {
     .navdrawer{
         max-width: 25%;
         transition: all .4s ease;
-        /* height: 100vh !important; */
     }
     .main{
         width: 100%;

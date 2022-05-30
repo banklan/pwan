@@ -1,61 +1,57 @@
 <template>
     <v-container>
-        <v-row justify="center" class="mt-3">
+        <v-row justify="center" class="">
             <v-col cols="12">
-                <v-btn rounded color="secondary" dark elevation="4" left :to="{name: 'AdminEventsList'}"><i class="uil uil-arrow-left"></i> Back</v-btn>
+                <v-btn rounded color="secondary" dark elevation="4" left :to="{name: 'AdminNewsList'}"><i class="uil uil-arrow-left"></i> Back</v-btn>
             </v-col>
         </v-row>
         <v-row justify="center" class="mt-5" >
             <v-col cols="12" md="10">
                 <v-progress-circular indeterminate color="primary" :width="4" :size="40" v-if="isLoading" justify="center" class="mx-auto"></v-progress-circular>
                 <v-card v-else light raised outlined elevation="4" min-height="400" class="scroll">
-                    <v-card-title class="primary white--text justify-center subtile-1">Event Detail</v-card-title>
-                    <v-card-text class="mt-8">
-                        <template v-if="event">
+                    <v-card-title class="primary white--text justify-center subtile-1">News Post Detail</v-card-title>
+                    <v-card-text class="mt-5">
+                        <template v-if="post">
                             <table class="table">
                                 <thead></thead>
                                 <tbody>
                                     <tr>
                                         <th width="20%" style="border-top: none">Title</th>
-                                        <td style="border-top: none">{{ event.title }}</td>
+                                        <td style="border-top: none">{{ post.title }}</td>
                                     </tr>
                                     <tr>
                                         <th>Created By:</th>
-                                        <td>{{ event.user && event.user.fullname }}</td>
+                                        <td>{{ post.user && post.user.fullname }}</td>
                                     </tr>
                                     <tr>
                                         <th>Approval Status:</th>
-                                        <td :class="!event.is_approved ? 'warning--text': 'green_text--text'">{{ event.is_approved ? 'Approved' : 'Not Approved' }}<span right class="ml-10 mr-1"><v-btn small text color="admin_a" @click="changeApproveDial = true">Change</v-btn></span></td>
+                                        <td :class="!post.is_approved ? 'warning--text': 'green_text--text'">{{ post.is_approved ? 'Approved' : 'Not Approved' }}<span right class="ml-10 mr-1"><v-btn small text color="admin_a" @click="changeApproveDial = true">Change</v-btn></span></td>
                                     </tr>
                                     <tr>
                                         <th>Feature Status:</th>
-                                        <td>{{ event.is_featured ? 'Featured' : 'Not Featured' }} <span right class="ml-10"><v-btn small text color="admin_c" @click="changeFeatureDial = true">Change</v-btn></span></td>
+                                        <td>{{ post.is_featured ? 'Featured' : 'Not Featured' }} <span right class="ml-10"><v-btn small text color="admin_c" @click="changeFeatureDial = true">Change</v-btn></span></td>
                                     </tr>
-                                    <tr v-if="event.admin_id">
+                                    <tr v-if="post.admin_id">
                                         <th>Approved By:</th>
-                                        <td>{{ event.admin && event.admin.fullname }}</td>
+                                        <td>{{ post.admin && post.admin.fullname }}</td>
                                     </tr>
                                     <tr>
-                                        <th>Date</th>
-                                        <td>{{ event.evnt_date }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Time</th>
-                                        <td>{{ event.evnt_time }}</td>
+                                        <th>Published</th>
+                                        <td>{{ post.published }}</td>
                                     </tr>
                                     <tr>
                                         <th>Detail</th>
-                                        <td>{{ event.detail }}</td>
+                                        <td>{{ post.detail }}</td>
                                     </tr>
                                 </tbody>
                             </table>
                         </template>
                         <v-alert type="warning" border="left" v-else>
-                            The event you are trying to view is not available. Please pick an event from the list on the Events list page.
+                            The news post you are trying to view is not available. Please pick a news post from the list on the news post list page.
                         </v-alert>
                     </v-card-text>
-                    <v-card-actions class="justify-center pb-8 mt-n5" v-if="event">
-                        <v-btn icon color="primary" class="mx-7" :to="{name: 'AdminUpdateEvent', params:{id: event.id}}"><i class="uil uil-edit"></i></v-btn>
+                    <v-card-actions class="justify-center pb-8 mt-n5" v-if="post">
+                        <v-btn icon color="primary" class="mx-7" :to="{name: 'AdminUpdateNewsPost', params:{id: post.id}}"><i class="uil uil-edit"></i></v-btn>
                         <v-btn icon color="red darken-2" class="mx-7"><i class="uil uil-trash-alt" @click="confirmDelDial = true"></i></v-btn>
                     </v-card-actions>
                 </v-card>
@@ -63,107 +59,109 @@
         </v-row>
         <v-row justify="center">
             <v-col cols="12" md="8">
-                <v-card min-height="200" min-width="80%" class="mt-5" v-if="event">
-                    <v-card-title class="justify-center primary subtitle-1 white--text">Event files</v-card-title>
-                    <template v-if="event && event.event_files.length > 0">
-                        <v-carousel min-height="700">
-                            <v-carousel-item contain v-for="(file, i) in event.event_files" :key="i" :src="`/images/events/${file.file}`" reverse-transition="fade-transition" transition="fade-transition"></v-carousel-item>
-                        </v-carousel>
-                        <v-card-actions class="justify-center px-5 mt-5" v-if="event.event_files.length > 0">
-                            <v-btn large icon color="red darken-2 mx-5" @click="delFileDial = true">
+                <v-card min-height="200" min-width="80%" class="mt-5" v-if="post">
+                    <v-card-title class="justify-center primary subtitle-1 white--text">Post File</v-card-title>
+                    <template v-if="post && post.file">
+                        <template v-if="post.file.split('.').pop() === 'mp4'">
+                            <video width="100%" height="100%" controls>
+                                <source :src="`/images/news/${post.file}`" type="video/mp4">
+                                <!-- <source src="movie.ogg" type="video/ogg"> -->
+                                Your browser does not support the video tag.
+                            </video>
+                        </template>
+                        <template v-else>
+                            <v-img :src="`/images/news/${post.file}`" height="100%" transition="scale-transition"></v-img>
+                        </template>
+                        <v-card-actions class="justify-center px-5 mt-5 pb-6">
+                            <v-btn v-if="post.file && !previewImg" large icon color="red darken-2" class="mx-5" @click="delFileConfDial = true">
                                 <i class="uil uil-trash-alt"></i>
                             </v-btn>
+                            <template v-if="!previewImg">
+                                <v-btn test dark color="admin_a" @click="openUpload" class="mx-3">Update File</v-btn>
+                                <input type="file" ref="image" style="display:none" @change.prevent="pickImg" accept="image/video*">
+                            </template>
+                            <v-card-text v-else class="text-center">
+                                <v-img :src="previewImgUrl" height="150" contain alt="post photo" aspect-ratio="1"></v-img>
+                                <v-card-actions class="justify-center mt-4 ml-n3">
+                                    <v-btn dark color="primary" @click="uploadFile" :loading="isUpdating">Upload File</v-btn>
+                                    <v-btn icon @click="removeImg" color="red darken-2"><i class="uil uil-trash-alt"></i></v-btn>
+                                </v-card-actions>
+                            </v-card-text>
                         </v-card-actions>
                     </template>
                     <template v-else>
                         <v-alert type="info" class="mt-5 mx-4">
-                            There are no files for this event.
+                            There is no file for this post.
                         </v-alert>
+                        <v-card-actions v-if="!previewImg" class="justify-center pb-5">
+                             <v-btn test dark color="admin_a" @click="openUpload">Update File</v-btn>
+                            <input type="file" ref="image" style="display:none" @change.prevent="pickImg" accept="image/*">
+                        </v-card-actions>
+                        <v-card-text v-else class="text-center">
+                            <v-img :src="previewImgUrl" height="150" contain alt="post photo" aspect-ratio="1"></v-img>
+                            <v-card-actions class="justify-center mt-4 ml-n3">
+                                <v-btn dark color="primary" @click="uploadFile" :loading="isUpdating">Upload File</v-btn>
+                                <v-btn icon @click="removeImg" color="red darken-2"><i class="uil uil-trash-alt"></i></v-btn>
+                            </v-card-actions>
+                        </v-card-text>
                     </template>
                 </v-card>
             </v-col>
         </v-row>
-        <v-dialog v-model="confirmDelDial" max-width="450" v-if="event">
+        <v-dialog v-model="confirmDelDial" max-width="450" v-if="post">
             <v-card min-height="100">
-                <v-card-title class="subtitle-1 white--text primary justify-center">Are you sure you want to delete this event?</v-card-title>
+                <v-card-title class="subtitle-1 white--text primary justify-center">Are you sure you want to delete this news post?</v-card-title>
                 <v-card-actions class="pb-8 mt-8 justify-center">
                     <v-btn text width="40%" color="red darken--2" @click="confirmDelDial = false">Cancel</v-btn>
-                    <v-btn dark width="40%" color="primary" :loading="isBusy" @click="delEvent">Yes, Delete</v-btn>
+                    <v-btn dark width="40%" color="primary" :loading="isBusy" @click="delPost">Yes, Delete</v-btn>
                 </v-card-actions>
             </v-card>
         </v-dialog>
-        <v-dialog v-model="changeApproveDial" max-width="450" v-if="event">
+        <v-dialog v-model="changeApproveDial" max-width="450" v-if="post">
             <v-card min-height="100">
-                <v-card-title class="subtitle-1 white--text primary justify-center">Are you sure you want to <span class="font-weight-bold"> &nbsp;{{ event.is_approved ? 'dis-approve' : 'approve' }} </span> &nbsp;this event?</v-card-title>
+                <v-card-title class="subtitle-1 white--text primary justify-center">Are you sure you want to <span class="font-weight-bold"> &nbsp;{{ post.is_approved ? 'dis-approve' : 'approve' }} </span> &nbsp;this news post?</v-card-title>
                 <v-card-actions class="pb-8 mt-8 justify-center">
                     <v-btn text width="40%" color="red darken--2" @click="changeApproveDial = false">Cancel</v-btn>
-                    <v-btn dark width="40%" color="primary" :loading="isBusy" @click="changeApprove">Yes, {{ event.is_approved ? 'dis-approve' : 'approve' }}</v-btn>
+                    <v-btn dark width="40%" color="primary" :loading="isBusy" @click="changeApprove">Yes, {{ post.is_approved ? 'dis-approve' : 'approve' }}</v-btn>
                 </v-card-actions>
             </v-card>
         </v-dialog>
-        <v-dialog v-model="changeFeatureDial" max-width="450" v-if="event">
+        <v-dialog v-model="changeFeatureDial" max-width="450" v-if="post">
             <v-card min-height="100">
-                <v-card-title class="subtitle-1 white--text primary justify-center">Are you sure you want to &nbsp;<span class="font-weight-bold">{{ event.is_featured ? 'un-feature' : 'feature' }} </span>&nbsp; this event?</v-card-title>
+                <v-card-title class="subtitle-1 white--text primary justify-center">Are you sure you want to &nbsp;<span class="font-weight-bold">{{ post.is_featured ? 'un-feature' : 'feature' }} </span>&nbsp; this news post?</v-card-title>
                 <v-card-actions class="pb-8 mt-8 justify-center">
                     <v-btn text width="40%" color="red darken--2" @click="changeFeatureDial = false">Cancel</v-btn>
-                    <v-btn dark width="40%" color="primary" :loading="isBusy" @click="changeFeature">Yes, {{ event.is_featured ? 'un-feature' : 'feature' }}</v-btn>
+                    <v-btn dark width="40%" color="primary" :loading="isBusy" @click="changeFeature">Yes, {{ post.is_featured ? 'un-feature' : 'feature' }}</v-btn>
                 </v-card-actions>
             </v-card>
         </v-dialog>
-        <v-dialog v-model="delFileDial" max-width="500" v-if="event && event.event_files.length > 0">
+       <v-dialog v-model="delFileConfDial" max-width="450" v-if="post && post.file">
             <v-card min-height="100">
-                <v-card-title class="subtitle-1 white--text primary justify-center">Choose an event file to delete</v-card-title>
-                <v-card-text class="mx-3 mt-4 grey_text--text" v-if="event.event_date.length > 0">
-                    <div v-for="(file, i) in event.event_files" :key="file.id">
-                        <div class="file_wrap">
-                            <div class="img">
-                                <img :src="`/images/events/${file.file}`" alt="event file">
-                            </div>
-                            <div class="del_btn">
-                                <v-btn small icon color="red darken-2" @click="confirmDelFile(file.id, i)"><i class="uil uil-trash-alt"></i></v-btn>
-                            </div>
-                        </div>
-                        <!-- <v-divider v-if="event.event_files.length - 1 > i"></v-divider> -->
-                        <v-divider></v-divider>
-                    </div>
-                </v-card-text>
-                <div class="mt-5 mx-3" v-else>
-                    <v-alert type="warning" border="left">
-                        There are no event files for this event.
-                    </v-alert>
-                </div>
-                <v-card-actions class="justify-center pb-5" v-if="event.event_files.length > 0">
-                    <v-btn text color="red darken--2" @click="delFileDial = false">Cancel</v-btn>
-                </v-card-actions>
-            </v-card>
-        </v-dialog>
-        <v-dialog v-model="confirmDelFileDial" max-width="450" v-if="event && event.event_files">
-            <v-card min-height="100">
-                <v-card-title class="subtitle-1 white--text primary justify-center">Delete this event file?</v-card-title>
+                <v-card-title class="subtitle-1 white--text primary justify-center">Delete this post file?</v-card-title>
                 <v-card-actions class="pb-8 mt-8 justify-center">
-                    <v-btn text width="40%" color="red darken--2" @click="confirmDelFileDial = false">Cancel</v-btn>
+                    <v-btn text width="40%" color="red darken--2" @click="delFileConfDial = false">Cancel</v-btn>
                     <v-btn dark width="40%" color="primary" :loading="isBusy" @click="delFile">Yes, Delete</v-btn>
                 </v-card-actions>
             </v-card>
         </v-dialog>
-        <v-snackbar v-model="eventApprovalChanged" :timeout="4000" top dark color="green darken-2">
-            This event has been {{ event && event.is_approved ? ' approved' : ' dis-approved' }}.
-            <v-btn text color="white--text" @click="eventApprovalChanged = false">Close</v-btn>
+        <v-snackbar v-model="postApprovalChanged" :timeout="4000" top dark color="green darken-2">
+            This post has been {{ post && post.is_approved ? ' approved' : ' dis-approved' }}.
+            <v-btn text color="white--text" @click="posttApprovalChanged = false">Close</v-btn>
         </v-snackbar>
-        <v-snackbar v-model="eventFeatureChanged" :timeout="4000" top dark color="green darken-2">
-            This event has been {{ event && event.is_featured ? ' featured' : ' un-featured' }}.
-            <v-btn text color="white--text" @click="eventFeatureChanged = false">Close</v-btn>
+        <v-snackbar v-model="postFeatureChanged" :timeout="4000" top dark color="green darken-2">
+            This post has been {{ post && post.is_featured ? ' featured' : ' un-featured' }}.
+            <v-btn text color="white--text" @click="postFeatureChanged = false">Close</v-btn>
         </v-snackbar>
-        <v-snackbar :value="adminUpdatedEvent" :timeout="4000" top dark color="green darken-2">
-            This event has been updated successfully.
-            <v-btn text color="white--text" @click="adminUpdatedEvent = false">Close</v-btn>
+        <v-snackbar :value="adminUpdatedNewsPost" :timeout="4000" top dark color="green darken-2">
+            This post has been updated successfully.
+            <v-btn text color="white--text" @click="adminUpdatedNewsPost = false">Close</v-btn>
         </v-snackbar>
-        <v-snackbar v-model="eventFileDeleted" :timeout="4000" top dark color="green darken-2">
-            An event file was deleted successfully.
-            <v-btn text color="white--text" @click="eventFileDeleted = false">Close</v-btn>
+        <v-snackbar v-model="postFileDeleted" :timeout="4000" top dark color="green darken-2">
+            This post file was deleted successfully.
+            <v-btn text color="white--text" @click="postFileDeleted = false">Close</v-btn>
         </v-snackbar>
         <v-snackbar v-model="fileDelFailed" :timeout="4000" top dark color="red darken-2">
-            There was an error while trying to delete the event file. Please try again.
+            There was an error while trying to delete the post file. Please try again.
             <v-btn text color="white--text" @click="fileDelFailed = false">Close</v-btn>
         </v-snackbar>
     </v-container>
@@ -173,7 +171,7 @@
 export default {
     data() {
         return {
-            event: null,
+            post: null,
             isLoading: false,
             isBusy: false,
             confirmDelDial: false,
@@ -181,14 +179,15 @@ export default {
             isApproving: false,
             changeApproveDial: false,
             changeFeatureDial: false,
-            eventApprovalChanged: false,
-            eventFeatureChanged: false,
-            delFileDial: false,
-            fileTodelIndex: null,
-            fileTodel: null,
-            eventFileDeleted: false,
-            confirmDelFileDial: false,
+            postApprovalChanged: false,
+            postFeatureChanged: false,
+            delFileConfDial: false,
+            postFileDeleted: false,
             fileDelFailed: false,
+            previewImg: false,
+            previewImgUrl: null,
+            image: '',
+            isUpdating: false,
         }
     },
     beforeRouteLeave (to, from, next) {
@@ -210,72 +209,99 @@ export default {
             }
             return headers
         },
-        adminUpdatedEvent(){
-            return this.$store.getters.adminUpdatedEvent
+        adminUpdatedNewsPost(){
+            return this.$store.getters.adminUpdatedNewsPost
         },
     },
     methods: {
-        getEvent(){
+        getNewsPost(){
             this.isLoading = true
-            axios.get(this.api + `/auth-admin/get_event/${this.$route.params.id}`, this.adminHeaders)
+            axios.get(this.api + `/auth-admin/get_news_post/${this.$route.params.id}`, this.adminHeaders)
             .then((res) => {
                 this.isLoading = false
-                this.event = res.data
-                console.log(res.data)
+                this.post = res.data
+                // console.log(res.data)
             })
         },
-        delEvent(){
-            axios.post(this.api + `/auth-admin/delete_event/${this.$route.params.id}`, {}, this.adminHeaders)
+        delPost(){
+            axios.post(this.api + `/auth-admin/delete_news_post/${this.$route.params.id}`, {}, this.adminHeaders)
             .then((res) => {
                 this.confirmDelDial = false
-                this.$store.commit('adminDeletedEvent')
-                this.$route.push({name: 'AdminEventList'})
-                console.log(res.data)
+                this.$store.commit('adminDeletedNewsPost')
+                this.$route.push({name: 'AdminNewsList'})
+                // console.log(res.data)
             })
         },
         changeFeature(){
             this.isBusy = true
-            axios.post(this.api + `/auth-admin/change_event_feature/${this.$route.params.id}`, {}, this.adminHeaders)
+            axios.post(this.api + `/auth-admin/change_news_post_feature/${this.$route.params.id}`, {}, this.adminHeaders)
             .then((res) => {
                 this.isBusy = false
-                this.event.is_featured = res.data
+                this.post.is_featured = res.data
                 this.changeFeatureDial = false
-                this.eventFeatureChanged = true
+                this.postFeatureChanged = true
             })
         },
         changeApprove(){
             this.isBusy = true
-            axios.post(this.api + `/auth-admin/change_event_approval/${this.$route.params.id}`, {}, this.adminHeaders)
+            axios.post(this.api + `/auth-admin/change_news_post_approval/${this.$route.params.id}`, {}, this.adminHeaders)
             .then((res) => {
                 this.isBusy = false
-                this.event.is_approved = res.data
+                this.post.is_approved = res.data
                 this.changeApproveDial = false
-                this.eventApprovalChanged = true
+                this.postApprovalChanged = true
             })
-        },
-        confirmDelFile(file, i){
-            this.fileTodel = file
-            this.fileTodelIndex = i
-            this.confirmDelFileDial = true
         },
         delFile(){
             this.isBusy = true
-            axios.post(this.api + `/auth-admin/del_event_file/${this.fileTodel}`, {}, this.adminHeaders)
+            axios.post(this.api + `/auth-admin/del_post_file/${this.$route.params.id}`, {}, this.adminHeaders)
             .then((res) => {
-                console.log(res.data)
                 this.isBusy = false
-                this.confirmDelFileDial = false
-                this.event.event_files.splice(this.fileTodelIndex, 1)
-                this.eventFileDeleted = true
+                this.post.file = null
+                this.delFileConfDial = false
+                this.postFileDeleted = true
             }).catch(() => {
                 this.isBusy = false
-                this.confirmDelFileDial = false
+                this.delFileConfDial = false
                 this.fileDelFailed = true
             })
+        },
+        openUpload(){
+            this.$refs.image.click()
+        },
+        pickImg(e){
+            const file = e.target.files[0]
+            this.file = file
+            this.previewImg = true
+            this.previewImgUrl = URL.createObjectURL(file)
+        },
+        removeImg(){
+            this.file = null
+            this.previewImg = false
+            this.previewImgUrl = ''
+        },
+        uploadFile(){
+            if(this.file !== ''){
+                this.isUpdating = true
+                let form = new FormData();
+                form.append('file', this.file)
+
+                axios.post(this.api + `/auth-admin/update_news_post_file/${this.$route.params.id}`, form, this.adminHeaders)
+                .then((res) => {
+                    this.isUpdating = false
+                    this.post.file = res.data
+                    this.fileUpdated = true
+                    this.removeImg()
+                }).catch(() => {
+                    this.isUpdating = false
+                    this.fileUpdateFailed = true
+                })
+            }
         }
     },
     mounted() {
-        this.getEvent()
+        this.getNewsPost()
+        console.log('mounted now')
     },
 }
 </script>

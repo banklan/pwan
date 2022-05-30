@@ -42,6 +42,7 @@ export const store = new Vuex.Store({
         adminDeletedTestimonial: false,
         adminUpdatedTestimonial: false,
         adminDeletedNewsPost: false,
+        adminUpdatedNewsPost: false,
         // userIsLoggedIn: false,
     },
     getters: {
@@ -105,6 +106,10 @@ export const store = new Vuex.Store({
         adminDeletedNewsPost(state)
         {
             return state.adminDeletedNewsPost
+        },
+        adminUpdatedNewsPost(state)
+        {
+            return state.adminUpdatedNewsPost
         },
     },
     actions: {
@@ -210,6 +215,9 @@ export const store = new Vuex.Store({
         adminDeletedNewsPost(state)
         {
             state.adminDeletedNewsPost = true
+        },
+        adminUpdatedNewsPost(state){
+            state.adminUpdatedNewsPost = true
         }
     }
 })

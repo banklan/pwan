@@ -80,9 +80,6 @@ export default {
             }
             return headers
         },
-        adminUpdatedUser(){
-            return this.$store.getters.adminUpdatedUser
-        },
     },
     methods: {
         getEvent(){
