@@ -55,7 +55,7 @@
         </v-row>
         <v-row justify="center" class="mt-7">
             <v-col cols="12" md="3">
-                <v-btn raised elevation="12" x-large block dark color="secondary" class="px-4">Book For Inspection</v-btn>
+                <v-btn raised elevation="12" x-large block dark color="secondary" class="px-4" :to="{name: 'SubscriptionForm'}">Subscribe</v-btn>
             </v-col>
         </v-row>
     </v-container>

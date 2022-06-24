@@ -11,8 +11,8 @@
                 <v-card v-else light raised outlined elevation="4" min-height="400" class="scroll">
                     <v-card-title class="primary white--text justify-center subtile-1">News Post Update</v-card-title>
                     <v-card-text class="mt-8 ml-5">
-                        <v-textarea label="Title" v-model="post.title" rows="1" auto-grow required v-validate="'required|min:5|max:300'" :error-messages="errors.collect('title')"  name="title" data-vv-as="title"></v-textarea>
-                        <v-textarea label="Detail" v-model="post.detail" rows="2" auto-grow required v-validate="'required|min:10|max:1000'" :error-messages="errors.collect('detail')"  name="detail" data-vv-as="detail"></v-textarea>
+                        <v-textarea label="Title" v-model="post.title" rows="1" auto-grow required v-validate="'required|min:5|max:250'" :error-messages="errors.collect('title')"  name="title" data-vv-as="title"></v-textarea>
+                        <v-textarea label="Detail" v-model="post.detail" rows="2" auto-grow required v-validate="'required|min:10|max:900'" :error-messages="errors.collect('detail')"  name="detail" data-vv-as="detail"></v-textarea>
                     </v-card-text>
                     <v-card-actions class="justify-center pb-8">
                         <v-btn text large color="red darken-2" @click="$router.go(-1)" width="40%">Cancel</v-btn>
@@ -72,7 +72,8 @@ export default {
                     }, this.adminHeaders).then((res) => {
                         this.isBusy = false
                         this.$store.commit('adminUpdatedNewsPost')
-                        this.$router.push({name: 'AdminNewsPostDetail', params: {id: res.data.id}})
+                        this.$router.go(-1)
+                        // this.$router.push({name: 'AdminNewsPostDetail', params: {id: res.data.id}})
                         // console.log(res.data)
                     }).catch(()=>{
                         this.isBusy = false

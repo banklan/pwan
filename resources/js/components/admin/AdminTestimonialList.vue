@@ -3,7 +3,6 @@
         <v-row justify="center">
             <v-col cols="12" md="6" offset-md="4">
                 <admin-search model="Testimonial" searchFor="testimonials"/>
-                <!-- <v-text-field placeholder="Search for events" v-model="q" outlined dense append-icon="search" clearable @keypress.enter="search"></v-text-field> -->
             </v-col>
         </v-row>
         <v-row class="mt-2 pr-5" justify="center" >

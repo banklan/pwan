@@ -95,6 +95,14 @@ class User extends Authenticatable implements JWTSubject
     }
 
     public function news_posts(){
-        return $this->hasmany('App\NewsPost');
+        return $this->hasMany('App\NewsPost');
+    }
+
+    public function password_request_log(){
+        return $this->hasMany('App\PasswordRequestLog');
+    }
+
+    public function new_offers(){
+        return $this->hasMany('App\NewOffer');
     }
 }

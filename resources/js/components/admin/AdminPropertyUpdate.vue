@@ -5,13 +5,14 @@
                 <v-progress-circular indeterminate color="primary" :width="4" :size="40" v-if="isLoading" justify="center" class="mx-auto"></v-progress-circular>
                 <v-card light raised outlined elevation="4" min-height="400" class="mx-auto pb-5">
                     <v-card-title class="justify-center subtile-1 primary white--text">Update Property Detail</v-card-title>
-                    <v-card-text class="mt-7">
+                    <v-card-text class="mt-7 mb-n5">
                         <div class="intro">Property: <span class="ml-2">{{ prop.name }}</span></div>
                     </v-card-text>
                     <v-divider></v-divider>
                     <v-card-text class="pl-5">
                         <v-text-field label="Name" v-model="prop.name" required v-validate="'required|min:5|max:250'" :error-messages="errors.collect('name')" name="name"></v-text-field>
                         <v-text-field label="Location" v-model="prop.location" required v-validate="'required|min:5|max:600'" :error-messages="errors.collect('location')" name="location"></v-text-field>
+                        <v-text-field label="Landmark" v-model="prop.landmark" v-validate="'min:5|max:600'" :error-messages="errors.collect('landmark')" name="landmark"></v-text-field>
                         <v-text-field label="Title" v-model="prop.title" v-validate="'max:500'" :error-messages="errors.collect('title')" name="title"></v-text-field>
                         <v-textarea label="Detail" v-model="prop.detail" v-validate="'required|min:5|max:1000'" :error-messages="errors.collect('detail')" name="detail"></v-textarea>
                         <v-text-field label="Price(NGN)" v-model="prop.price" v-validate="'required|decimal'" :error-messages="errors.collect('price')" name="price"></v-text-field>
@@ -36,6 +37,7 @@ export default {
                 name: '',
                 title: '',
                 location: '',
+                landmark: '',
                 detail: '',
                 price: '',
                 size: ''
@@ -76,7 +78,7 @@ export default {
                     }, this.adminHeaders).then((res) => {
                         this.isBusy = false
                         this.$store.commit('AdminUpdatedProperty')
-                        this.$router.push({name: 'AdminPropertyDetail', params: {id: res.data.id}})
+                        this.$router.push({name: 'AdminPropertyDetail', params: {id: this.$route.params.id}})
                     })
                 }
             })

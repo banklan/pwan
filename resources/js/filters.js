@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import moment from 'moment'
 
 Vue.filter('capFirstLetter', (str) =>
 {
@@ -28,3 +29,9 @@ Vue.filter('price', (value)=>{
     let amount = value.toLocaleString(undefined, {minimumFractionDigits:2, maximumFractionDigits: 2});
     return amount;
 });
+
+Vue.filter('relDate', (date) =>
+{
+    let dt = moment(date).fromNow()
+    return dt;
+})

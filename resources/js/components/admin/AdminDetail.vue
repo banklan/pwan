@@ -2,14 +2,14 @@
     <v-container>
         <v-row justify="center" class="justify-center mt-3">
             <v-col cols="12">
-                <v-btn rounded color="secondary" dark elevation="4" left :to="{name: 'AdminList'}"><i class="uil uil-arrow-left"></i> Back To Admin List</v-btn>
+                <v-btn rounded color="secondary" dark elevation="4" left :to="{name: 'AdminList'}"><i class="uil uil-arrow-left"></i> Back</v-btn>
             </v-col>
         </v-row>
         <v-row justify="start" class="mt-5" :class="$vuetify.breakpoint.smAndDown ? 'ml-n3 mr-n5': ''">
             <v-col cols="12" md="6">
                 <v-progress-circular indeterminate color="primary" :width="4" :size="40" v-if="isLoading" justify="center" class="mx-auto"></v-progress-circular>
                 <v-card v-else light raised outlined elevation="4" min-height="400" class="scroll">
-                    <v-img v-if="user.picture" :src="`/images/profiles/${user.picture}`" aspect-ratio="1" height="300" transition="scale-transition"></v-img>
+                    <v-img v-if="user.picture" :src="`/images/profiles/${user.picture}`" height="100%" transition="scale-transition"></v-img>
                     <v-img v-else src="/images/assets/user7.jpg" aspect-ratio="1" height="300" transition="scale-transition"></v-img>
                     <v-card-text>
                         <div class="subtitle-2 my-3 text-center">Admin Profile</div>
@@ -68,7 +68,7 @@
                         <span v-if="user.is_verified"><v-btn v-if="!user.authorized_by && authAdmin.id !== user.created_by" color="admin_b" dark small @click="confirmAuthDial = true">Authorize</v-btn></span>
                         <v-btn v-if="user.authorized_by" dark small text color="admin_a" @click="statusDialog = true">{{ user.status == 1 ? 'Disable' : 'Enable' }}</v-btn>
                         <v-alert v-if="!user.is_verified" type="warning" border="left">
-                            This user has to verify his/her email address before they can be authorized, by an admin <span class="font-weight-bold warning--text">different from the one who created them</span>.
+                            This user has to verify his/her email address before they can be authorized, by an admin <span class="font-weight-bold">different from the one who created them</span>.
                         </v-alert>
                     </v-card-actions>
                 </v-card>
@@ -79,7 +79,7 @@
                     <v-card-title class="primary white--text justify-center">Reset Password</v-card-title>
                     <v-card-text class="mt-4">
                         <v-alert v-if="!user.is_verified" type="warning">
-                            This user has to verify his/her email address before they can be authorized, by an admin different from the one who created them.
+                            This user has to verify his/her email address before they can be authorized, by an admin <span class="font-weight-bold">different from the one who created them</span>.
                         </v-alert>
                         <template v-else>
                             <v-btn text dark color="admin_c" @click="resetPassword = !resetPassword">Reset Password</v-btn>

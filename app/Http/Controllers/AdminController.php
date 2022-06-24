@@ -3,23 +3,29 @@
 namespace App\Http\Controllers;
 
 use PDF;
+use Image;
 use App\User;
 use App\Admin;
 use App\Event;
+use App\Enquiry;
+use App\NewsPost;
 use App\Property;
 use App\EventFile;
 use App\Testimonial;
 use App\PropertyFile;
 use App\Subscription;
 use App\PropertyListing;
+use App\PasswordResetLog;
+use App\PropertyListingPlan;
 use Illuminate\Http\Request;
 use App\AdminEmailVerification;
 use App\Mail\VerifyNewAdminEmail;
+use Illuminate\Support\Facades\DB;
 use App\Mail\UserAccountAuthorized;
-use App\NewsPost;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
-use Image;
+use Illuminate\Auth\Events\PasswordReset;
+use App\NewOffer;
 
 class AdminController extends Controller
 {
@@ -41,7 +47,7 @@ class AdminController extends Controller
     }
 
     public function getAllProperties(){
-        $props = Property::all();
+        $props = PropertyListing::all();
         return response()->json($props, 200);
     }
 
@@ -319,7 +325,8 @@ class AdminController extends Controller
             ]);
         }else{
             $prop->update([
-                $prop->is_approved = true
+                $prop->is_approved = true,
+                $prop->admin_id = auth('admin-api')->user()->id
             ]);
         }
 
@@ -353,6 +360,7 @@ class AdminController extends Controller
         $this->validate($request, [
             'property.name' => 'required|min:5|max:250',
             'property.location' => 'required|min:5|max:600',
+            'property.landmark' => 'required|min:5|max:600',
             'property.title' => 'max:500',
             'property.detail' => 'required|min:5|max:1000',
             'property.price' => 'required|numeric|between:1,100000000000',
@@ -362,6 +370,7 @@ class AdminController extends Controller
         $prop->update([
             $prop->name = $request->property['name'],
             $prop->location = $request->property['location'],
+            $prop->landmark = $request->property['landmark'],
             $prop->title = $request->property['title'],
             $prop->detail = $request->property['detail'],
             $prop->price = $request->property['price'] * 100,
@@ -407,20 +416,20 @@ class AdminController extends Controller
         return response()->json($sub, 200);
     }
 
-    public function downloadSubscription(Request $request, $id){
-        $sub = Subscription::findOrFail($id);
-        // $sub = '12345266jdjdhhhhhhhhhhhffsfffffffwh';
-        $data = array(
-            'sub' => $sub,
-        );
+    // public function downloadSubscription(Request $request, $id){
+    //     $sub = Subscription::findOrFail($id);
+    //     // $sub = '12345266jdjdhhhhhhhhhhhffsfffffffwh';
+    //     $data = array(
+    //         'sub' => $sub,
+    //     );
 
-        $pdf = PDF::loadView('pdf.subscription',$data);
-        // $pdf = PDF::loadView('pdf.subscription', $sub);
-        ob_end_clean();
-        $pdf->setOption('javascript-delay', 3000);
-        $pdf->setOption('no-stop-slow-scripts', true);
-        return $pdf->download('subscription.pdf');
-    }
+    //     $pdf = PDF::loadView('pdf.subscription',$data);
+    //     // $pdf = PDF::loadView('pdf.subscription', $sub);
+    //     ob_end_clean();
+    //     $pdf->setOption('javascript-delay', 3000);
+    //     $pdf->setOption('no-stop-slow-scripts', true);
+    //     return $pdf->download('subscription.pdf');
+    // }
 
     public function getPaginatedEvents(){
         $events = Event::latest()->paginate(10);
@@ -487,6 +496,7 @@ class AdminController extends Controller
         $this->validate($request, [
             'event.title' => 'required|min:5|max:300',
             'event.detail' => 'required|min:10|max:800',
+            'event.venue' => 'required|min:3|max:220',
             'event.event_date' => 'required',
             'event.event_time' => 'required',
         ]);
@@ -494,6 +504,7 @@ class AdminController extends Controller
         $event = Event::findorFail($id);
         $event->update([
             $event->title = $request->event['title'],
+            $event->venue = $request->event['venue'],
             $event->detail = $request->event['detail'],
             $event->event_date = $request->event['event_date'],
             $event->event_time = $request->event['event_time'],
@@ -537,7 +548,7 @@ class AdminController extends Controller
 
     public function deleteTestimonial($id){
         $test = Testimonial::findorFail($id);
-        
+
         $file = $test->picture;
         if($file){
             $filePath = public_path('/images/testimonials/'.$file);
@@ -609,12 +620,12 @@ class AdminController extends Controller
             //save new file in folder
             $file_loc = public_path('/images/testimonials/'.$filename);
             if(in_array($ext, ['jpeg', 'jpg', 'png', 'gif', 'pdf'])){
-                $img = Image::make($file)->resize(380, 320, function($constraint){
-                    $constraint->aspectRatio(); 
+                $img = Image::make($file)->resize(320, 320, function($constraint){
+                    $constraint->aspectRatio();
                 });
                 // $fixedImg = $img->stream();
                 // Storage::disk('s3')->put($file_loc, $fixedImg->__toString());
-                
+
                 $img->sharpen(1)->save($file_loc);
             }
 
@@ -697,8 +708,8 @@ class AdminController extends Controller
 
     public function updateNewsPost($id, Request $request){
         $this->validate($request, [
-            'post.title' => 'required|min:5|max:300',
-            'post.detail' => 'required|min:10|max:1000',
+            'post.title' => 'required|min:5|max:250',
+            'post.detail' => 'required|min:10|max:900',
         ]);
 
         $post = NewsPost::findorFail($id);
@@ -732,18 +743,377 @@ class AdminController extends Controller
             //save new file in folder
             $file_loc = public_path('/images/news/'.$filename);
             if(in_array($ext, ['jpeg', 'jpg', 'png', 'bmp', 'gif', 'pdf', 'mp4'])){
-                $img = Image::make($file)->resize(380, 320, function($constraint){
-                    $constraint->aspectRatio(); 
+                $img = Image::make($file)->resize(420, 340, function($constraint){
+                    $constraint->aspectRatio();
                 });
                 // $fixedImg = $img->stream();
                 // Storage::disk('s3')->put($file_loc, $fixedImg->__toString());
-                
-                $img->sharpen(1)->save($file_loc);
+
+                $img->sharpen(2)->save($file_loc);
             }
 
             $post->update(['file' => $filename]);
 
             return response()->json($filename, 200);
         }
+    }
+
+    public function searchforNewsPost(request $request){
+        $q = $request->q;
+        $posts = NewsPost::where('title', 'LIKE', "%".$q."%")
+                        ->orWhere('detail', 'LIKE', "%".$q."%")
+                        ->get();
+
+        return response()->json($posts, 200);
+    }
+
+    public function updateAdminProfile(Request $request){
+        $this->validate($request, [
+            'admin.first_name' => 'required|min:3|max:30',
+            'admin.last_name' => 'required|min:3|max:30',
+            'admin.phone' => 'required|min:8|max:14',
+        ]);
+
+        $admin = auth('admin-api')->user();
+        $admin->update([
+            $admin->first_name = $request->admin['first_name'],
+            $admin->last_name = $request->admin['last_name'],
+            $admin->phone = $request->admin['phone'],
+        ]);
+
+        return response()->json($admin, 200);
+    }
+
+    public function confirmCurrentPassword(Request $request){
+        $user = auth('admin-api')->user();
+        $current = $user->password;
+        $check = Hash::check($request->password, $current);
+
+        return response()->json($check, 200);
+    }
+
+    public function updateAdminPswd(Request $request){
+        $this->validate($request, [
+            'password' => 'required|min:5|max:20|confirmed',
+            'password_confirmation' => 'required'
+        ]);
+
+        $user = auth('admin-api')->user();
+        $new = $request->password;
+
+        $user->update([
+            $user->password = Hash::make($new)
+        ]);
+
+        return response()->json(['message' => 'Password changed successfully'], 201);
+    }
+
+    public function updateAdminProfilePic(Request $request)
+    {
+        $this->validate($request, [
+            'image' => 'mimes:jpeg,jpg,bmp,png,gif'
+        ]);
+
+        $user = auth('admin-api')->user();
+        // check if picture exists for profile, then unlink
+        $old_pic = $user->picture;
+        if($old_pic){
+            $filePath = public_path('/images/profiles/'.$old_pic);
+            if(file_exists($filePath)){
+                unlink($filePath);
+            }
+        }
+
+        // save file in folder...later in s3 when ready to deploy
+        $file = $request->image;
+        if($file){
+            $pool = '0123456789abcdefghijklmnopqrstuvwxyz';
+            $ext = $file->getClientOriginalExtension();
+            $filename = substr(str_shuffle($pool), 0, 6).".".$ext;
+
+            //save new file in folder
+            $file_loc = public_path('/images/profiles/'.$filename);
+            if(in_array($ext, ['jpeg', 'jpg', 'png', 'gif', 'pdf'])){
+                $upload = Image::make($file)->resize(250, 350, function($constraint){
+                    $constraint->aspectRatio();
+                });
+                $upload->sharpen(2)->save($file_loc);
+            }
+        }
+
+        // save path in db
+        $user->update([
+            $user->picture = $filename
+        ]);
+
+        return response()->json($user, 201);
+    }
+
+
+    public function searchForProperties(Request $request){
+        $q = $request->q;
+        $props = PropertyListing::where('name', 'LIKE', "%".$q."%")
+                        ->orWhere('location', 'LIKE', "%".$q."%")
+                        ->orWhere('landmark', 'LIKE', "%".$q."%")
+                        ->orWhere('detail', 'LIKE', "%".$q."%")
+                        ->get();
+
+        return response()->json($props, 200);
+    }
+
+    public function getAllSubscriptions(){
+        $subs = Subscription::latest()->get();
+
+        return response()->json($subs, 200);
+    }
+
+    public function getlatestPosts(){
+        $posts = NewsPost::latest()->take(5)->get();
+
+        return response()->json($posts, 200);
+    }
+
+    public function getPrevWksSubscriptionsData(){
+        $subs = Subscription::selectRaw('COUNT(*) AS subscription_count')
+                ->selectRaw('FROM_DAYS(TO_DAYS(created_at) -MOD(TO_DAYS(created_at) -1, 7)) AS week_starting')
+                ->groupBy('week_starting')
+                ->orderBy('week_starting')
+                ->take(10)->get();
+        $subs->each->setAppends([]);
+
+        return response()->json($subs, 200);
+    }
+
+    public function getWeeklySubscriptionsData(){
+        $subs = Subscription::selectRaw('COUNT(*) AS total')
+                            ->selectRaw('FROM_DAYS(TO_DAYS(updated_at) -MOD(TO_DAYS(updated_at) -1, 7)) AS week_starting')
+                            ->groupBy('week_starting')
+                            ->orderBy('week_starting')
+                            ->take(10)->get();
+        $subs->each->setAppends([]);
+
+        return response()->json($subs, 200);
+    }
+
+    public function delListing(Request $request, $id)
+    {
+        $prop = PropertyListing::findOrFail($id);
+        $files = PropertyFile::where('property_listing_id', $id)->get();
+
+        foreach ($files as $pf) {
+            $file = $pf->image;
+            $filePath = public_path('/images/properties/'.$file);
+            if(file_exists($filePath)){
+                unlink($filePath);
+            }
+            $pf->delete();
+        }
+
+        $prop->delete();
+        return response()->json(['message' => 'Listing deleted!'], 200);
+    }
+
+    public function getSubsCount(){
+        $count = Subscription::count();
+
+        return response()->json($count, 200);
+    }
+
+    public function getEventsCount(){
+        $count = Event::count();
+        return response()->json($count, 200);
+    }
+
+    public function getNewsCount(){
+        $count = NewsPost::count();
+        return response()->json($count, 200);
+    }
+
+    public function getSubStats(){
+        $subs = Subscription::selectRaw('COUNT(*) AS total')
+                            ->selectRaw('property_listing_id')
+                            ->groupBy('property_listing_id')
+                            ->orderBy('total', 'DESC')
+                            ->with('property_listing')
+                            ->take(5)
+                            ->get();
+                            return response()->json($subs, 200);
+    }
+
+    public function deleteListingPlan($id){
+        $plan = PropertyListingPlan::findOrFail($id);
+        $plan->delete();
+        return response()->json(['message' => 'Plan deleted'], 201);
+    }
+
+    public function getListingPlan($id){
+        $plan = PropertyListingPlan::findOrFail($id);
+        return response()->json($plan, 200);
+    }
+
+    public function updateListingPlan(Request $request, $id){
+        $this->validate($request, [
+            'plan.name' => 'required|min:3|max:100',
+            'plan.unit' => 'required|min:3|max:50',
+            'plan.price' => 'required|numeric|between:1,100000000000',
+        ]);
+
+        $plan = PropertyListingPlan::findOrFail($id)->update([
+            'name' => $request->plan['name'],
+            'unit' => $request->plan['unit'],
+            'price' => intval($request->plan['price']) * 100,
+        ]);
+
+        return response()->json($plan, 200);
+    }
+
+    public function updateTestimonialFeature(Request $request, $id){
+        $test = Testimonial::findOrFail($id);
+
+        if($test->is_featured == true){
+            $test->update([
+                'is_featured' => false
+            ]);
+        }else{
+            $test->update([
+                'is_featured' => true
+            ]);
+        }
+
+        return response()->json($test->is_featured, 200);
+    }
+
+    public function getPswdResetLogs()
+    {
+        $reqs = PasswordResetLog::latest()->get();
+
+        return response()->json($reqs, 200);
+    }
+
+    public function delPswdResetLog(Request $request, $id){
+        $req = PasswordResetLog::findOrFail($id);
+        $req->delete();
+
+        return response()->json(['message' => 'Deleted'], 200);
+    }
+
+    public function getPaginatedEnquiries(){
+        $enqs = Enquiry::latest()->paginate(20);
+
+        return response()->json($enqs, 200);
+    }
+
+    public function getUnreadEnquiriesCount(){
+        $count = Enquiry::where('is_read', 0)->count();
+
+        return response()->json($count, 200);
+    }
+
+    public function delEnquiry($id){
+        $enq = Enquiry::findOrFail($id);
+        $enq->delete();
+
+        return response()->json(['message' => 'Deleted'], 200);
+    }
+
+    public function getEnquiry($id){
+        $enq = Enquiry::findOrFail($id);
+
+        return response()->json($enq, 200);
+    }
+
+    public function enquiryRead(Request $request, $id){
+        $enq = Enquiry::findOrFail($id);
+
+        if($enq->is_read == false){
+            $enq->update([
+                $enq->is_read = true
+            ]);
+        }
+
+        return response()->json($enq->is_read, 200);
+    }
+
+    public function getPgntdOffers(){
+        $offers = NewOffer::latest()->paginate(10);
+
+        return response()->json($offers, 200);
+    }
+
+    public function deleteOffer($id){
+        $offer = NewOffer::findOrFail($id);
+
+        $flier = $offer->flier;
+        if($flier){
+            $filePath = public_path('/images/offers/'.$flier);
+            if(file_exists($filePath)){
+                unlink($filePath);
+            }
+        }
+
+        $offer->delete();
+
+        return response()->json(['message' => 'New Offer deleted!'], 201);
+    }
+
+    public function getNewOffer($id){
+        $offer = NewOffer::findOrFail($id);
+
+        return response()->json($offer, 200);
+    }
+
+    public function changeNewOfferApprvStatus(Request $request, $id){
+        $offer = NewOffer::findOrFail($id);
+
+        if($offer->is_approved){
+            $offer->update([
+                'is_approved' => false
+            ]);
+        }else{
+            $offer->update([
+                'is_approved' => true
+            ]);
+        }
+
+        return response()->json($offer->is_approved, 200);
+    }
+
+    public function changeNewOfferFeatStatus(Request $request, $id){
+        $offer = NewOffer::findOrFail($id);
+        $admin = auth('admin-api')->user()->id;
+
+        if($offer->is_featured){
+            $offer->update([
+                'is_featured' => false,
+                'admin_id' => $admin
+            ]);
+        }else{
+            $offer->update([
+                'is_featured' => true,
+                'admin_id' => $admin
+            ]);
+        }
+
+        return response()->json($offer->is_featured, 200);
+    }
+
+    public function searchForOffers(request $request){
+        $q = $request->q;
+        $offers = NewOffer::where('title', 'LIKE', "%".$q."%")
+                        ->get();
+
+        return response()->json($offers, 200);
+    }
+
+    public function searchForEnquiries(request $request){
+        $q = $request->q;
+        $enquiries = Enquiry::where('email', 'LIKE', "%".$q."%")
+                            ->orWhere('fullname', 'LIKE', "%".$q."%")
+                            ->orWhere('organization', 'LIKE', "%".$q."%")
+                            ->orWhere('subject', 'LIKE', "%".$q."%")
+                            ->orWhere('message', 'LIKE', "%".$q."%")
+                            ->get();
+
+        return response()->json($enquiries, 200);
     }
 }

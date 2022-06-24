@@ -20,7 +20,7 @@
                                         <td style="border-top: none">{{ testimonial.title }}</td>
                                     </tr>
                                     <tr>
-                                        <th>Client Name:</th>
+                                        <th>Client FullName:</th>
                                         <td>{{ testimonial.fullname }}</td>
                                     </tr>
                                     <tr>
@@ -30,10 +30,6 @@
                                     <tr>
                                         <th>Client Organization:</th>
                                         <td>{{ testimonial.organization }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Created By:</th>
-                                        <td>{{ testimonial.user && testimonial.user.fullname }}</td>
                                     </tr>
                                     <tr>
                                         <th>Feature Status:</th>
@@ -49,7 +45,7 @@
                                     </tr>
                                     <tr>
                                         <th>Updated</th>
-                                        <td >{{ testimonial.updated_at | moment('DD/MM/YYYY, H:ma')  }}</td>
+                                        <td >{{ testimonial.updated_at | moment('DD/MM/YYYY, HH:mm')  }}</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -59,6 +55,7 @@
                         </v-alert>
                     </v-card-text>
                     <v-card-actions class="justify-center pb-8 mt-n5" v-if="testimonial">
+                        <v-btn text color="admin_a" class="mx-7" :loading="isBusy" @click="changeStatus">{{ testimonial.is_featured ? 'Unfeature' : 'Feature' }}</v-btn>
                         <v-btn icon color="primary" class="mx-7" :to="{name: 'AdminUpdateTestimonial', params:{id: testimonial.id}}"><i class="uil uil-edit"></i></v-btn>
                         <v-btn icon color="red darken-2" class="mx-7"><i class="uil uil-trash-alt" @click="confirmDelDial = true"></i></v-btn>
                     </v-card-actions>
@@ -81,7 +78,7 @@
                             <v-img :src="previewImgUrl" height="150" contain alt="service photo" aspect-ratio="1"></v-img>
                             <v-card-actions class="justify-center mt-4 ml-n3">
                                 <v-btn dark color="primary" @click="uploadImg" :loading="isUpdating">Upload Image</v-btn>
-                                <v-btn text small @click="removeImg"><i class="uil uil-trash-alt"></i></v-btn>
+                                <v-btn text small @click="removeImg" color="red darken-1"><i class="uil uil-trash-alt"></i></v-btn>
                             </v-card-actions>
                         </v-card-text>
                     </template>
@@ -123,6 +120,14 @@
             There was an error while trying to update the testimonial picture. Please upload a valid picture image and try again.
             <v-btn text color="white--text" @click="picUpdateFailed = false">Close</v-btn>
         </v-snackbar>
+        <v-snackbar v-model="featureStatusUpdated" :timeout="4000" top dark color="green darken-2">
+            This testimonial's status was successfully updated.
+            <v-btn text color="white--text" @click="featureStatusUpdated = false">Close</v-btn>
+        </v-snackbar>
+        <v-snackbar v-model="featureUpdateFailed" :timeout="6000" top dark color="red darken-2">
+            There was an error while trying to update the testimonial's feature status. Please try again.
+            <v-btn text color="white--text" @click="featureUpdateFailed = false">Close</v-btn>
+        </v-snackbar>
     </v-container>
 </template>
 
@@ -145,6 +150,8 @@ export default {
             isUpdating: false,
             picUpdated: false,
             picUpdateFailed: false,
+            featureStatusUpdated: false,
+            featureUpdateFailed: false,
         }
     },
     beforeRouteLeave (to, from, next) {
@@ -177,7 +184,7 @@ export default {
             .then((res) => {
                 this.isLoading = false
                 this.testimonial = res.data
-                console.log(res.data)
+                // console.log(res.data)
             })
         },
         delTestimonial(){
@@ -186,7 +193,7 @@ export default {
                 this.confirmDelDial = false
                 this.$store.commit('adminDeletedTestimonial')
                 this.$router.push({name: 'AdminTestimonialList'})
-                console.log(res.data)
+                // console.log(res.data)
             })
         },
         deleteTestPic(){
@@ -230,6 +237,18 @@ export default {
                     this.picUpdateFailed = true
                 })
             }
+        },
+        changeStatus(){
+            this.isBusy = true
+            axios.post(this.api + `/auth-admin/update_testimonial_feature_status/${this.$route.params.id}`, {}, this.adminHeaders)
+            .then((res) => {
+                this.isBusy = false
+                this.testimonial.is_featured = res.data
+                this.featureStatusUpdated = true
+            }).catch(() => {
+                this.isBusy = false
+                this.featureUpdateFailed = true
+            })
         }
     },
     mounted() {

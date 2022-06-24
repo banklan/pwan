@@ -11,7 +11,9 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 class UserAccountAuthorized extends Mailable
 {
     use Queueable, SerializesModels;
-
+    
+    protected $theme = 'my-theme';
+    
     public $user;
     public $url;
 

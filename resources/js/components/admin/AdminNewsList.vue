@@ -27,7 +27,7 @@
                                     <td @click="showNews(post)" class="text-truncate">{{ post.title }}</td>
                                     <td @click="showNews(post)">{{ post.user && post.user.fullname }}</td>
                                     <td>{{ post.is_approved ? 'Approved' : 'Not Apprvd'}} </td>
-                                    <td><v-btn icon color="admin_a" :to="{name: 'AdminUpdateEvent', params:{id: post.id}}"><i class="uil uil-edit"></i></v-btn> &nbsp; <v-btn icon color="red darken-2" @click="confirmDel(post.id, i)"><i class="uil uil-trash-alt"></i></v-btn></td>
+                                    <td><v-btn icon color="admin_a" :to="{name: 'AdminUpdateNewsPost', params:{id: post.id}}"><i class="uil uil-edit"></i></v-btn> &nbsp; <v-btn icon color="red darken-2" @click="confirmDel(post.id, i)"><i class="uil uil-trash-alt"></i></v-btn></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -65,7 +65,11 @@
         </v-snackbar>
         <v-snackbar :value="adminDeletedNewsPost" :timeout="4000" top dark color="green darken-2">
             A news post was deleted successfully.
-            <v-btn text color="white--text" @click="adminDeletedNewsPost = false">Close</v-btn>
+            <v-btn text color="white--text" @click="resetAdminFlashMsgs">Close</v-btn>
+        </v-snackbar>
+        <v-snackbar :value="adminUpdatedNewsPost" :timeout="4000" top dark color="green darken-2">
+            A news post was updated successfully.
+            <v-btn text color="white--text" @click="resetAdminFlashMsgs">Close</v-btn>
         </v-snackbar>
     </v-container>
 </template>
@@ -107,6 +111,15 @@ export default {
         },
         adminDeletedNewsPost(){
             return this.$store.getters.adminDeletedNewsPost
+        },
+        adminUpdatedNewsPost: {
+            get(){
+                return this.$store.getters.adminUpdatedNewsPost
+            },
+            set(newVal){
+                this.newVal = false
+                // this.$store.commit('resetAdminFlashMsg')
+            }
         }
     },
     methods: {
@@ -151,6 +164,9 @@ export default {
         },
         search(){
             this.$router.push({name: 'AdminNewsPostSearchResult', query: {q: this.q}})
+        },
+        resetAdminFlashMsgs(){
+            this.$store.commit('resetAdminFlashMsg')
         }
     },
     mounted() {

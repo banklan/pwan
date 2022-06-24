@@ -44,6 +44,10 @@
                                         <td>{{ event.evnt_time }}</td>
                                     </tr>
                                     <tr>
+                                        <th>Venue</th>
+                                        <td>{{ event.venue }}</td>
+                                    </tr>
+                                    <tr>
                                         <th>Detail</th>
                                         <td>{{ event.detail }}</td>
                                     </tr>
@@ -221,7 +225,6 @@ export default {
             .then((res) => {
                 this.isLoading = false
                 this.event = res.data
-                console.log(res.data)
             })
         },
         delEvent(){
@@ -230,7 +233,6 @@ export default {
                 this.confirmDelDial = false
                 this.$store.commit('adminDeletedEvent')
                 this.$route.push({name: 'AdminEventList'})
-                console.log(res.data)
             })
         },
         changeFeature(){
@@ -262,7 +264,6 @@ export default {
             this.isBusy = true
             axios.post(this.api + `/auth-admin/del_event_file/${this.fileTodel}`, {}, this.adminHeaders)
             .then((res) => {
-                console.log(res.data)
                 this.isBusy = false
                 this.confirmDelFileDial = false
                 this.event.event_files.splice(this.fileTodelIndex, 1)

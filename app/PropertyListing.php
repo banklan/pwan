@@ -16,7 +16,7 @@ class PropertyListing extends Model
 
     protected $appends = ['slug', 'published', 'updated'];
 
-    protected $with = ['user', 'admin', 'files'];
+    protected $with = ['user', 'admin', 'files', 'property_listing_plans'];
 
 
     protected static function boot(){
@@ -41,6 +41,11 @@ class PropertyListing extends Model
     public function setNameAttribute($value)
     {
         $this->attributes['name'] = ucfirst($value);
+    }
+
+    public function setLandmarkAttribute($value)
+    {
+        $this->attributes['landmark'] = ucfirst($value);
     }
 
     public function setDetailAttribute($value)
@@ -74,5 +79,13 @@ class PropertyListing extends Model
 
     public function files(){
         return $this->hasMany('App\PropertyFile');
+    }
+
+    public function property_listing_plans(){
+        return $this->hasMany('App\PropertyListingPlan');
+    }
+
+    public function subscriptions(){
+        return $this->hasMany('App\Subscription');
     }
 }

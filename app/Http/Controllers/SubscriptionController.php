@@ -9,7 +9,10 @@ use Illuminate\Http\Request;
 use App\Mail\SubscriptionFormSent;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\SubscriptionFormReceived;
+use App\PropertyListing;
 use PDF;
+use Illuminate\Support\Facades\DB;
+use App\User;
 
 class SubscriptionController extends Controller
 {
@@ -35,9 +38,11 @@ class SubscriptionController extends Controller
             'client.kin_email' => 'required|email',
             'client.kin_address' => 'required|min:5|max:200',
             'client.plot_type' => 'required|min:5|max:30',
-            'client.pay_plans' => 'required|numeric',
+            'client.property' => 'required',
+            'client.plan' => 'required',
             'client.no_plot' => 'required|numeric',
-            'client.plot_size' => 'required|min:3|max:12',
+            'client.property' => 'required',
+            'client.plan' => 'required',
         ]);
 
         $subsc = new Subscription;
@@ -61,11 +66,22 @@ class SubscriptionController extends Controller
         $subsc->kin_email = $request->client['kin_email'];
         $subsc->kin_address = ucfirst($request->client['kin_address']);
         $subsc->plot_type = $request->client['plot_type'];
-        $subsc->pay_plans = $request->client['pay_plans'];
+        $subsc->property_listing_plan_id = $request->client['plan'];
+        $subsc->property_listing_id = $request->client['property'];
         $subsc->no_plot = $request->client['no_plot'];
-        $subsc->plot_size = $request->client['plot_size'];
 
         $subsc->save();
+        $subsc->fresh();
+
+        //send email to the subscriber;
+        $email = $request->client['email'];
+        Mail::to($email)->send(new SubscriptionFormSent($subsc));
+
+        //send emails to active admins
+        $admins = Admin::where('status', 1)->get();
+        foreach($admins as $admin){
+            Mail::to($admin->email)->send(new SubscriptionFormReceived($subsc));
+        }
 
         return response()->json($subsc, 200);
     }
@@ -95,17 +111,7 @@ class SubscriptionController extends Controller
         // save path in db
         $sub = Subscription::where('id', $id)->first();
         $sub->update(['picture' => $filename]);
-        $sub->fresh();
 
-        //send email to the subscriber;
-        Mail::to($sub->email)->send(new SubscriptionFormSent($sub));
-
-        //send emails to active admins
-        $admins = Admin::where('status', 1)->get();
-        $admins[] = $admins;
-        foreach($admins as $admin){
-            Mail::to($admin->email)->send(new SubscriptionFormReceived($sub));
-        }
         return response()->json($sub, 201);
     }
 
@@ -121,5 +127,29 @@ class SubscriptionController extends Controller
         $pdf->setOption('no-stop-slow-scripts', true);
 
         return $pdf->download('subscription-form.pdf');
+    }
+
+    public function getWeeksSubscriptions(){
+        $subs = Subscription::selectRaw('COUNT(*) AS total')
+                    ->selectRaw('FROM_DAYS(TO_DAYS(updated_at) -MOD(TO_DAYS(updated_at) -1, 7)) AS week_starting')
+                    ->groupBy('week_starting')
+                    ->orderBy('week_starting')
+                    ->take(10)->get();
+        $subs->each->setAppends([]);
+
+        return response()->json($subs, 200);
+    }
+
+    public function getAllListings()
+    {
+        $props = PropertyListing::all();
+
+        return response()->json($props, 200);
+    }
+
+    public function getSubscriptionListing($id){
+        $prop =  PropertyListing::findOrFail($id);
+
+        return response()->json($prop, 200);
     }
 }

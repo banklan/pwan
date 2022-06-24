@@ -23,6 +23,7 @@ const opts = {
                 admin_g: '#e35c0e',
                 admin_h: '#555a01',
                 admin_i: '#006611',
+                admin_j: '#310d89',
                 green_text: '#00ad07',
                 grey_text: '#404040'
             },

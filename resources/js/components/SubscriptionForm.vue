@@ -5,7 +5,8 @@
                 <v-card elevation="6" light raised>
                     <v-card-title class="justify-center primary white--text subtitle-1">Subscription Form - Section 1 (Subscriber's details)</v-card-title>
                     <v-alert type="info" class="mt-2 mx-2">All Fields must be filled</v-alert>
-                    <v-card-text class="mt-6 pl-6">
+                    <v-card-text class="mt-6 ml-3">
+                        <v-select label="Choose the property you are interested in" v-model="client.property" :items="properties" item-text="name" item-value="id" required v-validate="'required'" :error-messages="errors.collect('property')"  name="property"></v-select>
                         <v-text-field label="Surname" v-model="client.surname" required v-validate="'required|min:2|max:50'" :error-messages="errors.collect('surname')"  name="surname"></v-text-field>
                         <v-text-field label="Other Names" v-model="client.other_names" required v-validate="'required|min:2|max:80'" :error-messages="errors.collect('other_names')"  name="other_names" data-vv-as="other names"></v-text-field>
                         <v-text-field label="Spouse Surname (If applicable)" v-model="client.spouse_surname" v-validate="'max:50'" :error-messages="errors.collect('spouse_surname')"  name="spouse_surname" data-vv-as="spouse surname"></v-text-field>
@@ -69,8 +70,8 @@ export default {
                 count_res: '',
                 email: '',
                 phone: '',
-                mobile: ''
-
+                mobile: '',
+                property: ''
             },
             maritalStatus:[
                 {type: 'Single'}, {type: 'Married'}, {type: 'Divorced'}, {type: 'Widowed'}
@@ -86,14 +87,23 @@ export default {
             ],
             date: new Date().toISOString().substr(0, 10),
             datePicker: false,
+            properties: []
         }
     },
     computed: {
         subscriptionForm1(){
             return this.$store.getters.subscriptionForm1
+        },
+        api(){
+            return this.$store.getters.api
         }
     },
     methods: {
+        getPropsToSubscribe(){
+            axios.get(this.api + '/get_all_listings').then((res) => {
+                this.properties = res.data
+            })
+        },
         saveClientDetails(){
             this.$validator.validateAll().then((isValid) => {
                 if(isValid) {
@@ -105,6 +115,7 @@ export default {
         }
     },
     mounted(){
+        this.getPropsToSubscribe()
         if(this.subscriptionForm1){
             this.client =  this.subscriptionForm1
         }

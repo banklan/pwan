@@ -13,6 +13,8 @@ class StaffEmailVerificationMail extends Mailable
 {
     use Queueable, SerializesModels;
 
+    protected $theme = 'my-theme';
+
     public $user;
     public $conf;
     public $url;

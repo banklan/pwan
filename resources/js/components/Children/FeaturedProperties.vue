@@ -2,40 +2,49 @@
     <div class="featured_props">
         <h2 class="section_head"><span class="section_header">|</span>Featured Properties</h2>
         <div class="properties cont">
-            <div class="property">
+            <div class="property" v-for="feat in featureds" :key="feat.id">
                 <div class="property_img">
-                    <v-img src="/images/properties/prop1.jpeg"></v-img>
+                    <v-img :src="  `/images/properties/${feat.files[0].image}`"></v-img>
                 </div>
                 <div class="property_details">
-                    <h4>Plots Of Land</h4>
-                    <span><i class="uil uil-map-marker"></i>Asaba</span>
-                </div>
-            </div>
-            <div class="property">
-                <div class="property_img">
-                    <v-img src="/images/properties/prop2.jpg"></v-img>
-                </div>
-                <div class="property_details">
-                    <h4>2 Bedroom Terrace Apartment</h4>
-                    <span><i class="uil uil-map-marker"></i>Pearl View, Enugu</span>
-                </div>
-            </div>
-            <div class="property">
-                <div class="property_img">
-                    <v-img src="/images/properties/prop3.jpeg"></v-img>
-                </div>
-                <div class="property_details">
-                    <h4>Plots Of Land</h4>
-                    <span><i class="uil uil-map-marker"></i>Asutan Local Govt, Uyo</span>
+                    <h4>{{ feat.name }}</h4>
+                    <span><i class="uil uil-map-marker"></i>{{ feat.location }}</span>
                 </div>
             </div>
         </div>
         <div class="cta">
-
-            <v-btn raised elevation="12" x-large dark color="secondary" class="btn-cta justify-center">View All Listing</v-btn>
+            <v-btn raised elevation="12" x-large dark color="secondary" class="btn-cta justify-center" :to="{name: 'AllListings'}">View All Listing</v-btn>
         </div>
     </div>
 </template>
+
+<script>
+export default {
+    data() {
+        return {
+            featureds: [],
+            isLoading: false
+        }
+    },
+    computed: {
+        api(){
+            return this.$store.getters.api
+        }
+    },
+    methods: {
+        getProps(){
+            this.isLoading = true
+            axios.get(this.api + '/get_featured_listings').then((res) => {
+                this.isLoading = false
+                this.featureds = res.data
+            })
+        }
+    },
+    mounted() {
+        this.getProps()
+    },
+}
+</script>
 
 <style lang="scss" scoped>
 .featured_props{

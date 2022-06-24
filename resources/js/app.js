@@ -59,6 +59,25 @@ router.beforeEach((to, from, next) => {
     }
 });
 
+
+router.beforeEach((to, from, next) => {
+    const requiresAuth = to.matched.some(rec => rec.meta.requiresAuth);
+    const authUser = store.state.authUser
+    if (requiresAuth && authUser == null) {
+        store.commit('redirectOnLogin', to.path)
+        next('/login')
+    }else if(to.path == '/login' && authUser){
+        next('/staff')
+    }else if(to.path == '/register' && authUser){
+        next('/staff')
+    }else if(to.path.substring(0, 6) == '/admin' && authUser){
+        next('/staff')
+    }else {
+        next()
+    }
+});
+
+
 //axios interceptor for expired token
 axios.interceptors.response.use(null, (err) =>
 {
@@ -97,7 +116,13 @@ Vue.component('our-directors', require('./components/Children/OurDirectors.vue')
 Vue.component('latest-events', require('./components/Children/LatestEvents.vue').default);
 Vue.component('testimonials', require('./components/Children/Testimonials.vue').default);
 Vue.component('featured-properties', require('./components/Children/FeaturedProperties.vue').default);
+Vue.component('latest-properties', require('./components/Children/LatestProperties.vue').default);
+Vue.component('news-post', require('./components/Children/LatestNewsPosts.vue').default);
+Vue.component('listing-card', require('./components/Children/ListingCard.vue').default);
+Vue.component('new-offers', require('./components/Children/NewOffers.vue').default);
 Vue.component('admin-search', require('./components/Children/AdminSearch.vue').default);
+Vue.component('staff-search', require('./components/Children/StaffSearch.vue').default);
+Vue.component('admin-dash-brief-cards', require('./components/Children/AdminDashBriefCards.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

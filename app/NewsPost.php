@@ -39,7 +39,7 @@ class NewsPost extends Model
 
     public function getSlugAttribute($value)
     {
-        $slug = Str::slug($this->name);
+        $slug = Str::slug($this->title);
         return $slug;
     }
 

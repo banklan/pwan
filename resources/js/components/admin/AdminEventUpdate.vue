@@ -11,7 +11,8 @@
                 <v-card v-else light raised outlined elevation="4" min-height="400" class="scroll">
                     <v-card-title class="primary white--text justify-center subtile-1">Event Update</v-card-title>
                     <v-card-text class="mt-8 ml-5">
-                        <v-textarea label="Title" v-model="event.title" rows="1" auto-grow required v-validate="'required|min:5|max:300'" :error-messages="errors.collect('title')"  name="title" data-vv-as="title"></v-textarea>
+                        <v-text-field label="Title" v-model="event.title" required v-validate="'required|min:5|max:300'" :error-messages="errors.collect('title')"  name="title" data-vv-as="title"></v-text-field>
+                        <v-text-field label="Venue" v-model="event.venue" required v-validate="'required|min:3|max:220'" :error-messages="errors.collect('venue')"  name="venue" data-vv-as="venue"></v-text-field>
                         <v-textarea label="Detail" v-model="event.detail" rows="2" auto-grow required v-validate="'required|min:10|max:800'" :error-messages="errors.collect('detail')"  name="detail" data-vv-as="detail"></v-textarea>
                         <v-menu ref="datePicker" v-model="datePicker" :close-on-content-click="false" :return-value.sync="event.event_date" transition="scale-transition" offset-y min-width="290px">
                             <template v-slot:activator="{ on }">

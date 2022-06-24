@@ -2,51 +2,16 @@
     <section id="testimonials" class="swiper mySwiper">
         <h2 class="section_head"><span class="section_header">|</span>What Our Clients Said</h2>
         <div class="swiper-wrapper">
-            <article class="swiper-slide">
-                <p>This is what we are Lorem, ipsum dolor sit amet consectetur adipisicing elit. Qui et porro maiores quos quam soluta esse placeat quidem.</p>
+            <article class="swiper-slide" v-for="test in testimonials" :key="test.id">
                 <div class="client">
                     <div class="avatar">
-                        <img src="/images/directors/dir1.jpg" alt="Client1">
+                        <img v-if="test.picture" :src="`/images/testimonials/${test.picture}`" :alt="test.fullname">
                     </div>
                     <div class="patient__details">
-                        <h5>John Megbele</h5>
-                        <small>Patient</small>
-                    </div>
-                </div>
-            </article>
-            <article class="swiper-slide">
-                <p>We are ipsum, dolor sit amet consectetur adipisicing elit. Repellendus harum laudantium suscipit placeat rem perferendis, ex quia at!</p>
-                <div class="client">
-                    <div class="avatar">
-                        <img src="/images/directors/dir2.jpg" alt="client2">
-                    </div>
-                    <div class="client__details">
-                        <h5>Abigael Shantel</h5>
-                        <small>Client</small>
-                    </div>
-                </div>
-            </article>
-            <article class="swiper-slide">
-                <p>Then and ipsum dolor sit amet consectetur adipisicing elit. Quidem ipsam nam dolore aspernatur omnis odio nesciunt atque nobis?</p>
-                <div class="client">
-                    <div class="avatar">
-                        <img src="/images/directors/dir3.jpg" alt="client3">
-                    </div>
-                    <div class="client__details">
-                        <h5>Mathew Ashim</h5>
-                        <small>client</small>
-                    </div>
-                </div>
-            </article>
-            <article class="swiper-slide">
-                <p>Another ipsum dolor sit amet consectetur, adipisicing elit. Debitis rerum fuga corporis minus? Mollitia nulla recusandae!</p>
-                <div class="client">
-                    <div class="avatar">
-                        <img src="/images/directors/dir4.jpg" alt="client4">
-                    </div>
-                    <div class="client__details">
-                        <h5>Jackie Bambo</h5>
-                        <small>client</small>
+                        <p class="tit">{{ test.title }} </p>
+                        <p class="name">{{ test.fullname }}</p>
+                        <small>{{ test.occupation }}, {{ test.organization }}</small>
+                        <p class="body">{{ test.detail | truncate(100) }}</p>
                     </div>
                 </div>
             </article>
@@ -57,7 +22,26 @@
 
 <script>
 export default {
+    data(){
+        return{
+            testimonials: []
+        }
+    },
+    computed:{
+        api(){
+            return this.$store.getters.api
+        }
+    },
+    methods: {
+        getTestimonials(){
+            axios.get(this.api + '/get_feat_testimonials').then((res) => {
+                this.testimonials = res.data
+            })
+        }
+    },
     mounted() {
+        this.getTestimonials()
+
        var swiper = new Swiper(".mySwiper", {
             slidesPerView: 1,
             spaceBetween: 30,
@@ -70,10 +54,10 @@ export default {
             breakpoints: {
                 // when window width is >= 600px
                 600: {
-                    slidesPerView: 2
+                    slidesPerView: 1
                 },
                 1024: {
-                    slidesPerView: 3
+                    slidesPerView: 2
                 }
             }
         })
@@ -84,8 +68,8 @@ export default {
 
 <style lang="scss" scoped>
     .swiper{
-        width: 76vw;
-        // margin-top: 3rem;
+        width: 94vw;
+        margin-top: 0 auto;
 
         & > h2{
             margin-bottom: 2.5rem;
@@ -101,15 +85,15 @@ export default {
         }
 
         .swiper-wrapper{
-            margin-bottom: 4rem;
+            width: 100%;
+            margin: 0 auto 4rem;
 
             .swiper-slide{
                 background: linear-gradient(135deg, #01134e, #3E4095);
                 color: #fff;
-                padding: 1.5rem 2rem;
+                padding: 1.5rem;
                 border-radius: 1rem;
                 cursor: default;
-                font-size: 0.9rem;
 
                 p{
                     margin-bottom: 1.5rem;
@@ -118,10 +102,10 @@ export default {
                 .client{
                     display: flex;
                     align-items: center;
-                    gap: 1rem;
+                    gap: 1.5rem;
 
                     .avatar{
-                        width: 3rem;
+                        width: 5rem;
                         aspect-ratio: 1/1;
                         border-radius: 50%;
                         overflow: hidden;
@@ -129,6 +113,33 @@ export default {
                         img{
                             width: 100%;
                             height: 100%;
+                        }
+                    }
+                    .patient__details{
+                        display: flex;
+                        flex-direction: column;
+                        align-items: flex-start;
+                        justify-content: center;
+                        padding: 0 5px;
+                        overflow: hidden;
+
+                        .tit{
+                            font-size: 1rem;
+                            margin: 5px 0;
+
+                        }
+                        .name{
+                            font-size: .9rem;
+                        }
+                        small{
+                            font-size: .8rem;
+                            font-style: italic;
+                            color: #d1d1d1;
+                            margin-top: -27px;
+                        }
+                        .body{
+                            margin-top: .5rem;
+                            font-size: .9rem;
                         }
                     }
                 }

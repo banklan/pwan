@@ -65,7 +65,6 @@
                         <template v-if="post.file.split('.').pop() === 'mp4'">
                             <video width="100%" height="100%" controls>
                                 <source :src="`/images/news/${post.file}`" type="video/mp4">
-                                <!-- <source src="movie.ogg" type="video/ogg"> -->
                                 Your browser does not support the video tag.
                             </video>
                         </template>
@@ -149,7 +148,7 @@
             <v-btn text color="white--text" @click="posttApprovalChanged = false">Close</v-btn>
         </v-snackbar>
         <v-snackbar v-model="postFeatureChanged" :timeout="4000" top dark color="green darken-2">
-            This post has been {{ post && post.is_featured ? ' featured' : ' un-featured' }}.
+            This post is now been {{ post && post.is_featured ? ' featured' : ' un-featured' }}.
             <v-btn text color="white--text" @click="postFeatureChanged = false">Close</v-btn>
         </v-snackbar>
         <v-snackbar :value="adminUpdatedNewsPost" :timeout="4000" top dark color="green darken-2">
@@ -228,7 +227,7 @@ export default {
             .then((res) => {
                 this.confirmDelDial = false
                 this.$store.commit('adminDeletedNewsPost')
-                this.$route.push({name: 'AdminNewsList'})
+                this.$router.push({name: 'AdminNewsList'})
                 // console.log(res.data)
             })
         },

@@ -115,4 +115,8 @@ class Admin extends Authenticatable implements JWTSubject
     public function news_posts(){
         return $this->hasmany('App\NewsPost');
     }
+
+    public function offer(){
+        return $this->hasmany('App\NewOffer');
+    }
 }

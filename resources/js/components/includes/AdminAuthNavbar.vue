@@ -15,7 +15,7 @@
                     <template v-slot:activator="{ on, attrs }">
                         <v-btn v-bind="attrs" v-on="on" style="font-size: 28px" icon class="mr-2" :disabled="notifications == 0">
                             <v-badge :value="notifications > 0" color="primary" :content="notifications" overlap>
-                                <v-icon style="font-size: 28px" color="primary">mdi-bell-outline</v-icon>
+                                <v-icon style="font-size: 28px" color="primary">mdi-bell</v-icon>
                             </v-badge>
                         </v-btn>
                     </template>
@@ -23,7 +23,7 @@
                         <v-list-item-group color="primary">
                             <v-list-item v-if="enquiryNotif > 0" link >
                                 <v-list-item-icon class="mr-3">
-                                    <v-icon color="green">mdi-comment</v-icon>
+                                    <v-icon color="green"><i class="uil uil-comment-alt"></i></v-icon>
                                 </v-list-item-icon>
                                 <v-list-item-content>
                                     <v-list-item-title>New Enquiry <v-chip small color="green white--text">{{ enquiryNotif }}</v-chip></v-list-item-title>
@@ -63,14 +63,17 @@
                             </v-list-item-content>
                         </v-list-item>
                         <v-list-item class="px-2" dark @click.stop="toggleMini = !toggleMini">
-                            <v-list-item-avatar>
-                                <v-icon>mdi-account-outline</v-icon>
+                            <v-list-item-avatar v-if="authAdmin.picture">
+                                <v-img :src="`/images/profiles/${authAdmin.picture}`" height="100%"></v-img>
+                            </v-list-item-avatar>
+                            <v-list-item-avatar v-else>
+                                <i class="uil uil-user"></i>
                             </v-list-item-avatar>
                             <v-list-item-content class="text-truncate">
                                 {{ authAdmin.fullname }}
                             </v-list-item-content>
                             <v-btn icon small>
-                                <v-icon>mdi-chevron-left</v-icon>
+                                <i class="uil uil-tachometer-fast-alt"></i>
                             </v-btn>
                         </v-list-item>
                     </v-list>
@@ -79,7 +82,6 @@
                         <v-list-item v-for="menu in authMenu" :key="menu.title" link :to="menu.path" dark class="white--text" exact>
                             <v-list-item-icon>
                                 <i :class="`uil uil-${menu.icon}`"></i>
-                                <!-- <v-icon color="white--text">{{ menu.icon }}</v-icon> -->
                             </v-list-item-icon>
                             <v-list-item-content>
                                 <v-list-item-title class="white--text">{{ menu.title }}</v-list-item-title>
@@ -117,27 +119,21 @@ export default {
         return{
             sidebarmenu: true,
             toggleMini: false,
-            // mini: true,
-            // expandOnHover: true,
-            // title: this.$vuetify.breakpoint.mobile ? ' M-Dashboard' : 'M-Dashboard by Materialfy',
             authMenu: [
                 { title: "Admin DashBoard", path: "/admin", icon:"dashboard"},
                 {title: "Admins", path: "/admin/superusers", icon:"user-plus"},
                 {title: "Users", path: "/admin/users", icon:"users-alt"},
                 {title: "Listings", path: "/admin/listings", icon:"building"},
                 {title: "Subscriptions", path: "/admin/subscriptions", icon:"invoice"},
+                {title: "New Offers", path: "/admin/new-offers", icon:"fire"},
                 {title: "Events", path: "/admin/events", icon: "schedule"},
                 {title: "Testimonials", path: "/admin/testimonials", icon: "comment-alt-heart"},
                 {title: "News", path: "/admin/news", icon: "newspaper"},
-                {title: "Password Resets", path: "/admin/password-reset-logs", icon: "key-skeleton"},
+                {title: "Enquiries", path: "/admin/enquiries", icon: "envelope-question"},
+                {title: "Password Resets", path: "/admin/password-resets", icon: "key-skeleton"},
                 {title: "Profile", path: "/admin/profile", icon: "cog"},
-                {title: "Charts", path: "/admin/charts", icon: "arrow-growth"},
-                // {title: "Clients", path: "/admin/clients", icon: "mdi-group"},
             ],
             notificationsBadge: true,
-            // enquiryNotif: 0,
-            // userNotif: 0,
-            // servNotif: 0,
         }
     },
     computed: {
@@ -207,36 +203,13 @@ export default {
         logout(){
             if(this.authAdmin){
                 axios.post(this.api + `/auth-admin/logout`, {}, this.adminHeaders).then(() =>{
-                    this.$store.commit('logOutAdmin')
+                this.$store.commit('logOutAdmin')
                     this.$router.push('/')
                 })
             }
         },
-        // listenForNewRequest(){
-        //     Echo.channel('notif')
-        //         .listen('TestNameSaved', (msg) => {
-        //             // console.log("received data from pusher", msg.notif)
-        //             if(msg){
-        //                 let enqNotif = window.localStorage.getItem('enquiryNotif')
-        //                 if(enqNotif){
-        //                     enqNotif ++
-        //                     window.localStorage.setItem('enquiryNotif', enqNotif)
-        //                     this.enquiryNotif = enqNotif
-        //                 }else{
-        //                     let enqNotif = 1
-        //                     window.localStorage.setItem('enquiryNotif', enqNotif)
-        //                     this.enquiryNotif = enqNotif
-        //                 }
-        //             }
-        //     })
-        // },
-        // FEch
     },
     created(){
-        // this.listenForNewRequest()
-        // this.listenForNewEnquiry()
-        // this.listenForNewService()
-        // this.listenForNewUser()
     }
 }
 </script>
@@ -272,6 +245,6 @@ export default {
         font-size: 1.1rem;
     }
     .contents .v-list__item:nth-child(2){
-        padding: 10rem !important; 
+        padding: 10rem !important;
     }
 </style>

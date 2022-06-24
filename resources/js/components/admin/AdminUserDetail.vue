@@ -2,7 +2,7 @@
     <v-container>
         <v-row justify="center" class="justify-center mt-3">
             <v-col cols="12">
-                <v-btn rounded color="secondary" dark elevation="4" left :to="{name: 'AdminUsersList'}"><i class="uil uil-arrow-left"></i> Back To User (Staff) List</v-btn>
+                <v-btn rounded color="secondary" dark elevation="4" left :to="{name: 'AdminUsersList'}"><i class="uil uil-arrow-left"></i> Back</v-btn>
             </v-col>
         </v-row>
         <v-row justify="start" class="mt-5" :class="$vuetify.breakpoint.smAndDown ? 'ml-n3 mr-n5': ''">
@@ -15,7 +15,7 @@
                 <v-progress-circular indeterminate color="primary" :width="4" :size="40" v-if="isLoading" justify="center" class="mx-auto"></v-progress-circular>
                 <v-card v-else light raised outlined elevation="4" min-height="400" class="scroll">
                     <template v-if="user.is_verified">
-                        <v-img v-if="user.picture" :src="`/images/profiles/${user.picture}`" aspect-ratio="1" height="300" transition="scale-transition"></v-img>
+                        <v-img v-if="user.picture" :src="`/images/profiles/${user.picture}`" height="100%" transition="scale-transition"></v-img>
                         <v-img v-else src="/images/assets/user7.jpg" aspect-ratio="1" height="300" transition="scale-transition"></v-img>
                         <v-card-text>
                             <div class="subtitle-2 my-3 text-center">User (Staff) Profile</div>
@@ -121,8 +121,8 @@
         <v-dialog v-model="confirmDelDialog" max-width="450">
             <v-card min-height="120">
                 <v-card-title class="subtitle-1 white--text primary justify-center">Are you sure you want to delete this user profile?</v-card-title>
-                <v-card-text class="mt-5 subtitle-1">Once deleted, the process cannot be undone.</v-card-text>
-                <v-card-actions class="pb-8 mt-8 justify-center">
+                <v-card-text class="mt-5 subtitle-1 grey_text--text">Once deleted, the process cannot be undone.</v-card-text>
+                <v-card-actions class="pb-8 justify-center">
                     <v-btn text width="40%" color="red darken--2" @click="confirmDelDialog = false">Cancel</v-btn>
                     <v-btn dark width="40%" color="primary" :loading="isDeleting" @click="deleteUser">Yes, Delete</v-btn>
                 </v-card-actions>

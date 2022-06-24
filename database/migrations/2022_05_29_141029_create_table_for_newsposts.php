@@ -18,7 +18,7 @@ class CreateTableForNewsposts extends Migration
             $table->bigInteger('user_id')->unsigned();
             $table->bigInteger('admin_id')->unsigned()->nullable();
             $table->string('title');
-            $table->string('detail');
+            $table->text('detail');
             $table->string('file')->nullable();
             $table->boolean('is_approved')->default(false);
             $table->boolean('is_featured')->default(false);

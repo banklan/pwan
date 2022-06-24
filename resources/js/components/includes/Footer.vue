@@ -5,14 +5,15 @@
                 <h3>Quick Links</h3>
                 <router-link to="/">Home</router-link>
                 <router-link to="/about-us">About Us</router-link>
-                <router-link to="/our-services">Our Services</router-link>
                 <router-link to="/listings">Listings</router-link>
                 <router-link to="/events">Events</router-link>
+                <router-link to="/contact-us">Contact Us</router-link>
+                <router-link to="/testimonials">Testimonial</router-link>
             </article>
             <article>
                 <h3>Quick Links</h3>
                 <router-link to="/faq">Freq Asked Qstns</router-link>
-                <router-link to="/news">News</router-link>
+                <router-link to="/news-posts">News</router-link>
                 <router-link to="/login">Staff Login</router-link>
                 <router-link to="/terms-conditions">Terms & Conditions</router-link>
                 <router-link to="/privacy-policy">Privacy Policy</router-link>
@@ -22,12 +23,13 @@
                 <h3>Contact Us</h3>
                 <div class="footer__socials">
                     <div class="social_media">
-                        <a href="#" class="fb"><i class="uil uil-facebook-f"></i></a>
+                        <a href="https://facebook.com/PWAN-Platinum-Warri-106114298634221/?ref=page_internal" target="_blank" class="fb"><i class="uil uil-facebook-f"></i></a>
                         <a href="#" class="tw"><i class="uil uil-twitter-alt"></i></a>
                         <a href="#" class="ig"><i class="uil uil-instagram"></i></a>
                     </div>
-                    <p><i class="uil uil-map-marker"></i> 5, Airport road, Warri. Delta State.</p>
-                    <p><i class="uil uil-phone"></i> 08052552252</p>
+                    <p><i class="uil uil-map-marker"></i> 9, Airport road, Opposite Our Ladies School gate, Effurun. Delta State.</p>
+                    <p><i class="uil uil-phone"></i> 08025886719, 08057165471 </p>
+                    <p class="ml-8 mt-n4">08025886718, 08163451098</p>
                     <p><i class="uil uil-envelope-alt"></i> pwan@gmail.com</p>
                 </div>
             </article>
@@ -51,58 +53,48 @@
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 5rem;
-            font-size: 0.85rem;
-
-            a{
-                color: rgba(#fff, 0.7);
-                font-size: 1rem;
-                text-decoration: none;
-                transition: all 400ms ease;
-                &:hover{
-                    color: #fff;
-                }
-
-                & > h3{
-                    font-size: 1.3rem;
-                    color: #fff;
-                }
-            }
 
             article{
                 display: flex;
                 flex-direction: column;
-                gap: 1rem;
-
-                & > div{
-                    display: flex;
-                    align-items: center;
-                    gap: 0.6rem;
-                }
+                gap: .8rem;
 
                 & > h3{
-                    font-size: 1.2rem;
-                    font-weight: 400;
+                    font-size: 1rem;
                     color: #fff;
+                    font-weight: 400;
+                    margin-bottom: 1px;
+                }
+
+                a{
+                    color: rgba(#fff, 0.7);
+                    font-size: .9rem;
+                    text-decoration: none;
+                    transition: all 400ms ease;
+                    &:hover{
+                        color: #fff;
+                    }
                 }
 
                 .footer__socials{
-                    font-size: 1rem;
+                    font-size: .9rem;
                     display: flex;
                     flex-direction: column;
                     gap: 5px;
-                    // justify-content: start;
-                    margin-top: -0.8rem;
+                    margin-top: -0.6rem;
                     align-items: flex-start;
+                    width: 100%;
 
                     .social_media{
+                        width: 100%;
                         display: flex;
-                        gap: 1.5rem;
-                        align-items: flex-start;
-                        margin: 0.6rem 0;
+                        justify-content: flex-start;
+                        gap: 2rem;
+                        align-items: center;
+                        margin: .6rem auto;
 
                         a{
-                            font-size: 1rem;
-                            // background: #001659;
+                            font-size: .9rem;
                             border-radius: 50%;
                             padding: .4rem;
                             color: #fff;
@@ -126,7 +118,7 @@
                     }
 
                     p i{
-                        font-size: 1.2rem;
+                        font-size: 1rem;
                         color: #FFF;
                     }
                 }
@@ -142,29 +134,28 @@
         }
     }
 
-    // *=================================MEDIA QUERIES (MEDIUM)================================*
     @media screen and (max-width: 1024px){
         footer{
             .cont{
-                gap: 2.5rem;
+                width: 92%;
             }
         }
     }
 
-    // / *=================================MEDIA QUERIES (MEDIUM)================================*
-    @media screen and (max-width: 600px){
+    @media screen and (max-width: 722px){
         footer{
             .cont{
                 grid-template-columns: 1fr;
                 text-align: center;
-
-                .btn-primary, .footer__socials{
-                    margin: 0 auto;
-                }
+                gap: 3rem;
 
                 article{
-                    & > div{
-                        justify-content: center;
+                    .footer__socials{
+                        align-items: center;
+
+                        .social_media{
+                            justify-content: center;
+                        }
                     }
                 }
             }

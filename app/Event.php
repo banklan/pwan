@@ -42,9 +42,14 @@ class Event extends Model
         $this->attributes['detail'] = ucfirst($value);
     }
 
+    public function setVenueAttribute($value)
+    {
+        $this->attributes['venue'] = ucfirst($value);
+    }
+
     public function getSlugAttribute($value)
     {
-        $slug = Str::slug($this->name);
+        $slug = Str::slug($this->title);
         return $slug;
     }
 

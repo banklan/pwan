@@ -10981,10 +10981,6 @@ body {
   font-weight: 400;
 }
 
-.welcome_banner .banner_caption .v-btn {
-  text-align: center;
-}
-
 @media screen and (max-width: 1030px) {
   .welcome_banner .banner_caption h1 {
     font-size: 2.5rem;
@@ -11030,10 +11026,22 @@ body {
   .welcome_banner .banner_caption h1 {
     font-size: 3rem !important;
   }
+}
 
-  .welcome_banner .v-btn {
-    margin-top: -5rem !important;
-    width: 50% !important;
+.welcome_banner .banner_cta {
+  width: 100%;
+  text-align: center;
+  margin: 0 auto;
+}
+
+.welcome_banner .banner_cta .v-btn {
+  margin-bottom: 50px;
+}
+
+@media screen and (max-width: 722px) {
+  .welcome_banner .banner_cta .v-btn {
+    margin-bottom: 5rem;
+    width: 80% !important;
   }
 }
 
@@ -11133,5 +11141,61 @@ body {
     width: 90%;
     padding-right: 3rem;
   }
+}
+
+.briefs {
+  margin: 1rem auto;
+  padding: 2rem 3rem;
+}
+
+.briefs a.v-card {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #ffffff !important;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.4s ease;
+}
+
+.briefs a.v-card .model {
+  padding-top: 2rem;
+  padding-bottom: 2.5rem;
+  font-size: 1.1rem;
+  font-weight: 400;
+}
+
+.briefs a.v-card .val {
+  font-size: 5rem;
+  color: #ffffff !important;
+}
+
+.briefs a.v-card.online_sub {
+  background: linear-gradient(135deg, #630464, #b500b7);
+}
+
+.briefs a.v-card.online_sub:hover {
+  background: linear-gradient(135deg, #480349, #8e0091);
+}
+
+.briefs a.v-card:hover {
+  transform: scale(1.05);
+}
+
+.briefs a.v-card.events_count {
+  background: linear-gradient(135deg, #ffbc00, #c38700);
+}
+
+.briefs a.v-card.events_count:hover {
+  background: linear-gradient(135deg, #c99300, #9e6f02);
+}
+
+.briefs a.v-card.news_count {
+  background: linear-gradient(135deg, #047e04, #025000);
+}
+
+.briefs a.v-card.news_count:hover {
+  background: linear-gradient(135deg, #036403, #034d01);
 }
 

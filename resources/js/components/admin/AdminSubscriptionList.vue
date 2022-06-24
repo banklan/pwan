@@ -17,19 +17,19 @@
                         <table class="table table-hover table-striped" v-if="total > 0">
                             <thead>
                                 <tr>
-                                    <th>Id</th>
+                                    <th>Sub Id</th>
                                     <th>Date</th>
-                                    <th>First Name</th>
-                                    <th>Last Name</th>
+                                    <th>Fullname</th>
+                                    <th>Listing</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody class="sub_list">
                                 <tr v-for="(sub, i) in subscriptions" :key="sub.id">
                                     <td @click="showSub(sub.id)">{{ sub.id }}</td>
-                                    <td @click="showSub(sub.id)">{{ sub.created }}</td>
-                                    <td @click="showSub(sub.id)">{{ sub.surname }}</td>
-                                    <td @click="showSub(sub.id)">{{ sub.other_names }}</td>
+                                    <td @click="showSub(sub.id)">{{ sub.created_at | moment('DD/MM/YYYY') }}</td>
+                                    <td @click="showSub(sub.id)">{{ sub.client_fullname }}</td>
+                                    <td @click="showSub(sub.id)" class="text-truncate">{{ sub.property_listing && sub.property_listing.name }}</td>
                                     <td><v-btn small icon color="primary" class="mr-3"><i class="uil uil-eye" @click="showSub(sub.id)"></i></v-btn><v-btn small color="red darken-2" icon @click="confirmDel(sub, i)"><i class="uil uil-trash-alt"></i></v-btn></td>
                                 </tr>
                             </tbody>

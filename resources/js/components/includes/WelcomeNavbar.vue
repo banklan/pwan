@@ -13,14 +13,23 @@
             </v-toolbar-title>
             <v-spacer></v-spacer>
             <v-toolbar-items class="hidden-sm-and-down align-center">
-                <v-btn class="white--text" text v-for="menu in menus" :key="menu.title">
-                    <router-link class="white--text" :to="menu.path">{{ menu.title }}</router-link>
-                </v-btn>
-                <v-btn class="white--text" text>
-                    <router-link class="white--text" to="/admin">Dashboard</router-link>
-
-                </v-btn>
-                <!-- <v-btn class="primary" text @click="logout">Logout</v-btn> -->
+                <template v-if="adminIsLoggedIn">
+                    <v-btn class="white--text" text v-for="menu in adminMenus" :key="menu.title">
+                        <router-link class="white--text" :to="menu.path">{{ menu.title }}</router-link>
+                    </v-btn>
+                    <v-btn class="white--text" text @click="adminLogout">Logout</v-btn>
+                </template>
+                <template v-if="userIsLoggedIn">
+                    <v-btn class="white--text" text v-for="menu in authMenus" :key="menu.title">
+                        <router-link class="white--text" :to="menu.path">{{ menu.title }}</router-link>
+                    </v-btn>
+                    <v-btn class="white--text" text @click="staffLogout">Logout</v-btn>
+                </template>
+                <template v-if="!adminIsLoggedIn && !userIsLoggedIn">
+                    <v-btn class="white--text" text v-for="menu in menus" :key="menu.title">
+                        <router-link class="white--text" :to="menu.path">{{ menu.title }}</router-link>
+                    </v-btn>
+                </template>
             </v-toolbar-items>
         </v-app-bar>
         <v-navigation-drawer dark v-model="navDrawer" absolute hide-overlay color="primary white--text" class="" disable-resize-watcher>
@@ -33,19 +42,39 @@
             </v-toolbar-title>
             <!-- <v-divider></v-divider> -->
             <v-list class="mt-7">
-                <v-list-item dark class="white--text" link to="/admin" exact>
-                    <v-list-item-content class="pl-5">
-                        <v-list-item-title>Dashboard</v-list-item-title>
-                    </v-list-item-content>
-                </v-list-item>
-                <v-list-item dark class="primary--text" v-for="item in menus" :key="item.title" link :to="item.path" exact>
-                    <v-list-item-content class="pl-5">
-                        <v-list-item-title>{{ item.title }}</v-list-item-title>
-                    </v-list-item-content>
-                </v-list-item>
-                <!-- <v-list-item dark class="primary--text"  @click="logout"> -->
-                    <!-- <v-list-item-title>Logout</v-list-item-title> -->
-                <!-- </v-list-item> -->
+                <template v-if="adminIsLoggedIn">
+                    <v-list-item dark class="primary--text" v-for="item in adminMenus" :key="item.title" link :to="item.path" exact>
+                        <v-list-item-content class="pl-5">
+                            <v-list-item-title>{{ item.title }}</v-list-item-title>
+                        </v-list-item-content>
+                    </v-list-item>
+                    <v-list-item  @click.prevent="adminLogout">
+                        <v-list-item-icon>
+                            <i class="uil uil-sign-out-alt"></i>
+                        </v-list-item-icon>
+                        <v-list-item-title class="body-2">Logout</v-list-item-title>
+                    </v-list-item>
+                </template>
+                <template v-if="userIsLoggedIn">
+                    <v-list-item dark class="primary--text" v-for="item in authMenus" :key="item.title" link :to="item.path" exact>
+                        <v-list-item-content class="pl-5">
+                            <v-list-item-title>{{ item.title }}</v-list-item-title>
+                        </v-list-item-content>
+                    </v-list-item>
+                    <v-list-item  @click.prevent="staffLogout">
+                        <v-list-item-icon>
+                            <i class="uil uil-sign-out-alt"></i>
+                        </v-list-item-icon>
+                        <v-list-item-title class="body-2">Logout</v-list-item-title>
+                    </v-list-item>
+                </template>
+                <template v-if="!adminIsLoggedIn && !userIsLoggedIn">
+                    <v-list-item dark class="primary--text" v-for="item in menus" :key="item.title" link :to="item.path" exact>
+                        <v-list-item-content class="pl-5">
+                            <v-list-item-title>{{ item.title }}</v-list-item-title>
+                        </v-list-item-content>
+                    </v-list-item>
+                </template>
             </v-list>
         </v-navigation-drawer>
     </nav>
@@ -59,9 +88,20 @@ export default {
                 {title: 'Home', path: '/'},
                 {title: 'Our Service', path: '/our-services'},
                 {title: "About Us", path: "/about-us"},
-                {title: "Blog", path: "/blog"},
                 {title: "Events", path: "/events"},
                 {title: "Login", path: "/login"},
+            ],
+            adminMenus: [
+                {title: 'Home', path: '/'},
+                {title: 'Dashboard', path: '/admin'},
+                {title: 'Listing', path: '/listings'},
+                {title: 'Events', path: '/events'},
+            ],
+            authMenus: [
+                {title: 'Home', path: '/'},
+                {title: 'Staff Home', path: '/staff-dashboard'},
+                {title: 'Listing', path: '/listings'},
+                {title: 'Events', path: '/events'},
             ],
             navDrawer: false,
             bg: ''
@@ -71,8 +111,8 @@ export default {
         api(){
             return this.$store.getters.api
         },
-        authUser(){
-            // return this.$store.getters.authUser
+        userIsLoggedIn(){
+            return this.$store.getters.userIsLoggedIn
         },
         adminIsLoggedIn(){
             return this.$store.getters.adminIsLoggedIn
@@ -85,6 +125,12 @@ export default {
             }else{
                 this.bg = 'transparent'
             }
+        },
+        adminLogout(){
+
+        },
+        staffLogout(){
+
         }
     },
     mounted() {
@@ -92,7 +138,7 @@ export default {
             this.navbarColor()
         }
 
-        console.log('loaded welcome-nabvar')
+        // console.log('loaded welcome-nabvar')
     },
 }
 </script>

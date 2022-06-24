@@ -1,92 +1,27 @@
 <template>
     <section class="latest_events">
         <h2 class="section_head"><span class="section_header">|</span>Latest Events</h2>
-       <carousel :autoplay="true" :perPage="2" :perPageCustom="[[0, 1],[1024,2]]" :speed="800" :autoplayTimeout="8000" loop :navigate-to="someLocalProperty" :mouse-drag="false">
-            <slide>
-               <div class="slide_wrapper">
+       <carousel :autoplay="true" :perPage="2" :perPageCustom="[[0, 1],[1024,2]]" :speed="800" :autoplayTimeout="8000" loop :mouse-drag="false">
+            <slide v-for="event in events" :key="event.id">
+               <div class="slide_wrapper" @click="goToEvent(event)">
                    <div class="event_img">
-                       <v-img src="/images/events/event1.jpeg"></v-img>
+                       <v-img :src="`/images/events/${event.event_files[0].file}`"></v-img>
                    </div>
-                   <div class="event_details">
-                        <h3 class="event_subject">Event 1 Subject</h3>
-                        <small>25th May, 2022</small>
-                        <div class="event_details">
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed at voluptatum inventore commodi, nemo est, corrupti, maxime explicabo libero hic possimus assumenda beatae repudiandae molestiae dolores..Read More
+                   <div class="event_details" @click="goToEvent(event)">
+                        <div class="subject">
+                            <h3>{{ event.title | truncate(45) }}</h3>
+                            <small>{{ event.event_date | moment('Do MMM, YYYY')}}</small>
                         </div>
-                   </div>
-               </div>
-            </slide>
-            <slide>
-               <div class="slide_wrapper">
-                   <div class="event_img">
-                       <v-img src="/images/events/event2.jpeg"></v-img>
-                   </div>
-                   <div class="event_details">
-                        <h3 class="event_subject">Event 2 Subject</h3>
-                        <small>17th May, 2022</small>
-                        <div class="event_details">
-                            Event 2 ipsum dolor sit amet consectetur adipisicing elit. Sed at voluptatum inventore commodi, nemo est, corrupti, maxime explicabo libero hic possimus assumenda beatae repudiandae molestiae dolores..Read More
-                        </div>
-                   </div>
-               </div>
-            </slide>
-            <slide>
-               <div class="slide_wrapper">
-                   <div class="event_img">
-                       <v-img src="/images/events/event3.jpg"></v-img>
-                   </div>
-                   <div class="event_details">
-                        <h3 class="event_subject">Event 3 Subject</h3>
-                        <small>1st June, 2022</small>
-                        <div class="event_details">
-                            Event 3 ipsum dolor sit amet consectetur adipisicing elit. Sed at voluptatum inventore commodi, nemo est, corrupti, maxime explicabo libero hic possimus assumenda beatae repudiandae molestiae dolores..Read More
-                        </div>
-                   </div>
-               </div>
-            </slide>
-            <slide>
-               <div class="slide_wrapper">
-                   <div class="event_img">
-                       <v-img src="/images/events/event4.jpg"></v-img>
-                   </div>
-                   <div class="event_details">
-                        <h3 class="event_subject">Event 4 Subject</h3>
-                        <small>30th May, 2022</small>
-                        <div class="event_details">
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed at voluptatum inventore commodi, nemo est, corrupti, maxime explicabo libero hic possimus assumenda beatae repudiandae molestiae dolores..Read More
-                        </div>
-                   </div>
-               </div>
-            </slide>
-            <slide>
-               <div class="slide_wrapper">
-                   <div class="event_img">
-                       <v-img src="/images/events/event5.jpg"></v-img>
-                   </div>
-                   <div class="event_details">
-                        <h3 class="event_subject">Event 5 Subject</h3>
-                        <small>23rd July, 2022</small>
-                        <div class="event_details">
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed at voluptatum inventore commodi, nemo est, corrupti, maxime explicabo libero hic possimus assumenda beatae repudiandae molestiae dolores..Read More
-                        </div>
-                   </div>
-               </div>
-            </slide>
-            <slide>
-               <div class="slide_wrapper">
-                   <div class="event_img">
-                       <v-img src="/images/events/event6.jpeg"></v-img>
-                   </div>
-                   <div class="event_details">
-                        <h3 class="event_subject">Event 6 Subject</h3>
-                        <small>1st August, 2022</small>
-                        <div class="event_details">
-                            Event 6 Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed at voluptatum inventore commodi, nemo est, corrupti, maxime explicabo libero hic possimus assumenda beatae repudiandae molestiae dolores..Read More
+                        <div class="detail">
+                            {{ event.detail | truncate(150) }} <span><router-link :to="{name: 'EventDetail', params:{id:event.id, slug:event.slug}}">Read More</router-link></span>
                         </div>
                    </div>
                </div>
             </slide>
         </carousel>
+        <div class="cta">
+            <v-btn raised elevation="12" x-large dark color="secondary" class="btn-cta justify-center" :to="{name: 'AllEvents'}">All Events</v-btn>
+        </div>
     </section>
 </template>
 
@@ -96,28 +31,53 @@ export default {
     components: {
         Carousel,
         Slide
-    }
+    },
+    data() {
+        return {
+            events: [],
+        }
+    },
+    computed:{
+        api(){
+            return this.$store.getters.api
+        }
+    },
+    methods: {
+        getEvents(){
+            this.isLoading = true
+            axios.get(this.api + '/get_latest_events').then((res) => {
+                this.isLoading = false
+                this.events = res.data
+                // console.log(res.data)
+            })
+        },
+        goToEvent(ev){
+            this.$router.push({name: 'EventDetail', params:{id:ev.id, slug:ev.slug}})
+        }
+    },
+    mounted() {
+        this.getEvents()
+    },
 }
 </script>
 
 <style lang="scss" scoped>
     .latest_events{
         width: 80vw;
-        // height: 6rem;
         margin: 0 auto;
-        margin-top: 15rem;
+        margin-top: 4rem;
 
         h2{
-            margin: 2rem 2.5rem;
+            margin: 2rem 2rem 3.5rem;
             text-align: center;
         }
 
         .slide_wrapper{
             height: 12rem;
             width: 100%;
-            // overflow: hidden;
             display: flex;
             gap: 1.5rem;
+            cursor: pointer;
 
             .event_img{
                 height: 100%;
@@ -132,17 +92,38 @@ export default {
             .event_details{
                 display: flex;
                 flex-direction: column;
-                justify-content: space-between;
+                justify-content: space-around;
+                align-items: center;
+                cursor: pointer;
 
-                h3{
-                    font-size: 1.3rem;
+                .subject{
                     text-align: center;
+                    padding: .5rem;
+                    h3{
+                        font-size: 1rem;
+                        // font-weight: 400;
+                        margin-bottom: -.1rem;
+                    }
                 }
-                small{
-                    text-align: center;
+                .detail{
+                    font-size: .9rem;
+                    a{
+                        color: rgb(2, 0, 94);
+                        text-decoration: none;
+                        transition: all .4s ease;
+
+                        &:hover{
+                            color: rgb(5, 2, 153);
+                        }
+                    }
                 }
-                // align-items:;
             }
+        }
+    }
+
+     @media screen and (max-width: 900px){
+        .latest_events{
+            width: 100vw;
         }
     }
 </style>

@@ -20,6 +20,10 @@
                                         <thead></thead>
                                         <tbody>
                                             <tr>
+                                                <th width="30%">Subscription For: </th>
+                                                <td>{{ sub.property_listing && sub.property_listing.name }}</td>
+                                            </tr>
+                                            <tr>
                                                 <th width="30%">Surname: </th>
                                                 <td>{{ sub.surname }}</td>
                                             </tr>
@@ -92,10 +96,6 @@
                                                 <td>{{ sub.phone }}</td>
                                             </tr>
                                             <tr>
-                                                <th>Next Of Kin Mobile No: </th>
-                                                <td>{{ sub.mobile }}</td>
-                                            </tr>
-                                            <tr>
                                                 <th>Next Of Kin Address: </th>
                                                 <td>{{ sub.kin_address }}</td>
                                             </tr>
@@ -113,15 +113,15 @@
                                             </tr>
                                             <tr>
                                                 <th>Payment Plans: </th>
-                                                <td>{{ sub.pay_plans }} months</td>
+                                                <td>{{ sub.property_listing_plan && sub.property_listing_plan.plan }}NGN</td>
                                             </tr>
                                             <tr>
-                                                <th>Plot Size: </th>
+                                                <th>No of Units/Plots: </th>
                                                 <td>{{ sub.plot_size }}</td>
                                             </tr>
                                             <tr>
                                                 <th>Date Submitted: </th>
-                                                <td>{{ sub.created }}</td>
+                                                <td>{{ sub.created_at | moment('DD/MM/YYYY') }}</td>
                                             </tr>
                                         </tbody>
                                     </table>

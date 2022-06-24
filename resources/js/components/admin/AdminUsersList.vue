@@ -10,7 +10,7 @@
         </v-row>
         <v-row v-if="filterView" justify="center" class="mt-n5" >
             <v-col cols="12">
-                <div class="text-center subtitle-1">Search for staff <strong>{{ q }}</strong> returns {{ filtered.length | pluralize('user') }}</div>
+                <div class="text-center subtitle-1">Search for staff <strong>{{ q }}</strong> returned {{ filtered.length | pluralize('user') }}</div>
             </v-col>
         </v-row>
         <v-row class="mt-2 pr-5" justify="center" >

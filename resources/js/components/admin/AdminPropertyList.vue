@@ -2,7 +2,7 @@
     <v-container>
         <v-row justify="center" >
             <v-col cols="10" md="6">
-                <v-text-field placeholder="Search for Properties" v-model="q" outlined dense append-icon="search" clearable @keypress.enter="filter"></v-text-field>
+                <admin-search model="Property" searchFor="properties"/>
             </v-col>
             <v-col cols="2" md="1" v-if="filterView">
                 <v-btn small text color="red" @click="clear" class="mt-1"><i class="ui uil-clear"></i></v-btn>
@@ -22,23 +22,23 @@
                         <table class="table table-hover table-striped" v-if="properties.length > 0">
                             <thead>
                                 <tr>
-                                    <th>S/N</th>
                                     <th>Id</th>
+                                    <th>Creator</th>
                                     <th>Name</th>
                                     <th>Status</th>
-                                    <th>Approved</th>
+                                    <th>Approval Status</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody class="properties_list">
                                 <template v-if="!filterView">
                                     <tr v-for="(prop, i) in properties" :key="prop.id">
-                                        <td @click="showProp(prop)">{{ i + 1 }}</td>
                                         <td @click="showProp(prop)">{{ prop.id }}</td>
-                                        <td @click="showProp(prop)">{{ prop.name }}</td>
+                                        <td @click="showProp(prop)">{{ prop.user && prop.user.fullname }}</td>
+                                        <td @click="showProp(prop)" class="text-truncate">{{ prop.name }}</td>
                                         <td @click="showProp(prop)">{{ prop.status ? 'Active' : 'Inactive'}} </td>
                                         <td @click="showProp(prop)">{{ prop.is_approved ? 'Approved' : 'Not Approved' }}</td>
-                                        <td><v-btn icon color="admin_a" :to="{name: 'AdminUpdateUser', params:{id: prop.id}}"><i class="uil uil-edit"></i></v-btn> &nbsp; <v-btn icon color="red darken-2" @click="confirmDel(prop.id, i)"><i class="uil uil-trash-alt"></i></v-btn></td>
+                                        <td><v-btn icon color="admin_a" :to="{name: 'AdminPropertyUpdate', params:{id: prop.id}}"><i class="uil uil-edit"></i></v-btn> &nbsp; <v-btn icon color="red darken-2" @click="confirmDel(prop.id, i)"><i class="uil uil-trash-alt"></i></v-btn></td>
                                     </tr>
                                 </template>
                                 <template v-else>
@@ -71,6 +71,22 @@
                 </v-card>
             </v-col>
         </v-row>
+        <v-dialog v-model="confirmDelListingDial" max-width="450">
+            <v-card min-height="120">
+                <v-card-title class="subtitle-1 white--text primary justify-center">Are you sure you want to delete this listing?</v-card-title>
+                <v-card-text class="mt-4 grey_text--text">
+                    Once deleted, this listing cannot be recovered!
+                </v-card-text>
+                <v-card-actions class="pb-8 mt-3 justify-center">
+                    <v-btn text width="40%" color="red darken--2" @click="confirmDelListingDial = false">Cancel</v-btn>
+                    <v-btn dark width="40%" color="primary" :loading="isDeleting" @click="deleteListing">Yes, Delete</v-btn>
+                </v-card-actions>
+            </v-card>
+        </v-dialog>
+        <v-snackbar :value="adminDeletedListing" :timeout="4000" top dark color="green darken-1">
+            A property listing was successfully deleted.
+            <v-btn text color="white--text" @click="adminDeletedListing = false">Close</v-btn>
+        </v-snackbar>
     </v-container>
 </template>
 
@@ -85,6 +101,10 @@ export default {
             filtered: [],
             pagination: {},
             total: null,
+            confirmDelListingDial: false,
+            listingToDelIndex: null,
+            listingToDel: null,
+            isDeleting: false,
         }
     },
      computed:{
@@ -102,11 +122,8 @@ export default {
             }
             return headers
         },
-        adminUpdatedUser(){
-            return this.$store.getters.adminUpdatedUser
-        },
-        adminDeletedUser(){
-            return this.$store.getters.adminDeletedUser
+        adminDeletedListing(){
+            return this.$store.getters.adminDeletedListing
         }
     },
     beforeRouteLeave (to, from, next) {
@@ -136,6 +153,22 @@ export default {
         },
         showProp(prop){
             this.$router.push({name: 'AdminPropertyDetail', params:{id: prop.id}})
+        },
+        confirmDel(prop, index){
+            this.confirmDelListingDial = true
+            this.listingToDel = prop
+            this.listingToDelIndex = index
+        },
+        deleteListing(){
+            this.isDeleting = true
+            // axios.post(this.api + `/auth-admin/del_listing/${this.$route.params.id}`, {}, this.adminHeaders)
+            axios.post(this.api + `/auth-admin/del_listing/${this.listingToDel}`, {}, this.adminHeaders)
+            .then((res) => {
+                this.isDeleting = false
+                this.confirmDelListingDial = false
+                this.properties.splice(this.listingToDelIndex, 1)
+                this.$store.commit('adminDeletedListing')
+            })
         }
     },
     mounted() {

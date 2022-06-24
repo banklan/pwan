@@ -13,7 +13,7 @@
                         <div class="text-center mt-7 mx-5">
                             <v-alert type="info">Kindly upload a passport of yourself. Passport must not have face covered, and on a plain background.</v-alert>
                         </div>
-                        <v-card-text class="mt-5">
+                        <v-card-text class="mt-5 text-center">
                             <template v-if="!prvImg">
                                 <v-btn outlined color="primary lighten--2" class="mb-5" @click="openUpload">Choose Picture</v-btn>
                                 <input type="file" ref="image" style="display:none" @change.prevent="pickImg" accept="image/*">
@@ -36,23 +36,24 @@
                             <div class="mt-3 px-5">
                                 <v-row justify="center">
                                     <v-col cols="12" md="6">
-                                        <v-select label="Type of plot" v-model="client.plot_type" v-validate="'required'" :items="typeOfPlot" item-text="type" item-value="type" required :error-messages="errors.collect('plot_type')" data-vv-as="type of plot" name="plot_type"></v-select>
+                                        <v-select label="Type of plot" v-model="client.plot_type" hint="What are you using the land/property for?" v-validate="'required'" :items="typeOfPlot" item-text="type" item-value="type" required :error-messages="errors.collect('plot_type')" data-vv-as="type of plot" name="plot_type"></v-select>
                                     </v-col>
                                     <v-col cols="12" md="6">
-                                        <v-select label="Payment plans (months)" v-model="client.pay_plans" v-validate="'required'" :items="paymentPlans" item-text="type" item-value="type" required :error-messages="errors.collect('pay_plans')" data-vv-as="payment plans" name="pay_plans"></v-select>
+                                        <!-- <v-select label="Payment Plans (months)" v-model="client.pay_plans" v-validate="'required'" :items="paymentPlans" item-text="type" item-value="type" required :error-messages="errors.collect('pay_plans')" data-vv-as="payment plans" name="pay_plans"></v-select> -->
+                                        <v-select label="Payment Plans (months)" hint="Payment plans you wish to subscribe to" v-model="client.plan" v-validate="'required'" :items="plans" item-text="plan" item-value="id" required :error-messages="errors.collect('plan')" data-vv-as="payment plans" name="plan"></v-select>
                                     </v-col>
-                                    <v-alert type="info">Please note that Commercial plots attract 10%</v-alert>
+                                    <v-alert type="info">
+                                        <p>Please note that Commercial plots attract 10% of land cost.</p>
+                                        <p>Corner plot(s) also attracts 10% of total land cost. </p>
+                                    </v-alert>
                                 </v-row>
                                 <v-row justify="center">
                                     <v-col cols="12" md="6">
                                         <v-text-field label="Number of Plots" type="number" v-model="client.no_plot" v-validate="'required|between:1,20'" required :error-messages="errors.collect('no_plot')" data-vv-as="number of plot(s) plans" name="no_plot"></v-text-field>
                                     </v-col>
-                                    <v-col cols="12" md="6">
+                                    <!-- <v-col cols="12" md="6">
                                         <v-select label="Plot Size" v-model="client.plot_size" :items="plotSizes" item-text="type" item-value="type" required v-validate="'required'" :error-messages="errors.collect('plot_size')" data-vv-as="plot size" name="plot_size"></v-select>
-                                    </v-col>
-                                    <v-alert type="info">
-                                        Please note that corner plot(s) attract 10% of total land cost.
-                                    </v-alert>
+                                    </v-col> -->
                                 </v-row>
                             </div>
                             <v-alert type="warning" class="mt-5">
@@ -93,16 +94,16 @@ export default {
             radioGroup: 1,
             client:{
                 plot_type: '',
-                pay_plans: '',
                 no_plot: null,
-                plot_size: ''
+                plot_size: '',
+                plan: null,
             },
             image: '',
             prvImg: false,
             prvImgUrl: '',
             isBusy: false,
             typeOfPlot: [
-                {id: 1, type: 'Residential'}, {id: 2, type: 'Commercial Plots'}
+                {id: 1, type: 'Residential'}, {id: 2, type: 'Commercial'}
             ],
             paymentPlans: [
                 {id: 1, type: '3'}, {id:2, type: '12'}
@@ -112,7 +113,10 @@ export default {
             ],
             submitFailed: false,
             formError: '',
-            submitSuccess: false
+            submitSuccess: false,
+            property: null,
+            plans: [],
+            gettingProperty: false,
         }
     },
     computed: {
@@ -202,10 +206,22 @@ export default {
         },
         clearStorage(){
             this.$store.commit('resetSubscriptionForm')
+        },
+        getProperty(){
+            this.gettingProperty = true
+            axios.get(this.api + `/get_subscription_listing/${this.form1.property}`)
+            .then((res) => {
+                this.gettingProperty = false
+                this.property = res.data
+                this.plans = res.data.property_listing_plans
+                console.log(this.plans)
+            }).catch((e) => {
+                console.log(e)
+            })
         }
     },
     mounted() {
-        console.log(this.subscrForm)
+        this.getProperty()
     },
 }
 </script>

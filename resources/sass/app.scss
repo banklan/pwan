@@ -56,9 +56,6 @@ body{
             font-size: 1.65rem;
             font-weight: 400;
         }
-        .v-btn{
-            text-align: center;
-        }
 
         @media screen and (max-width:1030px){
             h1{
@@ -105,11 +102,25 @@ body{
                 font-size: 3.0rem !important;
             }
         }
+    }
+    .banner_cta{
+        width: 100%;
+        text-align: center;
+        margin: 0 auto;
         .v-btn{
-            margin-top: -5rem !important;
-            width: 50% !important;
+            margin-bottom: 50px;
         }
     }
+    @media screen and(max-width: 722px){
+        .banner_cta{
+            .v-btn{
+                margin-bottom: 5rem;
+                width: 80% !important;
+            }
+        }
+    }
+
+
 }
 .cont{
     width: 80%;
@@ -201,6 +212,56 @@ body{
             .search_field{
                 width: 90%;
                 padding-right: 3rem;
+            }
+        }
+    }
+}
+
+.briefs{
+    margin: 1rem auto;
+    padding: 2rem 3rem;
+
+    a.v-card{
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        color: #ffffff !important;
+        cursor: pointer;
+        text-decoration: none;
+        transition: all .4s ease;
+
+        .model{
+            padding-top: 2rem;
+            padding-bottom: 2.5rem;
+            font-size: 1.1rem;
+            font-weight: 400;
+        }
+
+        .val{
+            font-size: 5rem;
+            color: #ffffff !important;
+        }
+        &.online_sub{
+            background: linear-gradient(135deg, #630464, #b500b7);
+            &:hover{
+                background: linear-gradient(135deg, #480349, #8e0091);
+            }
+        }
+        &:hover{
+            transform: scale(1.05);
+        }
+        &.events_count{
+            background: linear-gradient(135deg, #ffbc00, #c38700);
+            &:hover{
+                background: linear-gradient(135deg, #c99300, #9e6f02);
+            }
+        }
+        &.news_count{
+            background: linear-gradient(135deg, #047e04, #025000);
+            &:hover{
+                background: linear-gradient(135deg, #036403, #034d01);
+                // box-shadow: 10rem 13rem 23.6rem 25rem rgba(0,0,0,0.15);
             }
         }
     }

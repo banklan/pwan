@@ -24,13 +24,12 @@ class AuthController extends Controller
         $user = auth('api')->user()->id;
         // $service = Service::where('user_id', $user)->first();
 
-        // return response()->json([
-        //     'access_token' => $token,
-        //     'token_type' => 'bearer',
-        //     'user' => $this->guard()->user(),
-        //     'service' => $service,
-        //     'expires_in' => auth()->factory()->getTTL() * 60
-        // ]);
+        return response()->json([
+            'access_token' => $token,
+            'token_type' => 'bearer',
+            'user' => $this->guard()->user(),
+            'expires_in' => auth('api')->factory()->getTTL() * 60
+        ]);
     }
 
     public function guard(){

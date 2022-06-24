@@ -9,7 +9,9 @@ class Subscription extends Model
 {
     protected $guarded = [];
 
-    protected $appends = ['created', 'date_of_bt'];
+    protected $appends = ['date_of_bt', 'client_fullname'];
+
+    protected $with = ['property_listing', 'property_listing_plan'];
 
 
     protected static function boot(){
@@ -19,11 +21,11 @@ class Subscription extends Model
         });
     }
 
-    public function getCreatedAttribute($value)
-    {
-        $date = $this->created_at->format('F jS, Y');
-        return $date;
-    }
+    // public function getCreatedAttribute($value)
+    // {
+    //     $date = $this->created_at->format('F jS, Y');
+    //     return $date;
+    // }
 
     public function setSurnameAttribute($value)
     {
@@ -63,5 +65,19 @@ class Subscription extends Model
         // $bd = date_format($this->dob, 'd/m/y');
         $bd = date('d/m/Y', strtotime($this->dob));
         return $bd;
+    }
+
+    public function property_listing()
+    {
+        return $this->belongsTo('App\PropertyListing');
+    }
+
+    public function property_listing_plan(){
+        return $this->belongsTo('App\PropertyListingPlan');
+    }
+
+    public function getClientFullnameAttribute($value){
+        $fullname = $this->other_names.' '.$this->surname;
+        return $fullname;
     }
 }

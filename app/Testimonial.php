@@ -36,6 +36,21 @@ class Testimonial extends Model
         $this->attributes['detail'] = ucfirst($value);
     }
 
+    public function setFullnameAttribute($value)
+    {
+        $this->attributes['fullname'] = ucfirst($value);
+    }
+
+    public function setOccupationAttribute($value)
+    {
+        $this->attributes['occupation'] = ucfirst($value);
+    }
+
+    public function setOrganizationAttribute($value)
+    {
+        $this->attributes['organization'] = ucfirst($value);
+    }
+
     public function user(){
         return $this->belongsTo('App\User');
     }

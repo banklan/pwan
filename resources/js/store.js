@@ -21,6 +21,21 @@ const subscriptionForm2 = subForm2 ? JSON.parse(subForm2) : null
 const subFm = window.localStorage.getItem('subscrForm')
 const subscrForm = subFm ? JSON.parse(subFm) : null
 
+const auth_user = window.localStorage.getItem('authUser')
+const authUser = auth_user ? JSON.parse(auth_user) : null
+
+const user_loggedin = window.localStorage.getItem('userIsLoggedIn')
+const userIsLoggedIn = user_loggedin ? true : false
+
+const redirect = window.localStorage.getItem('redirOnlogin')
+const redirectOnLogin = redirect ? redirect : null
+
+const new_prop = window.localStorage.getItem('new_prop')
+const newPropListing = new_prop ? JSON.parse(new_prop) : null
+
+const new_evnt = window.localStorage.getItem('newEvent')
+const newEvent = new_evnt ? JSON.parse(new_evnt) : null
+
 
 
 export const store = new Vuex.Store({
@@ -28,7 +43,8 @@ export const store = new Vuex.Store({
         api: 'http://localhost:8000/api',
         adminIsLoggedIn: adminIsLoggedIn,
         authAdmin: authAdmin,
-        userIsLoggedIn: false,
+        userIsLoggedIn: userIsLoggedIn,
+        authUser: authUser,
         adminUpdatedSuperUser: false,
         newAdminCreated: false,
         adminUpdatedUser: false,
@@ -43,7 +59,35 @@ export const store = new Vuex.Store({
         adminUpdatedTestimonial: false,
         adminDeletedNewsPost: false,
         adminUpdatedNewsPost: false,
-        // userIsLoggedIn: false,
+        updatedAdminProfile: false,
+        redirectOnLogin: redirectOnLogin,
+        StaffUpdatedProperty: false,
+        newPropListing: newPropListing,
+        listingFilesUploaded: false,
+        listingDeleted: false,
+        adminDeletedListing: false,
+        listingPlanCreated: false,
+        listingPlanUpdated: false,
+        eventDeleted: false,
+        eventUpdated: false,
+        newsPostDeleted: false,
+        updateNewsNotAllowed: false,
+        newsPostUpdated: false,
+        canUpdateNewsPost: false,
+        checkAuthor: null,
+        cannotUpdatePost: false,
+        newPostCreated: false,
+        testimonialSent: false,
+        newEvent: newEvent,
+        eventCreated: false,
+        updatedUserProfile: false,
+        adminUpdatedListingPlan: false,
+        passwordReset: false,
+        adminDeleteEnquiry: false,
+        newOfferCreated: false,
+        newOfferUpdated: false,
+        newOfferDeleted: false,
+        adminDeletedNewOffer: false,
     },
     getters: {
         api(state)
@@ -111,6 +155,127 @@ export const store = new Vuex.Store({
         {
             return state.adminUpdatedNewsPost
         },
+        updatedAdminProfile(state)
+        {
+            return state.updatedAdminProfile
+        },
+        authUser(state)
+        {
+            return state.authUser
+        },
+        userIsLoggedIn(state){
+            return state.userIsLoggedIn
+        },
+        redirectOnLogin(state){
+            return state.redirectOnLogin
+        },
+        StaffUpdatedProperty(state)
+        {
+            return state.StaffUpdatedProperty
+        },
+        newPropListing(state)
+        {
+            return state.newPropListing
+        },
+        listingFilesUploaded(state)
+        {
+            return state.listingFilesUploaded
+        },
+        listingDeleted(state)
+        {
+            return state.listingDeleted
+        },
+        adminDeletedListing(state)
+        {
+            return state.adminDeletedListing
+        },
+        listingPlanCreated(state)
+        {
+            return state.listingPlanCreated
+        },
+        listingPlanUpdated(state)
+        {
+            return state.listingPlanUpdated
+        },
+        eventDeleted(state)
+        {
+            return state.eventDeleted
+        },
+        eventUpdated(state)
+        {
+            return state.eventUpdated
+        },
+        newsPostDeleted(state)
+        {
+            return state.newsPostDeleted
+        },
+        updateNewsNotAllowed(state)
+        {
+            return state.updateNewsNotAllowed
+        },
+        newsPostUpdated(state)
+        {
+            return state.newsPostUpdated
+        },
+        canUpdateNewsPost(state)
+        {
+            return state.canUpdateNewsPost
+        },
+        checkAuthor(state){
+            return state.checkAuthor
+        },
+        cannotUpdatePost(state)
+        {
+            return state.cannotUpdatePost
+        },
+        newPostCreated(state)
+        {
+            return state.newPostCreated
+        },
+        testimonialSent(state)
+        {
+            return state.testimonialSent
+        },
+        newEvent(state)
+        {
+            return state.newEvent
+        },
+        eventCreated(state)
+        {
+            return state.eventCreated
+        },
+        updatedUserProfile(state)
+        {
+            return state.updatedUserProfile
+        },
+        adminUpdatedListingPlan(state)
+        {
+            return state.adminUpdatedListingPlan
+        },
+        passwordReset(state)
+        {
+            return state.passwordReset
+        },
+        adminDeleteEnquiry(state)
+        {
+            return state.adminDeleteEnquiry
+        },
+        newOfferCreated(state)
+        {
+            return state.newOfferCreated
+        },
+        newOfferUpdated(state)
+        {
+            return state.newOfferUpdated
+        },
+        newOfferDeleted(state)
+        {
+            return state.newOfferDeleted
+        },
+        adminDeletedNewOffer(state)
+        {
+            return state.adminDeletedNewOffer
+        },
     },
     actions: {
 
@@ -130,15 +295,6 @@ export const store = new Vuex.Store({
             state.adminIsLoggedIn = false
             state.authAdmin = null
         },
-        logOutAuthUser(state)
-        {
-            localStorage.removeItem('authUser')
-            localStorage.removeItem('userIsLoggedIn')
-            localStorage.removeItem('authService')
-            localStorage.removeItem('authUserService')
-            state.userIsLoggedIn = false
-            state.authUser = null
-        },
         resetAdminFlashMsg(state)
         {
             state.newAdminCreated = false;
@@ -150,6 +306,12 @@ export const store = new Vuex.Store({
             state.adminDeletedTestimonial = false
             state.adminUpdatedTestimonial = false
             state.adminDeletedNewsPost = false
+            state.adminUpdatedNewsPost = false
+            state.AdminUpdatedProperty = false
+            state.adminDeletedListing = false
+            state.adminUpdatedListingPlan = false
+            state.adminDeleteEnquiry = false
+            state.adminDeletedNewOffer = false
         },
         adminUpdatedSuperUser(state)
         {
@@ -218,6 +380,184 @@ export const store = new Vuex.Store({
         },
         adminUpdatedNewsPost(state){
             state.adminUpdatedNewsPost = true
-        }
+        },
+        updatedAdminProfile(state, payload){
+            state.authAdmin.first_name = payload.first_name
+            state.authAdmin.last_name = payload.last_name
+            state.authAdmin.phone = payload.phone
+            state.authAdmin.picture = payload.picture
+            state.authAdmin.updated_at = payload.updated_at
+            state.authAdmin.fullname = payload.first_name + ' '+ payload.last_name
+            window.localStorage.setItem('authAdmin', JSON.stringify(state.authAdmin))
+            state.updatedAdminProfile = true
+        },
+        redirectOnLogin(state, payload)
+        {
+            window.localStorage.setItem('redirOnLogin', payload)
+            state.redirectOnLogin = payload
+        },
+        userLoginSuccess(state, payload)
+        {
+            localStorage.removeItem('authAdmin')
+            localStorage.removeItem('adminIsLoggedIn')
+            state.adminIsLoggedIn = false
+            state.authadmin = null
+            state.userIsLoggedIn = true
+            state.authUser = Object.assign({}, payload.user, {token: payload.access_token})
+            window.localStorage.setItem('authUser', JSON.stringify(state.authUser))
+            window.localStorage.setItem('userIsLoggedIn', true)
+        },
+        logOutAuthUser(state)
+        {
+            localStorage.removeItem('authUser')
+            localStorage.removeItem('userIsLoggedIn')
+            state.userIsLoggedIn = false
+            state.authUser = null
+        },
+        StaffUpdatedProperty(state)
+        {
+            state.StaffUpdatedProperty = true
+        },
+        resetStaffFlashMsg(state)
+        {
+            state.StaffUpdatedProperty = false
+            state.listingCreated = false
+            state.listingDeleted = false
+            state.listingFilesUploaded = false
+            state.listingPlanCreated = false
+            state.listingPlanUpdated = false
+            state.eventDeleted = false
+            state.eventUpdated = false
+            state.newsPostDeleted = false
+            state.cannotUpdatePost = false
+            state.newPostCreated = false
+            state.newsPostUpdated = false
+            state.testimonialSent = false
+            state.eventCreated = false
+            state.newOfferCreated = false
+            state.newOfferUpdated = false
+            state.newOfferDeleted = false
+        },
+        CreatePropListing(state, payload)
+        {
+            window.localStorage.setItem('new_prop', JSON.stringify(payload))
+            state.newPropListing = payload
+        },
+        listingFilesUploaded(state)
+        {
+            state.listingFilesUploaded = true
+        },
+        newListingCleared(state)
+        {
+            window.localStorage.removeItem('new_prop')
+            state.newPropListing = null
+        },
+        listingDeleted(state)
+        {
+            state.listingDeleted = true
+        },
+        adminDeletedListing(state)
+        {
+            state.adminDeletedListing = true
+        },
+        listingPlanCreated(state)
+        {
+            state.listingPlanCreated = true
+        },
+        listingPlanUpdated(state)
+        {
+            state.listingPlanUpdated = true
+        },
+        eventDeleted(state){
+            state.eventDeleted = true
+        },
+        eventUpdated(state)
+        {
+            state.eventUpdated = true
+        },
+        newsPostDeleted(state)
+        {
+            state.newsPostDeleted = true
+        },
+        updateNewsNotAllowed(state)
+        {
+            state.updateNewsNotAllowed = true
+        },
+        newsPostUpdated(state)
+        {
+            state.newsPostUpdated = true
+        },
+        canUpdateNewsPost(state, payload){
+            if(payload == state.authUser.id){
+                state.canUpdateNewsPost = true
+            }else{
+                state.canUpdateNewsPost = false
+            }
+            // console.log(state.canUpdateNewsPost)
+        },
+        checkAuthor(state, payload)
+        {
+            state.checkAuthor = payload
+        },
+        cannotUpdatePost(state){
+            state.cannotUpdatePost = true
+        },
+        newPostCreated(state)
+        {
+            state.newPostCreated = true
+        },
+        testimonialSent(state)
+        {
+            state.testimonialSent = true
+        },
+        storeCreatedEvent(state, payload)
+        {
+            localStorage.setItem('newEvent', JSON.stringify(payload))
+            state.newEvent = payload
+        },
+        eventCreated(state)
+        {
+            localStorage.removeItem('newEvent')
+            state.newEvent = null
+            state.eventCreated = true
+        },
+        updatedUserProfile(state, payload){
+            state.authUser.first_name = payload.first_name
+            state.authUser.last_name = payload.last_name
+            state.authUser.phone = payload.phone
+            state.authUser.picture = payload.picture
+            state.authUser.updated_at = payload.updated_at
+            state.authUser.fullname = payload.first_name + ' '+ payload.last_name
+            window.localStorage.setItem('authUser', JSON.stringify(state.authUser))
+            state.updatedUserProfile = true
+        },
+        adminUpdatedListingPlan(state)
+        {
+            state.adminUpdatedListingPlan = true
+        },
+        passwordReset(state)
+        {
+            state.passwordReset = true
+        },
+        adminDeleteEnquiry(state)
+        {
+            state.adminDeleteEnquiry = true
+        },
+        newOfferCreated(state)
+        {
+            state.newOfferCreated = true
+        },
+        newOfferUpdated(state)
+        {
+            state.newOfferUpdated = true
+        },
+        newOfferDeleted(state)
+        {
+            state.newOfferDeleted = true
+        },
+        adminDeletedNewOffer(state)
+        {
+            state.adminDeletedNewOffer = true
+        },
     }
 })
