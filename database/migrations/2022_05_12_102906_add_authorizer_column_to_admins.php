@@ -14,7 +14,7 @@ class AddAuthorizerColumnToAdmins extends Migration
     public function up()
     {
         Schema::table('admins', function (Blueprint $table) {
-            $table->bigInteger('created_by')->after('status')->nullable();
+            $table->bigInteger('created_by')->after('status')->nullable()->unsigned();
 
             $table->foreign('created_by')->references('id')->on('admins');
         });

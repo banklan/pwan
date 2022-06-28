@@ -14,8 +14,8 @@ class AddPlanToSubscriptions extends Migration
     public function up()
     {
         Schema::table('subscriptions', function (Blueprint $table) {
-            $table->bigInteger('property_listing_id')->after('plot_type');
-            $table->integer('property_listing_plan_id')->after('property_listing_id');
+            $table->bigInteger('property_listing_id')->after('plot_type')->unsigned();
+            $table->integer('property_listing_plan_id')->after('property_listing_id')->unsigned();
 
             $table->foreign('property_listing_id')->references('id')->on('property_listings');
             $table->foreign('property_listing_plan_id')->references('id')->on('property_listing_plans');

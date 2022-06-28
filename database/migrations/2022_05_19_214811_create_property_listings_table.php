@@ -24,8 +24,8 @@ class CreatePropertyListingsTable extends Migration
             $table->boolean('is_approved')->default(false);
             $table->boolean('is_featured')->default(false);
             $table->string('def_img')->nullable();
-            $table->bigInteger('user_id');
-            $table->bigInteger('admin_id');
+            $table->bigInteger('user_id')->unsigned();
+            $table->bigInteger('admin_id')->unsigned();
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users');

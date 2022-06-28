@@ -100,7 +100,7 @@ class Admin extends Authenticatable implements JWTSubject
         return $this->belongsTo('App\Admin');
     }
 
-    public function authorizee(){
+    public function user(){
         return $this->hasmany('App\User');
     }
 

@@ -15,7 +15,7 @@ class CreateEventFilesTable extends Migration
     {
         Schema::create('event_files', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('event_id');
+            $table->bigInteger('event_id')->unsigned();
             $table->string('file');
             $table->timestamps();
 

@@ -15,7 +15,7 @@ class CreateAdminsEmailVerificationTable extends Migration
     {
         Schema::create('admins_email_verifications', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('admin_id')->unsigned();
+            $table->bigInteger('admin_id')->unsigned();
             $table->string('token');
             $table->boolean('is_verified')->default(false);
 

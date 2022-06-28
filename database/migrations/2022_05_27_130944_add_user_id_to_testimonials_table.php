@@ -14,7 +14,7 @@ class AddUserIdToTestimonialsTable extends Migration
     public function up()
     {
         Schema::table('testimonials', function (Blueprint $table) {
-            $table->bigInteger('user_id')->after('id');
+            $table->bigInteger('user_id')->after('id')->unsigned();
 
             $table->foreign('user_id')->references('id')->on('users');
         });

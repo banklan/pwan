@@ -15,7 +15,7 @@ class CreatePropertyListingsPlans extends Migration
     {
         Schema::create('property_listing_plans', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('property_listing_id');
+            $table->bigInteger('property_listing_id')->unsigned();
             $table->string('unit')->nullable();
             $table->string('name');
             $table->bigInteger('price')->unsigned();

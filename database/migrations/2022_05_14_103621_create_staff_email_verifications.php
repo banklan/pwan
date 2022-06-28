@@ -15,7 +15,7 @@ class CreateStaffEmailVerifications extends Migration
     {
         Schema::create('staff_email_verifications', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('user_id')->unsigned();
+            $table->bigInteger('user_id')->unsigned();
             $table->string('token');
             $table->boolean('is_verified')->default(false);
 

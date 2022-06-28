@@ -14,7 +14,7 @@ class AddAuthorizerColumnToUsers extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->bigInteger('authorized_by')->after('email')->nullable();
+            $table->bigInteger('authorized_by')->after('email')->unsigned()->nullable();
 
             $table->foreign('authorized_by')->references('id')->on('admins');
         });

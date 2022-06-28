@@ -14,7 +14,7 @@ class AddIsVerifiedAndauthorizedByToAdmins extends Migration
     public function up()
     {
         Schema::table('admins', function (Blueprint $table) {
-            $table->bigInteger('authorized_by')->after('created_by')->nullable();
+            $table->bigInteger('authorized_by')->after('created_by')->unsigned()->nullable();
             $table->boolean('is_verified')->after('authorized_by')->default(false);
 
             $table->foreign('authorized_by')->references('id')->on('admins');
