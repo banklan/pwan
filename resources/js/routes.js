@@ -499,6 +499,6 @@ export default [
     { path: '/listings', name: 'AllListings', component: AllListings},
     { path: '/listing/:id/:slug', name: 'PropertyListingDetail', component: PropertyListingDetail},
     { path: '/test', name: 'TestPage', component: TestPage},
-    { path: '/terms-conditions', name: 'TestPage', component: TermsAndConditions},
+    { path: '/terms-conditions', name: 'TermsAndConditions', component: TermsAndConditions},
     { path: '/chart', name: 'Chart', component: Chart},
 ]

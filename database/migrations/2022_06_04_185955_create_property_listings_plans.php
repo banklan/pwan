@@ -21,7 +21,7 @@ class CreatePropertyListingsPlans extends Migration
             $table->bigInteger('price')->unsigned();
             $table->timestamps();
 
-            $table->foreign('property_listing_id')->references('id')->on('property_listing');
+            $table->foreign('property_listing_id')->references('id')->on('property_listings');
         });
     }
 
