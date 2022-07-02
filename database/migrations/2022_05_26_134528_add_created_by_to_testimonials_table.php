@@ -14,9 +14,9 @@ class AddCreatedByToTestimonialsTable extends Migration
     public function up()
     {
         Schema::table('testimonials', function (Blueprint $table) {
-            $table->bigInteger('staff_id')->unsigned()->after('id');
+            // $table->bigInteger('staff_id')->unsigned()->after('id');
 
-            $table->foreign('staff_id')->references('id')->on('users');
+            // $table->foreign('staff_id')->references('id')->on('users');
         });
     }
 

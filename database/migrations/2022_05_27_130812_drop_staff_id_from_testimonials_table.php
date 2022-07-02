@@ -14,7 +14,7 @@ class DropStaffIdFromTestimonialsTable extends Migration
     public function up()
     {
         Schema::table('testimonials', function (Blueprint $table) {
-            $table->dropColumn('staff_id');
+            // $table->dropColumn('staff_id');
         });
     }
 
