@@ -11,9 +11,5 @@
 |
 */
 
-// Route::get('/download', function () {
-//     return view('pdf.test');
-// });
-
 Route::get('/download-subscription-form/{id}', 'SubscriptionController@downloadForm');
 Route::get('/{any}', 'HomeController@index')->where('any', '.*');
