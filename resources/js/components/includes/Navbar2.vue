@@ -1,7 +1,6 @@
 <template>
     <nav>
         <v-app-bar flat dark class="primary white--text">
-        <!-- <v-app-bar flat dark class="transparent" :class="$route.path == '/' ? 'white--text' : 'primary--text'"> -->
             <span class="hidden-md-and-up">
                 <v-app-bar-nav-icon class="white--text hidden-md-and-up" @click="navDrawer = true"></v-app-bar-nav-icon>
             </span>
