@@ -13,6 +13,10 @@ use Illuminate\Http\Request;
 |
 */
 
+///// to sove cors blocking issues
+header('Access-Control-Allow-Origin: *');
+header( 'Access-Control-Allow-Headers: Authorization, Content-Type' );
+
 // Route::middleware('auth:api')->get('/user', function (Request $request) {
 //     return $request->user();
 // });

@@ -169,7 +169,7 @@ return [
         Intervention\Image\ImageServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
         Barryvdh\Snappy\ServiceProvider::class,
-        Barryvdh\Cors\ServiceProvider::class,
+        // Barryvdh\Cors\ServiceProvider::class,
 
         /*
          * Application Service Providers...
