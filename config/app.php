@@ -170,6 +170,7 @@ return [
         Maatwebsite\Excel\ExcelServiceProvider::class,
         Barryvdh\Snappy\ServiceProvider::class,
         // Barryvdh\Cors\ServiceProvider::class,
+        Fruitcake\Cors\CorsServiceProvider::class,
 
         /*
          * Application Service Providers...
