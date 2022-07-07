@@ -244,8 +244,7 @@
 
                 .director{
                     .dir_img{
-                        height: 18rem;
-                        // aspect-ratio: 1/1;
+                        height: 20rem;
                     }
                 }
             }
@@ -262,7 +261,7 @@
 
                 .director{
                     .dir_img{
-                        height: 20rem;
+                        height: 21rem;
                     }
                 }
             }

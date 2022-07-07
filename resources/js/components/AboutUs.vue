@@ -110,10 +110,10 @@ export default {
         .about{
             .abt_title{
                 text-align: center;
-                font-size: 1.2rem;
+                font-size: 1.4rem;
                 font-weight: 400;
                 color: #2c2c2c;
-                margin: 1rem 1rem 1.5rem;
+                margin: .5rem 1rem 1.5rem;
             }
             .about_body{
                 font-size: 1rem;
@@ -142,10 +142,10 @@ export default {
 
             .team_title{
                 text-align: center;
-                font-size: 1.2rem;
+                font-size: 1.4rem;
                 font-weight: 400;
                 color: #2c2c2c;
-                margin: 1rem 1rem 2rem;;
+                margin: .5rem 1rem 2rem;;
             }
 
             .team_wrap{
@@ -188,7 +188,7 @@ export default {
                             .name{
                                 font-size: 1rem;
                                 font-weight: 400;
-                                margin: 1rem auto 0;
+                                margin: .5rem auto 0;
                                 color: #4e4e4e;
                             }
 
@@ -291,6 +291,11 @@ export default {
                 width: 90%;
                 .team_wrap{
                     grid-template-columns: 1fr;
+                    .hor_team{
+                        .img{
+                            height: 23rem;
+                        }
+                    }
                 }
             }
          }

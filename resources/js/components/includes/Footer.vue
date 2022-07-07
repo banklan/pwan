@@ -157,6 +157,12 @@
                             justify-content: center;
                         }
                     }
+                    a{
+                        font-size: 1rem;
+                    }
+                    h3{
+                        font-size: 1.1rem;
+                    }
                 }
             }
         }
