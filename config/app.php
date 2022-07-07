@@ -169,6 +169,7 @@ return [
         Intervention\Image\ImageServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
         Barryvdh\Snappy\ServiceProvider::class,
+        Fruitcake\Cors\CorsServiceProvider::class,
 
         /*
          * Application Service Providers...

@@ -6,12 +6,19 @@
         <v-row justify="start" class="mt-3">
             <v-progress-circular indeterminate color="primary" :width="3" :size="30" v-if="isLoading" justify="center" class="mx-auto"></v-progress-circular>
             <template v-else>
-                <v-col cols="12" md="4" v-for="prop in listings" :key="prop.id">
-                    <listing-card :listing="prop"/>
-                </v-col>
+                <template v-if="listings.length > 0">
+                    <v-col cols="12" md="4" v-for="prop in listings" :key="prop.id">
+                        <listing-card :listing="prop"/>
+                    </v-col>
+                </template>
+                <template v-else>
+                    <v-alert type="info" class="mt-5">
+                        There are no listings to be displayed at the moment.
+                    </v-alert>
+                </template>
             </template>
         </v-row>
-        <v-row>
+        <v-row v-if="listings.length > 0">
             <v-col cols="12">
                 <div class="pagination">
                     <span class="pl-4">

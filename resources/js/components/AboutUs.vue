@@ -111,9 +111,9 @@ export default {
             .abt_title{
                 text-align: center;
                 font-size: 1.4rem;
-                font-weight: 400;
+                font-weight: 500;
                 color: #2c2c2c;
-                margin: .5rem 1rem 1.5rem;
+                margin: .5rem 1rem 1rem;
             }
             .about_body{
                 font-size: 1rem;
@@ -293,7 +293,7 @@ export default {
                     grid-template-columns: 1fr;
                     .hor_team{
                         .img{
-                            height: 23rem;
+                            height: 24rem;
                         }
                     }
                 }
