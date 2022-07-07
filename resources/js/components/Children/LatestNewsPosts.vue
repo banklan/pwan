@@ -16,9 +16,9 @@
                         </template>
                     </div>
                     <div class="news_details">
-                        <p class="tit">{{ post.title | truncate(60)}} </p>
+                        <p class="tit">{{ post.title | truncate(45)}} </p>
                         <small>Published {{ post.created_at | moment('Do, MMM YYYY') }}</small>
-                        <p class="body">{{ post.detail | truncate(100) }}</p>
+                        <p class="body">{{ post.detail | truncate(80) }}</p>
                     </div>
                 </div>
             </article>
@@ -95,7 +95,7 @@ export default {
                 cursor: default;
                 height: 10rem;
                 overflow: hidden;
-            border: 1px solid #e1e1e1;
+                border: 1px solid #e1e1e1;
                 .news{
                     display: flex;
                     align-items: center;

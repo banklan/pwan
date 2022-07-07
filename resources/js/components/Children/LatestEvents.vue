@@ -13,7 +13,7 @@
                             <small>{{ event.event_date | moment('Do MMM, YYYY')}}</small>
                         </div>
                         <div class="detail">
-                            {{ event.detail | truncate(150) }} <span><router-link :to="{name: 'EventDetail', params:{id:event.id, slug:event.slug}}">Read More</router-link></span>
+                            {{ event.detail | truncate(100) }} <span><router-link :to="{name: 'EventDetail', params:{id:event.id, slug:event.slug}}">Read More</router-link></span>
                         </div>
                    </div>
                </div>
@@ -48,7 +48,6 @@ export default {
             axios.get(this.api + '/get_latest_events').then((res) => {
                 this.isLoading = false
                 this.events = res.data
-                // console.log(res.data)
             })
         },
         goToEvent(ev){

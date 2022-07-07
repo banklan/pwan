@@ -84,7 +84,7 @@ export default {
         return{
             menus: [
                 {title: 'Home', path: '/'},
-                {title: 'Our Service', path: '/our-services'},
+                {title: 'Listing', path: '/listings'},
                 {title: "About Us", path: "/about-us"},
                 {title: "Events", path: "/events"},
                 {title: "Login", path: "/login"},

@@ -262,7 +262,7 @@
 
                 .director{
                     .dir_img{
-                        height: 26rem;
+                        height: 20rem;
                     }
                 }
             }

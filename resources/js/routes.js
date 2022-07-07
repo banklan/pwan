@@ -1,6 +1,5 @@
 import NotFound from './components/NotFound';
 import Welcome from './components/Welcome';
-import OurServices from './components/OurServices';
 import AboutUs from './components/AboutUs';
 import ContactUs from './components/ContactUs';
 import News from './components/News';
@@ -96,7 +95,6 @@ import TermsAndConditions from './components/TermsAndConditions'
 export default [
     {path: '*', name: 'NotFound', component: NotFound},
     { path: '/', name: 'Welcome', component: Welcome },
-    { path: '/our-services', name: 'OurServices', component: OurServices },
     { path: '/about-us', name: 'AboutUs', component: AboutUs },
     { path: '/contact-us', name: 'ContactUs', component: ContactUs },
     { path: '/login', name: 'StaffLogin', component: StaffLogin },

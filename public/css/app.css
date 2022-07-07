@@ -10983,38 +10983,27 @@ body {
 
 @media screen and (max-width: 1030px) {
   .welcome_banner .banner_caption h1 {
-    font-size: 2.5rem;
+    font-size: 3.2rem;
   }
 
-  .welcome_banner .banner_caption h3 {
-    font-size: 1.6rem;
+  .welcome_banner .banner_caption p {
+    margin-top: 2rem;
+    font-size: 1.4rem;
   }
-}
-
-.welcome_banner .banner_caption h3 {
-  font-size: 2rem;
-  font-weight: 300;
 }
 
 @media screen and (max-width: 900px) {
   .welcome_banner .banner_caption {
-    margin: 6rem 2rem 2rem 2rem !important;
+    margin: 12rem 1rem 2rem 1rem !important;
     padding-bottom: 3rem;
   }
 
   .welcome_banner .banner_caption h1 {
-    font-size: 2.2rem;
-    margin-bottom: 1rem;
+    font-size: 2.8rem;
   }
 
-  .welcome_banner .banner_caption h3 {
-    font-size: 1.6rem;
-  }
-}
-
-@media screen and (max-width: 722px) {
-  .welcome_banner .banner_caption {
-    height: 19rem;
+  .welcome_banner .banner_caption p {
+    font-size: 1.3rem;
   }
 }
 
@@ -11024,7 +11013,11 @@ body {
   }
 
   .welcome_banner .banner_caption h1 {
-    font-size: 3rem !important;
+    font-size: 2.5rem !important;
+  }
+
+  .welcome_banner .banner_caption h3 {
+    font-size: 1.2rem;
   }
 }
 

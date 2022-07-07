@@ -7,7 +7,7 @@
                     <v-card-title class="justify-center">
                         <fas icon="space-shuttle" size="5x" color="#fff" id="space-shuttle"></fas>
                     </v-card-title>
-                    <v-card-text class="title px-8 white--text">
+                    <v-card-text class="title px-5 white--text">
                         To discover affordable land in fast developing areas and make these known to you and also show how you can make money to buy land and build your own home.
                     </v-card-text>
                 </v-card>
@@ -18,7 +18,7 @@
                     <v-card-title class="justify-center">
                         <fas icon="binoculars" size="5x" color="#fff" id="space-shuttle"></fas>
                     </v-card-title>
-                    <v-card-text class="title mt-10 px-8 white--text">
+                    <v-card-text class="title mt-10 px-5 white--text">
                         To make home ownership dream a reality for all in Nigeria, Africa and beyond.
                     </v-card-text>
                 </v-card>
@@ -33,7 +33,6 @@ export default {
         divIntoView(){
             let docViewTop = window.screenTop
             let docViewBtm = docViewTop + window.height
-            // console.log(docViewBtm)
         }
     },
     mounted(){

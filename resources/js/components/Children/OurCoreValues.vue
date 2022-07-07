@@ -46,4 +46,10 @@
         line-height: 1.8;
         color: rgb(48, 48, 48);
     }
+
+    @media screen and (max-width: 722px) {
+        .v-card{
+            height: 380px;
+        }
+    }
 </style>
