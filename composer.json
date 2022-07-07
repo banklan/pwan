@@ -18,7 +18,9 @@
         "laravel/tinker": "^1.0",
         "maatwebsite/excel": "^3.0",
         "spatie/laravel-cors": "^1.7",
-        "tymon/jwt-auth": "1.0"
+        "tymon/jwt-auth": "1.0",
+        "asm89/stack-cors": "dev-master as 0.2.2",
+        "barryvdh/laravel-cors": "^0.7.3"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",
