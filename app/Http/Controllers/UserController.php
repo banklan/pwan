@@ -665,11 +665,11 @@ class UserController extends Controller
     public function getNewOffer($id){
         $offer = NewOffer::findOrFail($id);
 
-        $flier = $offer->flier;
-        $filePath = 'offers/' . $flier;
-        $flierUrl = Storage::disk('s3')->url($filePath);
+        // $flier = $offer->flier;
+        // $filePath = 'offers/' . $flier;
+        // $flierUrl = Storage::disk('s3')->url($filePath);
 
-        return response()->json($offer, $flierUrl, 200);
+        return response()->json($offer, 200);
     }
 
     public function deleteOfferFile(request $request, $id){

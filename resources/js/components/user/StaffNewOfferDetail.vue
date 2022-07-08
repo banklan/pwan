@@ -84,8 +84,8 @@ export default {
             .then((res) => {
                 this.isLoading = false
                 this.offer = res.data
-                console.log(res.data)
-                // this.getFlierFromS3()
+                // console.log(res.data)
+                this.getFlierFromS3()
             })
         },
         getFlierFromS3(){
