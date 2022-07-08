@@ -9,10 +9,6 @@ Click on the link below to login.
 Login
 @endcomponent
 
-<!-- @component('mail::button', ['url' => $url.'/login'])
-Verify Your Email
-@endcomponent -->
-
 Thanks,<br>
 {{ config('app.name') }}
 @endcomponent

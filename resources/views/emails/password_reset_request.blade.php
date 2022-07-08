@@ -7,7 +7,7 @@ If you did not make this request, just ignore this email.
 If the request was made by you, Kindly click the link below.
 
 
-@component('mail::button', ['url' => 'http://localhost:8000/password-reset?token='.$req->token])
+@component('mail::button', ['url' => 'https://www.pwan-platinum.com.ng/password-reset?token='.$req->token])
 Reset Link
 @endcomponent
 

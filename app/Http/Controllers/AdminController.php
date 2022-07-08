@@ -167,7 +167,7 @@ class AdminController extends Controller
             $conf->fresh();
             $email = $request->user['email'];
             // send welcome email
-            $url = 'http://localhost:8000';
+            $url = 'https://www.pwan-platinum.com.ng';
             Mail::to($email)->send(new VerifyNewAdminEmail($user, $conf, $url));
         // }
 
@@ -250,7 +250,7 @@ class AdminController extends Controller
             $user->status = true
         ]);
         //send mails to all new user
-        $url = 'http://localhost:8000/login';
+        $url = 'https://www.pwan-platinum.com.ng/login';
         Mail::to($user->email)->send(new UserAccountAuthorized($user, $url));
 
         return response()->json($user, 200);

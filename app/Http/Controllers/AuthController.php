@@ -99,16 +99,12 @@ class AuthController extends Controller
             'user.password_confirmation' => 'required'
         ]);
 
-        // $staff_id = bin2hex(random_bytes(4));
-        // $pool = '0123456789ABCDEFGHIJKLMNPQRSTUVWXYZ';
-        // $staff_id = substr(str_shuffle($pool), 0, 6);
         $brand = 'PWANPT020';
         $user = new User;
         $user->first_name = $request->user['first_name'];
         $user->last_name = $request->user['last_name'];
         $user->email = $request->user['email'];
         $user->phone = $request->user['phone'];
-        // $user->user_id = $staff_id;
         $user->status = 0;
         $user->password = Hash::make($request->user['password']);
         $user->save();
@@ -126,7 +122,7 @@ class AuthController extends Controller
         $conf->fresh();
 
         // send email to staff
-        $url = 'http://localhost:8000';
+        $url = 'https://www.pwan-platinum.com.ng';
         Mail::to($user->email)->send(new StaffEmailVerificationMail($user, $conf, $url));
 
         return response()->json($user, 200);
