@@ -1120,4 +1120,9 @@ class AdminController extends Controller
 
         return response()->json($enquiries, 200);
     }
+
+    // public function getOfferFlierFromS3($id){
+    //     $offer = NewOffer::findOrFail($id);
+    //     $flier = $offer->flier;
+    // }
 }

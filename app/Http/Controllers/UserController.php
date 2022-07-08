@@ -665,7 +665,11 @@ class UserController extends Controller
     public function getNewOffer($id){
         $offer = NewOffer::findOrFail($id);
 
-        return response()->json($offer, 201);
+        $flier = $offer->flier;
+        $filePath = 'offers/' . $flier;
+        $flierUrl = Storage::disk('s3')->url($filePath);
+
+        return response()->json($offer, $flierUrl, 200);
     }
 
     public function deleteOfferFile(request $request, $id){
@@ -673,10 +677,14 @@ class UserController extends Controller
         $file = $offer->flier;
 
         if($file){
-            $filePath = public_path('/images/offers/'.$file);
-            if(file_exists($filePath)){
-                unlink($filePath);
+            // $filePath = public_path('/images/offers/'.$file);
+            $filepath = '/offers/' . $file;
+            if(file_exists($filepath)){
+                Storage::disk('s3')->delete($filepath);
             }
+            // if(file_exists($filePath)){
+            //     unlink($filePath);
+            // }
         }
 
         $offer->update([
@@ -742,5 +750,13 @@ class UserController extends Controller
         $offer->delete();
 
         return response()->json(['message' => 'New Offer deleted!'], 201);
+    }
+
+    public function getNewOfferFlierFromS3($id){
+        $offer = NewOffer::findOrFail($id);
+        $flier = $offer->flier;
+        $filePath = 'offers/' . $flier;
+        $flierUrl = Storage::disk('s3')->url($filePath);
+        return response()->json($flierUrl, 201);
     }
 }

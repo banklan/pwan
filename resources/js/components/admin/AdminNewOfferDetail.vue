@@ -11,6 +11,7 @@
                 <v-card v-else elevation="4" raised min-height="200" class="mx-auto">
                     <template v-if="offer">
                         <v-img :src="`/images/offers/${offer.flier}`" :alt="offer.title"></v-img>
+                        <!-- <v-img :src="offerFlier" :alt="offer.title"></v-img> -->
                         <v-card-text>
                             <div class="tit">
                                 <table class="table">
@@ -99,6 +100,7 @@ export default {
             confirmApprovalDial: false,
             approvalChanged: false,
             featureChanged: false,
+            offerFlier: ''
         }
     },
     beforeRouteLeave (to, from, next) {
@@ -128,6 +130,13 @@ export default {
             .then((res) => {
                 this.isLoading = false
                 this.offer = res.data
+                // this.getFlierFromS3()
+            })
+        },
+        getFlierFromS3(){
+            axios.get(this.api + `/auth-admin/get_new_offer_flier/${this.$route.params.id}`, this.adminHeaders)
+            .then((res) => {
+                this.offerFlier = res.data
             })
         },
         delNewOffer(){

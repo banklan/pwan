@@ -103,6 +103,7 @@ Route::group(['middleware' => 'jwt.auth',  'prefix' => 'auth'], function($router
     Route::post('update_new_offer_flier/{id}', 'UserController@updateNewOfferFlier');
     Route::post('delete_offer_file/{id}', 'UserController@deleteOfferFile');
     Route::post('delete_new_offer/{id}', 'UserController@deleteNewOffer');
+    Route::get('get_new_offer_flier/{id}', 'UserController@getNewOfferFlierFromS3');
 });
 
 
@@ -205,6 +206,7 @@ Route::group(['prefix' => 'auth-admin', 'middleware' => ['assign.guard:admin-api
     Route::post('change_new_offer_feat_status/{id}', 'AdminController@changeNewOfferFeatStatus');
     Route::post('search_for_offers', 'AdminController@searchForOffers');
     Route::post('search_for_enquiries', 'AdminController@searchForEnquiries');
+    // Route::get('get_new_offer_flier/{id}', 'AdminController@getOfferFlierFromS3');
 
 });
 

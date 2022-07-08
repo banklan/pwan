@@ -10,7 +10,8 @@
                 <v-progress-circular indeterminate color="primary" :width="3" :size="30" v-if="isLoading" justify="center" class="mx-auto"></v-progress-circular>
                 <v-card v-else elevation="4" raised min-height="200" class="mx-auto">
                     <template v-if="offer">
-                        <v-img :src="`/images/offers/${offer.flier}`" :alt="offer.title"></v-img>
+                        <!-- <v-img :src="`/images/offers/${offer.flier}`" :alt="offer.title"></v-img> -->
+                        <v-img :src="offerFlier" :alt="offer.title"></v-img>
                         <v-card-text>
                             <div class="text-center tit">{{ offer.title }}</div>
                         </v-card-text>
@@ -50,6 +51,7 @@ export default {
             isLoading: false,
             confirmDelDial: false,
             isBusy: false,
+            offerFlier: ''
         }
     },
     beforeRouteLeave (to, from, next) {
@@ -82,6 +84,15 @@ export default {
             .then((res) => {
                 this.isLoading = false
                 this.offer = res.data
+                console.log(res.data)
+                // this.getFlierFromS3()
+            })
+        },
+        getFlierFromS3(){
+            axios.get(this.api + `/auth/get_new_offer_flier/${this.$route.params.id}`, this.authHeaders)
+            .then((res) => {
+                console.log(res.data)
+                this.offerFlier = res.data
             })
         },
         delNewOffer(){
