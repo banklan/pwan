@@ -14,6 +14,7 @@ use App\PropertyListingPlan;
 use Illuminate\Http\Request;
 use App\Http\Requests\CreateListing;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -639,13 +640,16 @@ class UserController extends Controller
              $ext = $file->getClientOriginalExtension();
              $filename = substr(str_shuffle($pool), 0, 7).".".$ext;
 
-             $file_loc = public_path('/images/offers/'.$filename);
+            //  $file_loc = public_path('/images/offers/'.$filename);
+             $file_loc = '/offers/' .$filename;
 
              if(in_array($ext, ['jpeg', 'jpg', 'bmp', 'png', 'gif', 'pdf'])){
                  $upload = Image::make($file)->resize(1200, 800, function($constraint){
                      $constraint->aspectRatio();
-                 });
-                 $upload->sharpen(2)->save($file_loc);
+                 })->sharpen(2);
+                //  $upload->sharpen(2)->save($file_loc);
+                 $img = $upload->stream();
+                 Storage::disk('s3')->put($file_loc, $img->__toString());
              }
          }
 

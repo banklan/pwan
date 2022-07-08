@@ -8,6 +8,7 @@ use App\User;
 use App\Admin;
 use App\Event;
 use App\Enquiry;
+use App\NewOffer;
 use App\NewsPost;
 use App\Property;
 use App\EventFile;
@@ -22,10 +23,10 @@ use App\AdminEmailVerification;
 use App\Mail\VerifyNewAdminEmail;
 use Illuminate\Support\Facades\DB;
 use App\Mail\UserAccountAuthorized;
+use App\Mail\NewStaffAccountCreated;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Auth\Events\PasswordReset;
-use App\NewOffer;
 
 class AdminController extends Controller
 {
@@ -158,18 +159,16 @@ class AdminController extends Controller
         $user->fresh();
 
         //send mail to the new admin to verify email
-        // if($user){
-            $conf = new AdminEmailVerification;
-            $conf->admin_id = $user->id;
-            $conf->token = bin2hex(random_bytes(80));
-            $conf->save();
+        $conf = new AdminEmailVerification;
+        $conf->admin_id = $user->id;
+        $conf->token = bin2hex(random_bytes(80));
+        $conf->save();
 
-            $conf->fresh();
-            $email = $request->user['email'];
-            // send welcome email
-            $url = 'https://www.pwan-platinum.com.ng';
-            Mail::to($email)->send(new VerifyNewAdminEmail($user, $conf, $url));
-        // }
+        $conf->fresh();
+        $email = $request->user['email'];
+        // send welcome email
+        $url = 'https://www.pwan-platinum.com.ng';
+        Mail::to($email)->send(new VerifyNewAdminEmail($user, $conf, $url));
 
         return response()->json($user, 201);
     }
@@ -249,9 +248,14 @@ class AdminController extends Controller
             $user->authorized_by = $authorizer,
             $user->status = true
         ]);
-        //send mails to all new user
+        //send mails to new user and admin
         $url = 'https://www.pwan-platinum.com.ng/login';
         Mail::to($user->email)->send(new UserAccountAuthorized($user, $url));
+
+        $admins = Admin::where('status', true)->get();
+        foreach($admins as $admin){
+            Mail::to($admin->email)->send(new NewStaffAccountCreated($user));
+        }
 
         return response()->json($user, 200);
     }
