@@ -121,7 +121,7 @@ export default {
             sidebarmenu: true,
             toggleMini: false,
             authMenu: [
-                { title: "Staff Home", path: "/staff", icon:"dashboard"},
+                { title: "Staff Home", path: "/staff-dashboard", icon:"dashboard"},
                 {title: "Listings", path: "/staff/listings", icon:"building"},
                 {title: "Subscriptions", path: "/staff/subscriptions", icon:"invoice"},
                 {title: "New Offers", path: "/staff/new-offers", icon:"fire"},
