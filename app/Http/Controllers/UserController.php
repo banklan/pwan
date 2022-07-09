@@ -106,6 +106,7 @@ class UserController extends Controller
         $prop->price = $request->prop['price'] * 100;
         $prop->size = $request->prop['size'];
         $prop->user_id = auth('api')->user()->id;
+        $prop->admin_id = null;
 
         $prop->save();
         return response()->json($prop, 200);

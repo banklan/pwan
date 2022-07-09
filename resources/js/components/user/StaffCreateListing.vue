@@ -13,7 +13,7 @@
                         <v-text-field label="Name" v-model="prop.name" required v-validate="'required|min:5|max:250'" :error-messages="errors.collect('name')" name="name"></v-text-field>
                         <v-text-field label="Location" v-model="prop.location" required v-validate="'required|min:5|max:500'" :error-messages="errors.collect('location')" name="location"></v-text-field>
                         <v-text-field label="Landmark" hint="Close-by recognizable place or building" v-model="prop.landmark" v-validate="'min:5|max:500'" :error-messages="errors.collect('landmark')" name="landmark"></v-text-field>
-                        <v-text-field label="Title" hint="e.g survey or deed of assignment" v-model="prop.title" v-validate="'max:300'" :error-messages="errors.collect('title')" name="title"></v-text-field>
+                        <v-text-field label="Land Title" hint="e.g Registered Survey or Deed of assignment" v-model="prop.title" v-validate="'max:300'" :error-messages="errors.collect('title')" name="title"></v-text-field>
                         <v-textarea label="Detail" rows="2" auto-grow v-model="prop.detail" v-validate="'required|min:10|max:1000'" :error-messages="errors.collect('detail')" name="detail"></v-textarea>
                         <v-text-field label="Price(NGN)" hint="Price in Naira. Please do not add commas" v-model="prop.price" v-validate="'required|decimal'" :error-messages="errors.collect('price')" name="price"></v-text-field>
                         <v-text-field label="Unit(Sq/m or Plot)" hint="The units/size with which the property is sold" v-model="prop.size" v-validate="'max:20'" :error-messages="errors.collect('size')" name="size"></v-text-field>
