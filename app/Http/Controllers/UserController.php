@@ -741,9 +741,11 @@ class UserController extends Controller
 
         $flier = $offer->flier;
         if($flier){
-            $filePath = public_path('/images/offers/'.$flier);
+            // $filePath = public_path('/images/offers/'.$flier);
+            $filePath = '/offers/'.$flier;
             if(file_exists($filePath)){
-                unlink($filePath);
+                // unlink($filePath);
+                Storage::disk('s3')->delete($filePath);
             }
         }
 
@@ -757,6 +759,7 @@ class UserController extends Controller
         $flier = $offer->flier;
         $filePath = 'offers/' . $flier;
         $flierUrl = Storage::disk('s3')->url($filePath);
+
         return response()->json($flierUrl, 200);
     }
 }

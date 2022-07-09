@@ -86,7 +86,6 @@ export default {
             .then((res) => {
                 this.isLoading = false
                 this.offer = res.data
-                // console.log(res.data)
                 this.getFlierFromS3()
             })
         },
@@ -104,7 +103,6 @@ export default {
                 this.isBusy = false
                 this.$router.push({name:'StaffNewOffers'})
                 this.$store.commit('newOfferDeleted')
-
             })
         }
     },

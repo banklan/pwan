@@ -22,15 +22,14 @@
             <v-col cols="12">
                 <div class="pagination">
                     <span class="pl-4">
-                            <v-btn color="primary" @click.prevent="getListings(pagination.first_link)" :disabled="!pagination.prev_link">&lt;&lt;</v-btn>
-                            <v-btn color="primary" @click.prevent="getListings(pagination.prev_link)" :disabled="!pagination.prev_link">&lt;</v-btn>
-                            <v-btn color="primary" @click.prevent="getListings(pagination.next_link)" :disabled="!pagination.next_link">&gt;</v-btn>
-                            <v-btn color="primary" @click.prevent="getListings(pagination.last_link)" :disabled="!pagination.next_link">&gt;&gt;</v-btn>
-                        </span>
-                        <span class="pl-8">
-                            Page: {{ pagination.current_page }} of {{ pagination.last_page }}
-                        </span>
-                    </div>
+                        <v-btn color="primary" @click.prevent="getListings(pagination.first_link)" :disabled="!pagination.prev_link">&lt;&lt;</v-btn>
+                        <v-btn color="primary" @click.prevent="getListings(pagination.prev_link)" :disabled="!pagination.prev_link">&lt;</v-btn>
+                        <v-btn color="primary" @click.prevent="getListings(pagination.next_link)" :disabled="!pagination.next_link">&gt;</v-btn>
+                        <v-btn color="primary" @click.prevent="getListings(pagination.last_link)" :disabled="!pagination.next_link">&gt;&gt;</v-btn>
+                    </span>
+                    <span class="pl-8">
+                        Page: {{ pagination.current_page }} of {{ pagination.last_page }}
+                    </span>
                 </div>
             </v-col>
         </v-row>
