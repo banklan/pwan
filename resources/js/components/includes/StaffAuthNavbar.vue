@@ -88,7 +88,7 @@
                                 <v-list-item-title class="white--text">{{ menu.title }}</v-list-item-title>
                             </v-list-item-content>
                         </v-list-item>
-                        <v-list-item  @click.prevent="logout">
+                        <v-list-item  @click="logout">
                             <v-list-item-icon>
                                 <i class="uil uil-sign-out-alt"></i>
                             </v-list-item-icon>
@@ -189,7 +189,7 @@ export default {
     },
     methods: {
         logout(){
-            if(this.authUser){
+            if(this.userIsLoggedIn){
                 axios.post(this.api + `/auth/logout`, {}, this.authHeaders).then(() =>{
                     this.$store.commit('logOutAuthUser')
                     this.$router.push('/')

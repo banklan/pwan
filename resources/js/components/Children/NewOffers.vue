@@ -5,7 +5,7 @@
             <div class="flier_wrap">
                 <div class="offer_wrap" v-for="offer in offers" :key="offer.id">
                     <!-- <img :src="`/images/offers/${offer.flier}`" :alt="offer.title"> -->
-                    <img :src="s3Flier" :alt="offer.title">
+                    <img :src="offer.s3Flier" :alt="offer.title">
                 </div>
             </div>
         </div>
@@ -28,7 +28,7 @@ export default {
         getOffers(){
             axios.get(this.api + '/get_featured_new_offers').then((res) => {
                 this.offers = res.data
-                console.log("new_offers", res.data)
+                // console.log("new_offers", res.data)
             })
         }
     },

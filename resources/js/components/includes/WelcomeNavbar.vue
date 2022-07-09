@@ -117,6 +117,28 @@ export default {
         adminIsLoggedIn(){
             return this.$store.getters.adminIsLoggedIn
         },
+        authAdmin(){
+            return this.$store.getters.authAdmin
+        },
+        adminHeaders(){
+            let headers = {
+                headers: {
+                    "Authorization": `Bearer ${this.authAdmin.token}`
+                }
+            }
+            return headers
+        },
+        authUser(){
+            return this.$store.getters.authUser
+        },
+        authHeaders(){
+            let headers = {
+                headers: {
+                    "Authorization": `Bearer ${this.authUser.token}`
+                }
+            }
+            return headers
+        },
     },
     methods: {
         navbarColor(){
@@ -127,10 +149,16 @@ export default {
             }
         },
         adminLogout(){
-
+            axios.post(this.api + `/auth-admin/logout`, {}, this.adminHeaders).then(() =>{
+                this.$store.commit('logOutAdmin')
+                this.$router.push('/')
+            })
         },
         staffLogout(){
-
+             axios.post(this.api + `/auth/logout`, {}, this.authHeaders).then(() =>{
+                this.$store.commit('logOutAuthUser')
+                this.$router.push('/')
+            })
         }
     },
     mounted() {

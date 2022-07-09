@@ -87,7 +87,7 @@
                                 <v-list-item-title class="white--text">{{ menu.title }}</v-list-item-title>
                             </v-list-item-content>
                         </v-list-item>
-                        <v-list-item  @click.prevent="logout">
+                        <v-list-item  @click="logout">
                             <v-list-item-icon>
                                 <i class="uil uil-sign-out-alt"></i>
                             </v-list-item-icon>
@@ -201,7 +201,7 @@ export default {
     },
     methods: {
         logout(){
-            if(this.authAdmin){
+            if(this.adminIsLoggedIn){
                 axios.post(this.api + `/auth-admin/logout`, {}, this.adminHeaders).then(() =>{
                 this.$store.commit('logOutAdmin')
                     this.$router.push('/')
