@@ -123,8 +123,6 @@ export default {
             axios.post(this.api + `/auth/upload_listing_files/${id}`, form, this.authHeaders)
             .then((res)=>{
                 this.isBusy = false
-                // this.previewUploads = false
-                // this.resetUpload()
                 this.$store.commit('listingFilesUploaded')
                 this.$store.commit('newListingCleared')
                 this.$router.push({name: 'StaffPropertyDetail', params: {id: id}})

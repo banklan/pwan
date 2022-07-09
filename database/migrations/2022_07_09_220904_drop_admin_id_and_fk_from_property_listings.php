@@ -14,8 +14,8 @@ class DropAdminIdAndFkFromPropertyListings extends Migration
     public function up()
     {
         Schema::table('property_listings', function (Blueprint $table) {
-            $table->dropColumn('admin_id');
             $table->dropForeign(['admin_id']);
+            $table->dropColumn('admin_id');
         });
     }
 

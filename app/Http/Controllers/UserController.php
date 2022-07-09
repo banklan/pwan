@@ -119,13 +119,16 @@ class UserController extends Controller
                 $ext = $file->getClientOriginalExtension();
                 $filename = substr(str_shuffle($pool), 0, 5).".".$ext;
                     // save new file in folder
-                $file_loc = public_path('/images/properties/'.$filename);
+                // $file_loc = public_path('/images/properties/'.$filename);
+                $file_loc = '/properties/' .$filename;
 
-                if(in_array($ext, ['jpeg', 'jpg', 'png', 'gif', 'pdf'])){
+                if(in_array($ext, ['jpeg', 'jpg', 'bmp', 'png', 'gif', 'pdf'])){
                     $upload = Image::make($file)->resize(480, 360, function($constraint){
-                        $constraint->aspectRatio(); });
-                    // $fixedImg = $upload->stream();
-                    $upload->sharpen(2)->save($file_loc);
+                        $constraint->aspectRatio();
+                    })->sharpen(2);
+                    //  $upload->sharpen(2)->save($file_loc);
+                    $img = $upload->stream();
+                    Storage::disk('s3')->put($file_loc, $img->__toString());
                 }
 
                 $prop_img = new PropertyFile;
