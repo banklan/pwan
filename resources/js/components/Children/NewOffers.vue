@@ -2,10 +2,11 @@
     <div class="fliers">
         <h2 class="section_head"><span class="section_header">|</span>New Offers!</h2>
         <div class="wrap">
-            <div class="flier_wrap">
+            <div class="flier_wrap" v-if="offers.length > 0">
                 <div class="offer_wrap" v-for="offer in offers" :key="offer.id">
                     <!-- <img :src="`/images/offers/${offer.flier}`" :alt="offer.title"> -->
                     <img :src="offer.s3Flier" :alt="offer.title">
+                    <!-- <v-img :src="offer.s3Flier" :alt="offer.title"></v-img> -->
                 </div>
             </div>
         </div>
