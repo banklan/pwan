@@ -36,12 +36,13 @@ const newPropListing = new_prop ? JSON.parse(new_prop) : null
 const new_evnt = window.localStorage.getItem('newEvent')
 const newEvent = new_evnt ? JSON.parse(new_evnt) : null
 
-
+const apiVal = window.Laravel.api == 'local' ? 'http://localhost:8000/api' : 'https://www.pwan-platinum.com.ng/api'
 
 export const store = new Vuex.Store({
     state: {
-        api: 'http://localhost:8000/api',
+        // api: 'http://localhost:8000/api',
         // api: 'https://www.pwan-platinum.com.ng/api',
+        api: apiVal,
         adminIsLoggedIn: adminIsLoggedIn,
         authAdmin: authAdmin,
         userIsLoggedIn: userIsLoggedIn,

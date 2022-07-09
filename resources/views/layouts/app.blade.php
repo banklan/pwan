@@ -38,6 +38,12 @@
 
     <!-- swiper js cdn -->
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+
+    <script>
+        window.Laravel = {!! json_encode([
+            'api' => config('app.env')
+        ]) !!};
+    </script>
 </head>
 <body class="body_wrap">
     <div id="app">
