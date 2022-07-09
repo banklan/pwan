@@ -755,8 +755,8 @@ class UserController extends Controller
     public function getNewOfferFlierFromS3($id){
         $offer = NewOffer::findOrFail($id);
         $flier = $offer->flier;
-        $filePath = 'offers/' . $flier;
+        $filePath = '/offers/' . $flier;
         $flierUrl = Storage::disk('s3')->url($filePath);
-        return response()->json($flierUrl, 201);
+        return response()->json($flierUrl, 200);
     }
 }

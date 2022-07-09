@@ -12,6 +12,8 @@
                     <template v-if="offer">
                         <!-- <v-img :src="`/images/offers/${offer.flier}`" :alt="offer.title"></v-img> -->
                         <v-img :src="offerFlier" :alt="offer.title"></v-img>
+
+                        <!-- <v-img src="https://pwanplatinum.s3.amazonaws.com/offers/J9S7WF1.jpg" :alt="offer.title"></v-img> -->
                         <v-card-text>
                             <div class="text-center tit">{{ offer.title }}</div>
                         </v-card-text>
@@ -91,7 +93,7 @@ export default {
         getFlierFromS3(){
             axios.get(this.api + `/auth/get_new_offer_flier/${this.$route.params.id}`, this.authHeaders)
             .then((res) => {
-                console.log(res.data)
+                // console.log("new offer flier", res.data)
                 this.offerFlier = res.data
             })
         },
