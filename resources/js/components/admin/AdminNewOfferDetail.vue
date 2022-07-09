@@ -10,8 +10,8 @@
                 <v-progress-circular indeterminate color="primary" :width="3" :size="30" v-if="isLoading" justify="center" class="mx-auto"></v-progress-circular>
                 <v-card v-else elevation="4" raised min-height="200" class="mx-auto">
                     <template v-if="offer">
-                        <v-img :src="`/images/offers/${offer.flier}`" :alt="offer.title"></v-img>
-                        <!-- <v-img :src="offerFlier" :alt="offer.title"></v-img> -->
+                        <!-- <v-img :src="`/images/offers/${offer.flier}`" :alt="offer.title"></v-img> -->
+                        <v-img :src="offerFlier" :alt="offer.title"></v-img>
                         <v-card-text>
                             <div class="tit">
                                 <table class="table">
@@ -130,7 +130,7 @@ export default {
             .then((res) => {
                 this.isLoading = false
                 this.offer = res.data
-                // this.getFlierFromS3()
+                this.getFlierFromS3()
             })
         },
         getFlierFromS3(){

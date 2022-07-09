@@ -26,6 +26,7 @@ use App\Mail\UserAccountAuthorized;
 use App\Mail\NewStaffAccountCreated;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Auth\Events\PasswordReset;
 
 class AdminController extends Controller
@@ -1049,9 +1050,10 @@ class AdminController extends Controller
 
         $flier = $offer->flier;
         if($flier){
-            $filePath = public_path('/images/offers/'.$flier);
+            // $filePath = public_path('/images/offers/'.$flier);
+            $filePath = '/offers/'.$flier;
             if(file_exists($filePath)){
-                unlink($filePath);
+                Storage::disk('s3')->delete($filePath);
             }
         }
 
@@ -1121,8 +1123,12 @@ class AdminController extends Controller
         return response()->json($enquiries, 200);
     }
 
-    // public function getOfferFlierFromS3($id){
-    //     $offer = NewOffer::findOrFail($id);
-    //     $flier = $offer->flier;
-    // }
+    public function getOfferFlierFromS3($id){
+        $offer = NewOffer::findOrFail($id);
+        $flier = $offer->flier;
+        $filePath = 'offers/' . $flier;
+        $flierUrl = Storage::disk('s3')->url($filePath);
+
+        return response()->json($flierUrl, 200);
+    }
 }

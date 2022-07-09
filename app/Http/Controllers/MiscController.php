@@ -17,6 +17,7 @@ use App\Jobs\EnquiryMailJob;
 use Illuminate\Http\Request;
 use App\Mail\EnquiryReceived;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Storage;
 
 class MiscController extends Controller
 {
@@ -176,6 +177,12 @@ class MiscController extends Controller
     public function getFeaturedOffers(){
         $offers = NewOffer::where(['is_active' => true, 'is_approved' => true, 'is_featured'=> true])->take(2)->get();
 
+        foreach($offers as $offer){
+            $flier = $offer->flier;
+            $filePath = 'offers/' . $flier;
+            $flierUrl = Storage::disk('s3')->url($filePath);
+            $offer->s3Flier = $flierUrl;
+        }
         return response()->json($offers, 200);
     }
 

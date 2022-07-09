@@ -40,8 +40,8 @@ const newEvent = new_evnt ? JSON.parse(new_evnt) : null
 
 export const store = new Vuex.Store({
     state: {
-        // api: 'http://localhost:8000/api',
-        api: 'https://www.pwan-platinum.com.ng/api',
+        api: 'http://localhost:8000/api',
+        // api: 'https://www.pwan-platinum.com.ng/api',
         adminIsLoggedIn: adminIsLoggedIn,
         authAdmin: authAdmin,
         userIsLoggedIn: userIsLoggedIn,
