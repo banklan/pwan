@@ -178,9 +178,9 @@
                 </v-card-text>
                 <v-card-text class="img_wrap mt-n3" v-if="files.length > 0">
                     <v-list>
-                        <v-list-item v-for="(file, i) in files" :key="i">
+                        <v-list-item v-for="(file, i) in delDialFiles" :key="i">
                             <v-list-item-content>
-                                <v-img :alt="file" :src="`https://pwanplatinum.s3.amazonaws.com/properties/${file.image}`" width="80" height="80" ></v-img>
+                                <v-img :alt="file.image" :src="`https://pwanplatinum.s3.amazonaws.com/properties/${file.image}`" width="80" height="80" ></v-img>
                             </v-list-item-content>
                             <v-list-item-icon class="mt-5">
                                 <v-btn large icon @click="removeFile(file, i)" color="red darken-2"><i class="uil uil-times"></i></v-btn>
