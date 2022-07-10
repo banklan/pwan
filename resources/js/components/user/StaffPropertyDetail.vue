@@ -285,13 +285,13 @@ export default {
                 // this.files = res.data.files
                 this.getPropFiles()
                 this.plans = res.data.property_listing_plans
-                console.log(res.data)
+                // console.log(res.data)
             })
         },
         getPropFiles(){
             axios.get(this.api + `/auth/get_prop_files/${this.$route.params.id}`, this.authHeaders).then((res) => {
                 this.files = res.data
-                console.log(res.data)
+                // console.log(res.data)
             })
         },
         confirmDelFile(){

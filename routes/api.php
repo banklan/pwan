@@ -208,7 +208,7 @@ Route::group(['prefix' => 'auth-admin', 'middleware' => ['assign.guard:admin-api
     Route::post('search_for_offers', 'AdminController@searchForOffers');
     Route::post('search_for_enquiries', 'AdminController@searchForEnquiries');
     Route::get('get_new_offer_flier/{id}', 'AdminController@getOfferFlierFromS3');
-
+    Route::get('get_prop_files/{id}', 'AdminController@getPropFiles');
 });
 
 

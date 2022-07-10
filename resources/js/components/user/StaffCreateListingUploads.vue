@@ -7,7 +7,7 @@
         </v-row>
         <v-row justify="center" class="mt-5">
             <v-col cols="12" md="8">
-                <v-card light raised elevation="6" min-height="400" class="mx-auto pb-5">
+                <v-card light raised elevation="6" min-height="250" class="mx-auto pb-5">
                     <v-card-title class="justify-center subtitle-1 primary white--text">Create New Listing - Upload Files</v-card-title>
                     <v-card-text class="mt-5">
                         <v-alert type="info" class="mt-3">

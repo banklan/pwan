@@ -287,14 +287,21 @@ export default {
             axios.get(this.api + `/auth-admin/get_property/${this.$route.params.id}`, this.adminHeaders).then((res) => {
                 this.prop = res.data
                 this.prop.price = parseFloat(res.data.price / 100)
-                this.files = res.data.files
+                // this.files = res.data.files
+                this.getPropFiles()
                 this.plans = res.data.property_listing_plans
+                // console.log(res.data)
+            })
+        },
+        getPropFiles(){
+            axios.get(this.api + `/auth-admin/get_prop_files/${this.$route.params.id}`, this.adminHeaders).then((res) => {
+                this.files = res.data
                 // console.log(res.data)
             })
         },
         confirmDelFile(){
             this.confirmDelFileDial = true
-            this.delDialFiles = this.files
+            this.delDialFiles = this.prop.files
         },
         removeFile(file){
             axios.post(this.api + `/auth-admin/admin_del_property_file/${file.id}`, {}, this.adminHeaders).then((res) =>{

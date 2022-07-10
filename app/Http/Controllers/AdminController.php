@@ -331,7 +331,7 @@ class AdminController extends Controller
         }else{
             $prop->update([
                 $prop->is_approved = true,
-                $prop->admin_id = auth('admin-api')->user()->id
+                // $prop->admin_id = auth('admin-api')->user()->id
             ]);
         }
 
@@ -388,13 +388,11 @@ class AdminController extends Controller
     public function delPropertyFile(Request $request, $id){
         $file = PropertyFile::findOrFail($id);
 
-        // delete file in storage
         $file_name = $file->image;
         if($file_name){
-            $filePath = public_path('/images/properties/'.$file_name);
-            if(file_exists($filePath)){
-                unlink($filePath);
-            }
+            // $filePath = public_path('/images/properties/'.$file_name);
+            $filePath = '/properties'.$file_name;
+            Storage::disk('s3')->delete($filePath);
         }
 
         $file->delete();
@@ -1130,5 +1128,20 @@ class AdminController extends Controller
         $flierUrl = Storage::disk('s3')->url($filePath);
 
         return response()->json($flierUrl, 200);
+    }
+
+    public function getPropFiles($id){
+        $files = PropertyFile::where('property_listing_id', $id)->get();
+
+        $res = [];
+        foreach($files as $file){
+            $pf = $file->image;
+            $filePath = 'properties/'.$pf;
+            $url = Storage::disk('s3')->url($filePath);
+            // $res[] = $url;
+            array_push($res, $url);
+        }
+
+        return response()->json($res, 200);
     }
 }
