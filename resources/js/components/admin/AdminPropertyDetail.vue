@@ -114,7 +114,8 @@
                 <v-col cols="12" md="8">
                     <v-card min-height="500" class="mt-5" v-if="files.length > 0">
                         <v-carousel height="500" cycle hide-delimiter-background>
-                            <v-carousel-item contain v-for="(file, i) in files" :key="i" :src="`/images/properties/${file.image}`" reverse-transition="fade-transition" transition="fade-transition"></v-carousel-item>
+                            <!-- <v-carousel-item contain v-for="(file, i) in files" :key="i" :src="`/images/properties/${file.image}`" reverse-transition="fade-transition" transition="fade-transition"></v-carousel-item> -->
+                            <v-carousel-item contain v-for="(file, i) in files" :key="i" :src="file" reverse-transition="fade-transition" transition="fade-transition"></v-carousel-item>
                         </v-carousel>
                         <v-card-actions class="justify-center px-3 mt-5" v-if="files">
                             <v-btn large icon color="red darken-2 mx-5" @click="confirmDelFile">
@@ -170,16 +171,16 @@
         <v-dialog v-model="confirmDelFileDial" max-width="450">
             <v-card min-height="150" class="mx-auto">
                 <v-card-title class="subtitle-1 justify-center primary white--text">Delete listing file(s)?</v-card-title>
-                <v-card-text class="mt-3" v-if="delDialFiles.length > 0">
+                <v-card-text class="mt-3" v-if="files.length > 0">
                     <v-alert type="warning">
                         Files deleted are not recoverable.
                     </v-alert>
                 </v-card-text>
-                <v-card-text class="img_wrap mt-n3" v-if="delDialFiles.length > 0">
+                <v-card-text class="img_wrap mt-n3" v-if="files.length > 0">
                     <v-list>
-                        <v-list-item v-for="(file, i) in delDialFiles" :key="i">
+                        <v-list-item v-for="(file, i) in files" :key="i">
                             <v-list-item-content>
-                                <v-img :alt="file.file" :src="`/images/properties/${file.image}`" width="80" height="80" ></v-img>
+                                <v-img :alt="file" :src="`https://pwanplatinum.s3.amazonaws.com/properties/${file.image}`" width="80" height="80" ></v-img>
                             </v-list-item-content>
                             <v-list-item-icon class="mt-5">
                                 <v-btn large icon @click="removeFile(file, i)" color="red darken-2"><i class="uil uil-times"></i></v-btn>
