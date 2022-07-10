@@ -148,10 +148,12 @@ class UserController extends Controller
             // unlink files and delete file entries in database
             foreach ($files as $pf) {
                 $file = $pf->image;
-                $filePath = public_path('/images/properties/'.$file);
-                if(file_exists($filePath)){
-                    unlink($filePath);
-                }
+                // $filePath = public_path('/images/properties/'.$file);
+                $filePath = 'properties/'.$file;
+                Storage::disk('s3')->delete($filePath);
+                // if(file_exists($filePath)){
+                //     unlink($filePath);
+                // }
                 $pf->delete();
             }
 
@@ -743,10 +745,10 @@ class UserController extends Controller
         if($flier){
             // $filePath = public_path('/images/offers/'.$flier);
             $filePath = '/offers/'.$flier;
-            if(file_exists($filePath)){
+            Storage::disk('s3')->delete($filePath);
+            // if(file_exists($filePath)){
                 // unlink($filePath);
-                Storage::disk('s3')->delete($filePath);
-            }
+            // }
         }
 
         $offer->delete();

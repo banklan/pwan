@@ -61,6 +61,7 @@
                     </v-card-text>
                     <v-card-actions class="justify-center pb-6" v-if="prop && isAuthor">
                         <v-btn large icon color="primary darken-2" class="mx-5" :to="{name: 'StaffPropertyUpdate', params: {id: prop.id}}"><i class="uil uil-edit"></i></v-btn>
+                        <!-- <v-btn dark color="primary" :to="{name: 'StaffPropAddFiles'}">Add Files</v-btn> -->
                         <v-btn large icon color="red darken-2" class="mx-5" @click="delListingConfirmDial = true"><i class="uil uil-trash-alt"></i></v-btn>
                     </v-card-actions>
                 </v-card>
