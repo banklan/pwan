@@ -769,7 +769,7 @@ class UserController extends Controller
         $res = [];
         foreach($files as $file){
             $pf = $file->image;
-            $filePath = 'properties/' . $pf;
+            $filePath = 'properties/'.$pf;
             $url = Storage::disk('s3')->url($filePath);
             // $res[] = $url;
             array_push($res, $url);

@@ -295,7 +295,7 @@ export default {
         },
         confirmDelFile(){
             this.confirmDelFileDial = true
-            this.delDialFiles = this.files
+            this.delDialFiles = this.prop.files
         },
         removeFile(file){
             axios.post(this.api + `/auth/staff_del_property_file/${file.id}`, {}, this.authHeaders).then((res) =>{
