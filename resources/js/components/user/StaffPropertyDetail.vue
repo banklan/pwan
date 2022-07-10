@@ -106,14 +106,12 @@
                         </v-card-actions>
                     </v-card>
                 </v-col>
-            </template>
-            <v-col cols="12" md="6">
-                <v-progress-circular indeterminate color="primary" :width="3" :size="30" v-if="isLoading" justify="center" class="mx-auto"></v-progress-circular>
-                <template v-else>
+                <v-col cols="12" md="6">
                     <template v-if="files.length > 0">
                         <v-card min-height="500" class="mt-5">
                             <v-carousel height="400" cycle hide-delimiter-background>
-                                <v-carousel-item contain v-for="(file, i) in files" :key="i" :src="`/images/properties/${file.image}`" reverse-transition="fade-transition" transition="fade-transition"></v-carousel-item>
+                                <!-- <v-carousel-item contain v-for="(file, i) in files" :key="i" :src="`/images/properties/${file.image}`" reverse-transition="fade-transition" transition="fade-transition"></v-carousel-item> -->
+                                <v-carousel-item contain v-for="(file, i) in files" :key="i" :src="file" reverse-transition="fade-transition" transition="fade-transition"></v-carousel-item>
                             </v-carousel>
                             <v-card-actions class="justify-center px-3 mt-5" v-if="files && isAuthor">
                                 <v-btn large icon color="red darken-2 mx-5" @click="confirmDelFile">
@@ -127,8 +125,8 @@
                             This property listing has no files.
                         </v-alert>
                     </template>
-                </template>
-            </v-col>
+                </v-col>
+            </template>
         </v-row>
         <v-dialog v-model="confirmDelFileDial" max-width="450">
             <v-card min-height="100" class="mx-auto">
@@ -140,7 +138,8 @@
                     <v-list class="files_list">
                         <v-list-item v-for="(file, i) in delDialFiles" :key="i" class="img_wrap">
                             <v-list-item-content>
-                                <v-img class="img_avatar" :alt="file.file" :src="`/images/properties/${file.image}`"></v-img>
+                                <!-- <v-img class="img_avatar" :alt="file.file" :src="`/images/properties/${file.image}`"></v-img> -->
+                                <v-img class="img_avatar" :alt="file.file" :src="file"></v-img>
                             </v-list-item-content>
                             <v-list-item-icon>
                                 <v-btn large icon @click="removeFile(file, i)" color="red darken-2"><i class="uil uil-times"></i></v-btn>
@@ -282,9 +281,15 @@ export default {
                 this.isLoading = false
                 this.prop = res.data
                 this.prop.price = parseFloat(res.data.price / 100)
-                this.files = res.data.files
+                // this.files = res.data.files
+                this.getPropFiles()
                 this.plans = res.data.property_listing_plans
                 console.log(res.data)
+            })
+        },
+        getPropFiles(){
+            axios.get(this.api + `/auth/get_prop_files/${this.$route.params.id}`, this.authHeaders).then((res) => {
+                this.files = res.data
             })
         },
         confirmDelFile(){

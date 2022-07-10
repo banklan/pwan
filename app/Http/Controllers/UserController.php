@@ -56,10 +56,9 @@ class UserController extends Controller
         // delete file in storage
         $file_name = $file->image;
         if($file_name){
-            $filePath = public_path('/images/properties/'.$file_name);
-            if(file_exists($filePath)){
-                unlink($filePath);
-            }
+            // $filePath = public_path('/images/properties/'.$file_name);
+            $filePath = '/properties'.$file_name;
+            Storage::disk('s3')->delete($filePath);
         }
 
         $file->delete();
@@ -682,11 +681,9 @@ class UserController extends Controller
         if($file){
             // $filePath = public_path('/images/offers/'.$file);
             $filepath = '/offers/' . $file;
-            if(file_exists($filepath)){
-                Storage::disk('s3')->delete($filepath);
-            }
-            // if(file_exists($filePath)){
-            //     unlink($filePath);
+            Storage::disk('s3')->delete($filepath);
+            // if(file_exists($filepath)){
+            //     Storage::disk('s3')->delete($filepath);
             // }
         }
 
@@ -764,5 +761,19 @@ class UserController extends Controller
         $flierUrl = Storage::disk('s3')->url($filePath);
 
         return response()->json($flierUrl, 200);
+    }
+
+    public function getPropFiles($id){
+        $files = PropertyFile::where('property_listing_id', $id)->get();
+
+        $res = [];
+        foreach($files as $file){
+            $pf = $file->image;
+            $filePath = 'properties/' . $pf;
+            $url = Storage::disk('s3')->url($filePath);
+            $res[] = $url;
+        }
+
+        return response()->json($res, 200);
     }
 }
