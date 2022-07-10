@@ -771,7 +771,8 @@ class UserController extends Controller
             $pf = $file->image;
             $filePath = 'properties/' . $pf;
             $url = Storage::disk('s3')->url($filePath);
-            $res[] = $url;
+            // $res[] = $url;
+            array_push($res, $url);
         }
 
         return response()->json($res, 200);
