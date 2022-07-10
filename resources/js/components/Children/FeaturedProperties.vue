@@ -4,7 +4,8 @@
         <div class="properties cont">
             <div class="property" v-for="feat in featureds" :key="feat.id">
                 <div class="property_img">
-                    <v-img :src="  `/images/properties/${feat.files[0].image}`"></v-img>
+                    <!-- <v-img :src="  `/images/properties/${feat.files[0].image}`"></v-img> -->
+                    <v-img :src="`https://pwanplatinum.s3.amazonaws.com/properties/${feat.files[0].image}`"></v-img>
                 </div>
                 <div class="property_details">
                     <h4>{{ feat.name }}</h4>

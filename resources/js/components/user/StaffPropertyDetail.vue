@@ -132,15 +132,15 @@
         <v-dialog v-model="confirmDelFileDial" max-width="450">
             <v-card min-height="100" class="mx-auto">
                 <v-card-title class="subtitle-1 justify-center primary white--text">Delete listing file(s)?</v-card-title>
-                <v-card-text class="mt-3" v-if="files.length > 0">
+                <v-card-text class="mt-3" v-if="files.delDialFiles > 0">
                     <v-alert type="warning" class="mb-8">
                         Files deleted are not recoverable.
                     </v-alert>
                     <v-list class="files_list">
-                        <v-list-item v-for="(file, i) in files" :key="i" class="img_wrap">
+                        <v-list-item v-for="(file, i) in delDialFiles" :key="i" class="img_wrap">
                             <v-list-item-content>
                                 <!-- <v-img class="img_avatar" :alt="file.file" :src="`/images/properties/${file.image}`"></v-img> -->
-                                <v-img class="img_avatar" :alt="file" :src="`https://pwanplatinum.s3.amazonaws.com/properties/${file.image}`"></v-img>
+                                <v-img class="img_avatar" :alt="file.image" :src="`https://pwanplatinum.s3.amazonaws.com/properties/${file.image}`"></v-img>
                             </v-list-item-content>
                             <v-list-item-icon>
                                 <v-btn large icon @click="removeFile(file, i)" color="red darken-2"><i class="uil uil-times"></i></v-btn>
