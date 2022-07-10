@@ -290,6 +290,7 @@ export default {
         getPropFiles(){
             axios.get(this.api + `/auth/get_prop_files/${this.$route.params.id}`, this.authHeaders).then((res) => {
                 this.files = res.data
+                console.log(res.data)
             })
         },
         confirmDelFile(){
