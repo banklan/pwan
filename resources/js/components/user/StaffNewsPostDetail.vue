@@ -66,12 +66,14 @@
                         <template v-if="post && post.file">
                             <template v-if="post.file.toString().split('.').pop() === 'mp4'">
                                 <video width="100%" height="100%" controls>
-                                    <source :src="`/images/news/${post.file}`" type="video/mp4">
+                                    <!-- <source :src="`/images/news/${post.file}`" type="video/mp4"> -->
+                                    <source :src="`https://pwanplatinum.s3.amazonaws.com/news/${post.file}`" type="video/mp4">
                                     Your browser does not support the video tag.
                                 </video>
                             </template>
                             <template v-else>
-                                <v-img :src="`/images/news/${post.file}`" transition="scale-transition"></v-img>
+                                <!-- <v-img :src="`/images/news/${post.file}`" transition="scale-transition"></v-img> -->
+                                <v-img :src="`https://pwanplatinum.s3.amazonaws.com/news/${post.file}`" transition="scale-transition"></v-img>
                             </template>
                             <v-card-actions class="justify-center px-5 mt-5 pb-6" v-if="isAuthor">
                                 <template v-if="!previewFile">
@@ -107,10 +109,6 @@
                                     </div>
                                 </template>
                             </v-card-actions>
-                            <!-- <v-card-actions class="justify-center pb-8" :class="previewFile ? 'mt-n5' : ''">
-                                <v-btn dark outlined large color="red darken-1" width="40%" @click="clearForm">Cancel</v-btn>
-                                <v-btn dark large color="primary" width="40%" @click="createPost" :loading="isBusy">Submit</v-btn>
-                            </v-card-actions> -->
                         </template>
                         <template v-else>
                             <v-card-text>

@@ -419,12 +419,6 @@ export default [
     },
 
     {
-        path: '/staff/news/:id', name: 'StaffNewsPostDetail', component: StaffNewsPostDetail,
-        meta: {
-            requiresAuth: true
-        },
-    },
-    {
         path: '/staff/news/create-news-post', name: 'StaffCreateNewsPost', component: StaffCreateNewsPost,
         meta: {
             requiresAuth: true
@@ -438,6 +432,12 @@ export default [
     },
     {
         path: '/staff/news/search', name: 'StaffNewsPostSearchResult', component: StaffNewsPostSearchResult, props: true,
+        meta: {
+            requiresAuth: true
+        },
+    },
+    {
+        path: '/staff/news/:id', name: 'StaffNewsPostDetail', component: StaffNewsPostDetail,
         meta: {
             requiresAuth: true
         },

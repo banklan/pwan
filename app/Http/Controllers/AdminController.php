@@ -656,10 +656,12 @@ class AdminController extends Controller
     public function delNewsPost($id){
         $post = NewsPost::findOrFail($id);
         $file = $post->file;
-        $filePath = public_path('/images/news/'.$file);
-        if(file_exists($filePath)){
-            unlink($filePath);
-        }
+        // $filePath = public_path('/images/news/'.$file);
+        $filePath = 'news/'.$file;
+        Storage::disk('s3')->delete($filePath);
+        // if(file_exists($filePath)){
+        //     unlink($filePath);
+        // }
         $post->delete();
 
         return response()->json(['message' => 'Deleted!'], 200);
@@ -692,10 +694,13 @@ class AdminController extends Controller
         $post = NewsPost::findOrFail($id);
 
         // delete in storage
-        $filePath = public_path('/images/news/'.$post->file);
-        if(file_exists($filePath)){
-            unlink($filePath);
-        }
+        // $filePath = public_path('/images/news/'.$post->file);
+
+        $filePath = 'news/'.$post->file;
+        Storage::disk('s3')->delete($filePath);
+        // if(file_exists($filePath)){
+        //     unlink($filePath);
+        // }
         $post->update(['file' => null]);
 
         return response()->json($post, 200);
@@ -723,10 +728,13 @@ class AdminController extends Controller
         // unlink old file if exist
         $oldFile = $post->file;
         if($oldFile){
-            $filePath = public_path('/images/news/'.$oldFile);
-            if(file_exists($filePath)){
-                unlink($filePath);
-            }
+            // $filePath = public_path('/images/news/'.$oldFile);
+            $filePath = 'news/'.$oldFile;
+            Storage::disk('s3')->delete($filePath);
+
+            // if(file_exists($filePath)){
+            //     unlink($filePath);
+            // }
         }
 
         $file = $request->file;
@@ -736,13 +744,14 @@ class AdminController extends Controller
             $filename = substr(str_shuffle($pool), 0, 8).".".$ext;
 
             //save new file in folder
-            $file_loc = public_path('/images/news/'.$filename);
+            // $file_loc = public_path('/images/news/'.$filename);
+            $file_loc = 'news/'.$filename;
             if(in_array($ext, ['jpeg', 'jpg', 'png', 'bmp', 'gif', 'pdf', 'mp4'])){
                 $img = Image::make($file)->resize(420, 340, function($constraint){
                     $constraint->aspectRatio();
                 });
                 // $fixedImg = $img->stream();
-                // Storage::disk('s3')->put($file_loc, $fixedImg->__toString());
+                Storage::disk('s3')->put($file_loc, $img->__toString());
 
                 $img->sharpen(2)->save($file_loc);
             }
