@@ -6,7 +6,6 @@
                 <div class="offer_wrap" v-for="offer in offers" :key="offer.id">
                     <!-- <img :src="`/images/offers/${offer.flier}`" :alt="offer.title"> -->
                     <img :src="offer.s3Flier" :alt="offer.title">
-                    <!-- <v-img :src="offer.s3Flier" :alt="offer.title"></v-img> -->
                 </div>
             </div>
         </div>

@@ -4,7 +4,8 @@
         <div class="properties cont">
             <div class="property" v-for="prop in latests" :key="prop.id">
                 <div class="property_img">
-                    <v-img :src="  `/images/properties/${prop.files[0].image}`"></v-img>
+                    <!-- <v-img :src="  `/images/properties/${prop.files[0].image}`"></v-img> -->
+                    <v-img :src="`https://pwanplatinum.s3.amazonaws.com/properties/${prop.files[0].image}`"></v-img>
                 </div>
                 <div class="property_details">
                     <h4>{{ prop.name }}</h4>

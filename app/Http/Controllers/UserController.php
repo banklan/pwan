@@ -489,7 +489,6 @@ class UserController extends Controller
     public function uploadEventFiles(Request $request, $id){
         if($request->hasFile('files')){
             foreach($request->file('files') as $file){
-                // print_r($file);
                 // validate file
                 $this->validate($request, [
                     'file' => 'mimes:jpeg,jpg,bmp,png,gif,pdf'
@@ -498,14 +497,15 @@ class UserController extends Controller
                 $pool = '0123456789abcdefghijklmnpqrstuvwxyz';
                 $ext = $file->getClientOriginalExtension();
                 $filename = substr(str_shuffle($pool), 0, 5).".".$ext;
-            //         // save new file in folder
-                $file_loc = public_path('/images/events/'.$filename);
-
+                // save new file in folder
+                // $file_loc = public_path('/images/events/'.$filename);
+                $file_loc = 'events/'.$filename;
                 if(in_array($ext, ['jpeg', 'jpg', 'png', 'gif', 'pdf'])){
                     $upload = Image::make($file)->resize(420, 340, function($constraint){
-                        $constraint->aspectRatio(); });
-                    // $fixedImg = $upload->stream();
-                    $upload->sharpen(2)->save($file_loc);
+                        $constraint->aspectRatio(); })->sharpen(2);
+                    $fixedImg = $upload->stream();
+                    Storage::disk('s3')->put($file_loc, $fixedImg->__toString());
+                    // $upload->sharpen(2)->save($file_loc);
                 }
 
                 $event_file = new EventFile;

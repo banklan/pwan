@@ -35,7 +35,7 @@
                                         </tr>
                                         <tr>
                                             <th>Status</th>
-                                            <td>{{ offer.status ? 'Active' : 'Not-Active' }}</td>
+                                            <td>{{ offer.is_active ? 'Active' : 'Not-Active' }}</td>
                                         </tr>
                                         <tr>
                                             <th>Approval Status</th>

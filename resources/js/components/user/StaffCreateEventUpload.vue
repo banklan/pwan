@@ -113,6 +113,7 @@ export default {
         },
         remove(i){
             this.uploads.splice(i, 1)
+            this.prevs.splice(i, 1)
             if(this.uploads.length < 1){
                 this.previewUploads = false
             }
