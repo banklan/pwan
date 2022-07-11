@@ -76,7 +76,7 @@ export default {
             height: 12rem;
             width: 100%;
             display: flex;
-            gap: 1.5rem;
+            gap: 1rem;
             cursor: pointer;
 
             .event_img{
@@ -93,7 +93,7 @@ export default {
                 display: flex;
                 flex-direction: column;
                 justify-content: space-around;
-                align-items: center;
+                align-items: flex-start;
                 cursor: pointer;
 
                 .subject{
@@ -101,7 +101,6 @@ export default {
                     padding: .5rem;
                     h3{
                         font-size: 1rem;
-                        // font-weight: 400;
                         margin-bottom: -.1rem;
                     }
                 }
@@ -121,7 +120,7 @@ export default {
         }
     }
 
-     @media screen and (max-width: 900px){
+    @media screen and (max-width: 900px){
         .latest_events{
             width: 100vw;
         }

@@ -5,7 +5,7 @@
             <article class="swiper-slide" v-for="test in testimonials" :key="test.id">
                 <div class="client">
                     <div class="avatar">
-                        <img v-if="test.picture" :src="`/images/testimonials/${test.picture}`" :alt="test.fullname">
+                        <img v-if="test.picture" :src="`https://pwanplatinum.s3.amazonaws.com/testimonials/${test.picture}`" :alt="test.fullname">
                     </div>
                     <div class="patient__details">
                         <p class="tit">{{ test.title }} </p>

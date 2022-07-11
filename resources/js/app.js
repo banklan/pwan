@@ -105,7 +105,6 @@ axios.interceptors.response.use(null, (err) =>
 // const files = require.context('./', true, /\.vue$/i);
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
 
-Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('welcome-banner', require('./components/Children/WelcomeBanner.vue').default);
 Vue.component('our-mission', require('./components/Children/OurMission.vue').default);
 Vue.component('our-services', require('./components/Children/OurServices.vue').default);

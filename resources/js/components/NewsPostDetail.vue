@@ -14,12 +14,13 @@
                     <div class="file">
                         <template v-if="post.file.split('.').pop() === 'mp4'">
                             <video height="100%" controls>
-                                <source :src="`/images/news/${post.file}`" type="video/mp4">
+                                <!-- <source :src="`/images/news/${post.file}`" type="video/mp4"> -->
+                                <source :src="`https://pwanplatinum.s3.amazonaws.com/news/${post.file}`" type="video/mp4">
                                 Your browser does not support the video tag.
                             </video>
                         </template>
                         <template v-else>
-                            <img v-if="post.file" :src="`/images/news/${post.file}`" alt="news picture">
+                            <img v-if="post.file" :src="`https://pwanplatinum.s3.amazonaws.com/news/${post.file}`" alt="news picture">
                             <img v-else src="/images/assets/no-image.png" alt="news picture">
                         </template>
                     </div>

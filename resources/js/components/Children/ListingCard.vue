@@ -1,7 +1,7 @@
 <template>
     <div class="listing_card" @click="goToListing(listing)">
         <div class="img">
-            <img v-if="listing.files.length > 0" :src="`/images/properties/${listing.files[0].image}`" :alt="listing.name">
+            <img v-if="listing.files.length > 0" :src="`https://pwanplatinum.s3.amazonaws.com/properties/${listing.files[0].image}`" :alt="listing.name">
             <img v-else src="/images/assets/no-image.png" :alt="listing.name">
         </div>
         <div class="details">

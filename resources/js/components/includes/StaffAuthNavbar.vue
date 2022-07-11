@@ -65,7 +65,7 @@
                         </v-list-item>
                         <v-list-item class="px-2" dark @click.stop="toggleMini = !toggleMini">
                             <v-list-item-avatar v-if="authUser.picture">
-                                <v-img :src="`/images/profiles/${authUser.picture}`" height="30" width="30"></v-img>
+                                <v-img :src="`https://pwanplatinum.s3.amazonaws.com/profiles/${authUser.picture}`" height="30" width="30"></v-img>
                             </v-list-item-avatar>
                             <v-list-item-avatar v-else>
                                 <i class="uil uil-user"></i>

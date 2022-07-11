@@ -6,7 +6,7 @@
                     <div class="pg_header">All Events</div>
                     <div class="events_wrap">
                         <div class="event" v-for="event in events" :key="event.id" @click="goToevent(event)">
-                            <img v-if="event.event_files.length > 0" :src="`/images/events/${event.event_files[0].file}`" alt="event">
+                            <img v-if="event.event_files.length > 0" :src="`https://pwanplatinum.s3.amazonaws.com/events/${event.event_files[0].file}`" alt="event">
                             <img v-else src="/images/assets/no-image.png" alt="event">
                             <div class="details">
                                 <div class="evnt_title">{{ event.title | truncate(40) }}</div>

@@ -50,7 +50,8 @@
                 <v-card min-height="200" min-width="80%" class="mt-5" v-if="event">
                     <template v-if="event && event.event_files.length > 0">
                         <v-carousel min-height="700">
-                            <v-carousel-item contain v-for="(file, i) in event.event_files" :key="i" :src="`/images/events/${file.file}`" reverse-transition="fade-transition" transition="fade-transition"></v-carousel-item>
+                            <!-- <v-carousel-item contain v-for="(file, i) in event.event_files" :key="i" :src="`/images/events/${file.file}`" reverse-transition="fade-transition" transition="fade-transition"></v-carousel-item> -->
+                            <v-carousel-item contain v-for="(file, i) in event.event_files" :key="i" :src="`https://pwanplatinum.s3.amazonaws.com/events/${file.file}`" reverse-transition="fade-transition" transition="fade-transition"></v-carousel-item>
                         </v-carousel>
                     </template>
                     <template v-else>

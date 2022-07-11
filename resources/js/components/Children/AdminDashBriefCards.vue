@@ -25,7 +25,6 @@
 
 <script>
 export default {
-    // props: ['isLoading'],
     data() {
         return {
             isLoading: false,

@@ -1,31 +1,37 @@
 <template>
-    <section id="latest_news" class="swiper mySwiper">
-        <h2 class="section_head"><span class="section_header">|</span>Latest News</h2>
-        <div class="swiper-wrapper">
-            <article class="swiper-slide" v-for="post in newsPosts" :key="post.id">
-                <div class="news">
-                    <div class="file">
-                        <template v-if="post.file.split('.').pop() === 'mp4'">
-                            <video height="100%" controls>
-                                <source :src="`/images/news/${post.file}`" type="video/mp4">
-                                Your browser does not support the video tag.
-                            </video>
-                        </template>
-                        <template v-else>
-                            <!-- <v-img :src="`/images/news/${post.file}`" transition="scale-transition"></v-img> -->
-                            <v-img :src="`https://pwanplatinum.s3.amazonaws.com/news/${post.file}`" transition="scale-transition"></v-img>
-                        </template>
+    <div class="news_slider">
+        <section id="latest_news" class="swiper mySwiper">
+            <h2 class="section_head"><span class="section_header">|</span>Latest News</h2>
+            <div class="swiper-wrapper">
+                <article class="swiper-slide" v-for="post in newsPosts" :key="post.id">
+                    <div class="news">
+                        <div class="file">
+                            <template v-if="post.file.split('.').pop() === 'mp4'">
+                                <video height="100%" controls>
+                                    <!-- <source :src="`/images/news/${post.file}`" type="video/mp4"> -->
+                                    <source :src="`https://pwanplatinum.s3.amazonaws.com/news/${post.file}`" type="video/mp4">
+                                    Your browser does not support the video tag.
+                                </video>
+                            </template>
+                            <template v-else>
+                                <!-- <v-img :src="`/images/news/${post.file}`" transition="scale-transition"></v-img> -->
+                                <v-img :src="`https://pwanplatinum.s3.amazonaws.com/news/${post.file}`" transition="scale-transition"></v-img>
+                            </template>
+                        </div>
+                        <div class="news_details">
+                            <p class="tit">{{ post.title | truncate(45)}} </p>
+                            <small>Published {{ post.created_at | moment('Do, MMM YYYY') }}</small>
+                            <p class="body">{{ post.detail | truncate(80) }}</p>
+                        </div>
                     </div>
-                    <div class="news_details">
-                        <p class="tit">{{ post.title | truncate(45)}} </p>
-                        <small>Published {{ post.created_at | moment('Do, MMM YYYY') }}</small>
-                        <p class="body">{{ post.detail | truncate(80) }}</p>
-                    </div>
-                </div>
-            </article>
+                </article>
+            </div>
+            <div class="swiper-pagination"></div>
+        </section>
+        <div class="cta">
+            <v-btn raised elevation="12" x-large dark color="secondary" class="btn-cta justify-center" :to="{name: 'NewsPosts'}">View All News</v-btn>
         </div>
-        <div class="swiper-pagination"></div>
-    </section>
+    </div>
 </template>
 
 <script>
