@@ -99,7 +99,8 @@ class SubscriptionController extends Controller
             $filename = substr(str_shuffle($pool), 0, 6).".".$ext;
 
             //save new file in folder
-            $file_loc = public_path('/images/subscriptions/'.$filename);
+            // $file_loc = public_path('/images/subscriptions/'.$filename);
+            $file_loc = 'subscriptions/'.$filename;
             if(in_array($ext, ['jpeg', 'jpg', 'png', 'gif', 'pdf'])){
                 $upload = Image::make($file)->resize(200, 240, function($constraint){
                     $constraint->aspectRatio();

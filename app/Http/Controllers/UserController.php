@@ -57,7 +57,7 @@ class UserController extends Controller
         $file_name = $file->image;
         if($file_name){
             // $filePath = public_path('/images/properties/'.$file_name);
-            $filePath = '/properties'.$file_name;
+            $filePath = 'properties/'.$file_name;
             Storage::disk('s3')->delete($filePath);
         }
 
@@ -119,7 +119,7 @@ class UserController extends Controller
                 $filename = substr(str_shuffle($pool), 0, 5).".".$ext;
                     // save new file in folder
                 // $file_loc = public_path('/images/properties/'.$filename);
-                $file_loc = '/properties/' .$filename;
+                $file_loc = '/properties/'.$filename;
 
                 if(in_array($ext, ['jpeg', 'jpg', 'bmp', 'png', 'gif', 'pdf'])){
                     $upload = Image::make($file)->resize(480, 360, function($constraint){
@@ -334,10 +334,12 @@ class UserController extends Controller
         $post = NewsPost::findOrFail($id);
 
         // delete in storage
-        $filePath = public_path('/images/news/'.$post->file);
-        if(file_exists($filePath)){
-            unlink($filePath);
-        }
+        // $filePath = public_path('/images/news/'.$post->file);
+        $filePath = 'news/'.$post->file;
+        Storage::disk('s3')->delete($filePath);
+        // if(file_exists($filePath)){
+        //     unlink($filePath);
+        // }
         $post->update(['file' => null]);
 
         return response()->json($post, 200);
@@ -354,10 +356,12 @@ class UserController extends Controller
         // unlink old file if exist
         $oldFile = $post->file;
         if($oldFile){
-            $filePath = public_path('/images/news/'.$oldFile);
-            if(file_exists($filePath)){
-                unlink($filePath);
-            }
+            // $filePath = public_path('/images/news/'.$oldFile);
+            $filePath = 'news/'.$oldFile;
+            Storage::disk('s3')->delete($filePath);
+            // if(file_exists($filePath)){
+            //     unlink($filePath);
+            // }
         }
 
         $file = $request->file;
@@ -367,19 +371,22 @@ class UserController extends Controller
             $filename = substr(str_shuffle($pool), 0, 7).".".$ext;
 
             //save new file in folder
-            $path = public_path('/images/news');
-            $file_loc = public_path('/images/news/'.$filename);
+            // $path = public_path('/images/news');
+            $path = 'news/';
+            // $file_loc = public_path('/images/news/'.$filename);
+            $file_loc = 'news/'.$filename;
 
             if($ext == 'mp4'){
-                $file->move($path, $filename);
+                // $file->move($path, $filename);
+                Storage::disk('s3')->put($path, file_get_contents($filename));
             }elseif(in_array($ext, ['jpeg', 'jpg', 'png', 'bmp', 'gif', 'pdf'])){
                 $img = Image::make($file)->resize(540, 420, function($constraint){
                     $constraint->aspectRatio();
                 });
-                // $fixedImg = $img->stream();
-                // Storage::disk('s3')->put($file_loc, $fixedImg->__toString());
+                $fixedImg = $img->stream();
+                Storage::disk('s3')->put($file_loc, $fixedImg->__toString());
 
-                $img->sharpen(2)->save($file_loc);
+                // $img->sharpen(2)->save($file_loc);
             }
 
             $post->update(['file' => $filename]);
@@ -393,10 +400,12 @@ class UserController extends Controller
         $file = $post->file;
 
         if($file){
-            $filePath = public_path('/images/news/'.$file);
-            if(file_exists($filePath)){
-                unlink($filePath);
-            }
+            // $filePath = public_path('/images/news/'.$file);
+            $filePath = 'news/'.$file;
+            Storage::disk('s3')->delete($filePath);
+            // if(file_exists($filePath)){
+            //     unlink($filePath);
+            // }
         }
 
         $post->delete();
@@ -562,10 +571,12 @@ class UserController extends Controller
         // check if picture exists for profile, then unlink
         $old_pic = $user->picture;
         if($old_pic){
-            $filePath = public_path('/images/profiles/'.$old_pic);
-            if(file_exists($filePath)){
-                unlink($filePath);
-            }
+            // $filePath = public_path('/images/profiles/'.$old_pic);
+            $filePath = 'profiles/'.$old_pic;
+            Storage::disk('s3')->delete($filePath);
+            // if(file_exists($filePath)){
+            //     unlink($filePath);
+            // }
         }
 
         // save file in folder...later in s3 when ready to deploy
@@ -576,12 +587,16 @@ class UserController extends Controller
             $filename = substr(str_shuffle($pool), 0, 7).".".$ext;
 
             //save new file in folder
-            $file_loc = public_path('/images/profiles/'.$filename);
+            // $file_loc = public_path('/images/profiles/'.$filename);
+            $file_loc = 'profiles/'.$filename;
             if(in_array($ext, ['jpeg', 'jpg', 'png', 'gif', 'pdf'])){
                 $upload = Image::make($file)->resize(250, 250, function($constraint){
                     $constraint->aspectRatio();
-                });
-                $upload->sharpen(2)->save($file_loc);
+                })->sharpen(2);
+
+                $fixedImg = $upload->stream();
+                Storage::disk('s3')->put($file_loc, $fixedImg->__toString());
+                // $upload->sharpen(2)->save($file_loc);
             }
         }
 
@@ -676,10 +691,6 @@ class UserController extends Controller
     public function getNewOffer($id){
         $offer = NewOffer::findOrFail($id);
 
-        // $flier = $offer->flier;
-        // $filePath = 'offers/' . $flier;
-        // $flierUrl = Storage::disk('s3')->url($filePath);
-
         return response()->json($offer, 200);
     }
 
@@ -714,13 +725,16 @@ class UserController extends Controller
             $ext = $file->getClientOriginalExtension();
             $filename = substr(str_shuffle($pool), 0, 7).".".$ext;
 
-            $file_loc = public_path('/images/offers/'.$filename);
+            // $file_loc = public_path('/images/offers/'.$filename);
+            $file_loc = 'offers/'.$filename;
 
             if(in_array($ext, ['jpeg', 'jpg', 'bmp', 'png', 'gif', 'pdf'])){
                 $upload = Image::make($file)->resize(1200, 800, function($constraint){
                     $constraint->aspectRatio();
-                });
-                $upload->sharpen(2)->save($file_loc);
+                })->sharpen(2);
+                // $upload->sharpen(2)->save($file_loc);
+                $img = $upload->stream();
+                Storage::disk('s3')->put($file_loc, $img->__toString());
             }
 
             $offer = NewOffer::findOrFail($id);

@@ -2,23 +2,22 @@
 
 namespace App\Mail;
 
-use App\User;
+use App\Admin;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class NewStaffAccountCreated extends Mailable
+class NewAdminProfileCreated extends Mailable
 {
     use Queueable, SerializesModels;
 
     protected $theme = 'my-theme';
+    public $admin;
 
-    public $user;
-
-    public function __construct(User $user)
+    public function __construct(Admin $admin)
     {
-        $this->user = $user;
+        $this->$admin = $admin;
     }
 
     /**
@@ -28,6 +27,6 @@ class NewStaffAccountCreated extends Mailable
      */
     public function build()
     {
-        return $this->markdown('new_staff_account_created');
+        return $this->markdown('emails.new_admin_profile_has_been_created');
     }
 }

@@ -20,9 +20,11 @@ use App\PasswordResetLog;
 use App\PropertyListingPlan;
 use Illuminate\Http\Request;
 use App\AdminEmailVerification;
+use App\Mail\AdminProfileSetUp;
 use App\Mail\VerifyNewAdminEmail;
 use Illuminate\Support\Facades\DB;
 use App\Mail\UserAccountAuthorized;
+use App\Mail\NewAdminProfileCreated;
 use App\Mail\NewStaffAccountCreated;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
@@ -204,8 +206,18 @@ class AdminController extends Controller
         $admin->update([
             $admin->authorized_by = $authorizer
         ]);
+
+        $new_admin = $admin->email;
+        $admins = Admin::where('status', true)->get();
+        $url = 'https://www.pwan-platinum.com.ng/admin-login';
+
         //send mail to new admin
+        Mail::to($new_admin)->send(new AdminProfileSetUp($admin, $url));
+
         //send mails to all admins
+        foreach($admins as $adm){
+            Mail::to($adm->email)->send(new NewAdminProfileCreated($admin));
+        }
 
         return response()->json($admin, 200);
     }
@@ -433,6 +445,7 @@ class AdminController extends Controller
             $file = $ef->file;
             // $filePath = public_path('/images/events/'.$file);
             $filePath = 'events/'.$file;
+            Storage::disk('s3')->delete($filePath);
             // if(file_exists($filePath)){
             //     unlink($filePath);
             // }
@@ -543,11 +556,12 @@ class AdminController extends Controller
 
         $file = $test->picture;
         if($file){
-            $filePath = public_path('/images/testimonials/'.$file);
-            // Storage::disk('s3')->delete($filePath);
-            if(file_exists($filePath)){
-                unlink($filePath);
-            }
+            // $filePath = public_path('/images/testimonials/'.$file);
+            $filePath = 'testimonials/'.$file;
+            Storage::disk('s3')->delete($filePath);
+            // if(file_exists($filePath)){
+            //     unlink($filePath);
+            // }
         }
         $test->delete();
         return response()->json(['message' => 'Testimonial deleted!'], 200);
@@ -578,11 +592,12 @@ class AdminController extends Controller
 
         // unlink in storage
         $file = $test->picture;
-        $filePath = public_path('/images/testimonials/'.$file);
-        // Storage::disk('s3')->delete($filePath);
-        if(file_exists($filePath)){
-            unlink($filePath);
-        }
+        // $filePath = public_path('/images/testimonials/'.$file);
+        $filePath = 'testimonials/'.$file;
+        Storage::disk('s3')->delete($filePath);
+        // if(file_exists($filePath)){
+        //     unlink($filePath);
+        // }
 
         $test->update(['picture' => '']);
 
@@ -599,11 +614,12 @@ class AdminController extends Controller
         // unlink old file if exist
         $oldFile = $test->picture;
         if($oldFile){
-            $filePath = public_path('/images/testimonials/'.$oldFile);
-            // Storage::disk('s3')->delete($filePath);
-            if(file_exists($filePath)){
-                unlink($filePath);
-            }
+            // $filePath = public_path('/images/testimonials/'.$oldFile);
+            $filePath = 'testimonials/'.$oldFile;
+            Storage::disk('s3')->delete($filePath);
+            // if(file_exists($filePath)){
+            //     unlink($filePath);
+            // }
         }
 
         $file = $request->image;
@@ -617,11 +633,10 @@ class AdminController extends Controller
             if(in_array($ext, ['jpeg', 'jpg', 'png', 'gif', 'pdf'])){
                 $img = Image::make($file)->resize(320, 320, function($constraint){
                     $constraint->aspectRatio();
-                });
-                // $fixedImg = $img->stream();
-                // Storage::disk('s3')->put($file_loc, $fixedImg->__toString());
-
-                $img->sharpen(1)->save($file_loc);
+                })->sharpen(1);
+                $fixedImg = $img->stream();
+                Storage::disk('s3')->put($file_loc, $fixedImg->__toString());
+                // $img->sharpen(1)->save($file_loc);
             }
 
             $test->update(['picture' => $filename]);
@@ -749,11 +764,10 @@ class AdminController extends Controller
             if(in_array($ext, ['jpeg', 'jpg', 'png', 'bmp', 'gif', 'pdf', 'mp4'])){
                 $img = Image::make($file)->resize(420, 340, function($constraint){
                     $constraint->aspectRatio();
-                });
-                // $fixedImg = $img->stream();
-                Storage::disk('s3')->put($file_loc, $img->__toString());
-
-                $img->sharpen(2)->save($file_loc);
+                })->sharpen(2);
+                $fixedImg = $img->stream();
+                Storage::disk('s3')->put($file_loc, $fixedImg->__toString());
+                // $img->sharpen(2)->save($file_loc);
             }
 
             $post->update(['file' => $filename]);
@@ -822,10 +836,12 @@ class AdminController extends Controller
         // check if picture exists for profile, then unlink
         $old_pic = $user->picture;
         if($old_pic){
-            $filePath = public_path('/images/profiles/'.$old_pic);
-            if(file_exists($filePath)){
-                unlink($filePath);
-            }
+            // $filePath = public_path('/images/profiles/'.$old_pic);
+            $filePath = 'profiles/'.$old_pic;
+            Storage::disk('s3')->delete($filePath);
+            // if(file_exists($filePath)){
+            //     unlink($filePath);
+            // }
         }
 
         // save file in folder...later in s3 when ready to deploy
@@ -840,8 +856,10 @@ class AdminController extends Controller
             if(in_array($ext, ['jpeg', 'jpg', 'png', 'gif', 'pdf'])){
                 $upload = Image::make($file)->resize(250, 350, function($constraint){
                     $constraint->aspectRatio();
-                });
-                $upload->sharpen(2)->save($file_loc);
+                })->sharpen(2);
+                $fixedImg = $upload->stream();
+                Storage::disk('s3')->put($file_loc, $fixedImg->__toString());
+                // $upload->sharpen(2)->save($file_loc);
             }
         }
 
@@ -906,10 +924,12 @@ class AdminController extends Controller
 
         foreach ($files as $pf) {
             $file = $pf->image;
-            $filePath = public_path('/images/properties/'.$file);
-            if(file_exists($filePath)){
-                unlink($filePath);
-            }
+            // $filePath = public_path('/images/properties/'.$file);
+            $filePath = 'properties/'.$file;
+            Storage::disk('s3')->delete($filePath);
+            // if(file_exists($filePath)){
+            //     unlink($filePath);
+            // }
             $pf->delete();
         }
 
@@ -1051,9 +1071,9 @@ class AdminController extends Controller
         if($flier){
             // $filePath = public_path('/images/offers/'.$flier);
             $filePath = '/offers/'.$flier;
-            if(file_exists($filePath)){
-                Storage::disk('s3')->delete($filePath);
-            }
+            Storage::disk('s3')->delete($filePath);
+            // if(file_exists($filePath)){
+            // }
         }
 
         $offer->delete();

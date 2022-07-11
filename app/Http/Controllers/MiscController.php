@@ -61,13 +61,16 @@ class MiscController extends Controller
             $filename = substr(str_shuffle($pool), 0, 6).".".$ext;
 
             //save new file in folder
-            $file_loc = public_path('/images/testimonials/'.$filename);
+            // $file_loc = public_path('/images/testimonials/'.$filename);
+            $file_loc = 'testimonials/'.$filename;
             if(in_array($ext, ['jpeg', 'jpg', 'png', 'gif', 'bmp', 'pdf'])){
                 $img = Image::make($file)->resize(380, 320, function($constraint){
                     $constraint->aspectRatio();
-                });
+                })->sharpen(1);
 
-                $img->sharpen(1)->save($file_loc);
+                $fixedImg = $img->stream();
+                Storage::disk('s3')->put($file_loc, $fixedImg->__toString());
+                // $img->sharpen(1)->save($file_loc);
             }
         }
 
