@@ -269,10 +269,12 @@ class UserController extends Controller
 
         foreach ($event_files as $ef) {
             $file = $ef->file;
-            $filePath = public_path('/images/events/'.$file);
-            if(file_exists($filePath)){
-                unlink($filePath);
-            }
+            // $filePath = public_path('/images/events/'.$file);
+            $filePath = 'events/'.$file;
+            Storage::disk('s3')->delete($filePath);
+            // if(file_exists($filePath)){
+            //     unlink($filePath);
+            // }
             $ef->delete();
         }
         $event->delete();
@@ -283,10 +285,12 @@ class UserController extends Controller
         $file = EventFile::findOrFail($id);
 
         // delete in storage
-        $filePath = public_path('/images/events/'.$file->file);
-        if(file_exists($filePath)){
-            unlink($filePath);
-        }
+        // $filePath = public_path('/images/events/'.$file->file);
+        $filePath = 'events/'.$file;
+        Storage::disk('s3')->delete($filePath);
+        // if(file_exists($filePath)){
+        //     unlink($filePath);
+        // }
         $file->delete();
         return response()->json(['message' => 'File deleted!'], 200);
     }
@@ -402,7 +406,6 @@ class UserController extends Controller
 
     public function createNewsPost(Request $request)
     {
-        // dd($request->title);
         $this->validate($request, [
             'image' => 'mimes:jpeg,jpg,bmp,png,gif,pdf,video/mp4,video/avi,video/mpeg|max:20000',
             'title' => 'required|min:5|max:250|unique:news_posts,title',
@@ -416,16 +419,20 @@ class UserController extends Controller
             $ext = $file->getClientOriginalExtension();
             $filename = substr(str_shuffle($pool), 0, 6).".".$ext;
 
-            $file_loc = public_path('/images/news/'.$filename);
-            $path = public_path('/images/news');
+            // $file_loc = public_path('/images/news/'.$filename);
+            $file_loc = 'news/'.$filename;
+            $path = 'news/';
+            // $path = public_path('/images/news');
             if($ext == 'mp4'){
-                $file->move($path, $filename);
-                // $file->move($file_loc, $filename);
+                // $file->move($path, $filename);
+                Storage::disk('s3')->put($path, file_get_contents($filename));
             }elseif(in_array($ext, ['jpeg', 'jpg', 'bmp', 'png', 'gif', 'pdf'])){
                 $upload = Image::make($file)->resize(540, 420, function($constraint){
                     $constraint->aspectRatio();
                 });
-                $upload->sharpen(2)->save($file_loc);
+                $fixedImg = $upload->stream();
+                Storage::disk('s3')->put($file_loc, $fixedImg->__toString());
+                // $upload->sharpen(2)->save($file_loc);
             }
         }
 

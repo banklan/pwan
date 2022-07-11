@@ -34,6 +34,6 @@ class VerifyNewAdminEmail extends Mailable
     public function build()
     {
         return $this->markdown('emails.staff_email_verification_mail')
-                    ->from('vidspectest@gmail.com');
+                    ->from('pwanplatinumwarri@gmail.com');
     }
 }

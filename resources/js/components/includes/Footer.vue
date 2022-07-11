@@ -30,7 +30,7 @@
                     <p><i class="uil uil-map-marker"></i> 9, Airport road, Opposite Our Ladies School gate, Effurun. Delta State.</p>
                     <p><i class="uil uil-phone"></i> 08025886719, 08057165471 </p>
                     <p class="ml-8 mt-n4">08025886718, 08163451098</p>
-                    <p><i class="uil uil-envelope-alt"></i> pwan@gmail.com</p>
+                    <p><i class="uil uil-envelope-alt"></i> pwanplatinumwarri@gmail.com</p>
                 </div>
             </article>
         </div>

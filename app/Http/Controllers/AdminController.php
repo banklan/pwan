@@ -419,21 +419,6 @@ class AdminController extends Controller
         return response()->json($sub, 200);
     }
 
-    // public function downloadSubscription(Request $request, $id){
-    //     $sub = Subscription::findOrFail($id);
-    //     // $sub = '12345266jdjdhhhhhhhhhhhffsfffffffwh';
-    //     $data = array(
-    //         'sub' => $sub,
-    //     );
-
-    //     $pdf = PDF::loadView('pdf.subscription',$data);
-    //     // $pdf = PDF::loadView('pdf.subscription', $sub);
-    //     ob_end_clean();
-    //     $pdf->setOption('javascript-delay', 3000);
-    //     $pdf->setOption('no-stop-slow-scripts', true);
-    //     return $pdf->download('subscription.pdf');
-    // }
-
     public function getPaginatedEvents(){
         $events = Event::latest()->paginate(10);
 
@@ -446,10 +431,11 @@ class AdminController extends Controller
 
         foreach ($event_files as $ef) {
             $file = $ef->file;
-            $filePath = public_path('/images/events/'.$file);
-            if(file_exists($filePath)){
-                unlink($filePath);
-            }
+            // $filePath = public_path('/images/events/'.$file);
+            $filePath = 'events/'.$file;
+            // if(file_exists($filePath)){
+            //     unlink($filePath);
+            // }
             $file->delete();
         }
         $event->delete();
@@ -520,10 +506,13 @@ class AdminController extends Controller
         $file = EventFile::findOrFail($id);
 
         // delete in storage
-        $filePath = public_path('/images/events/'.$file->file);
-        if(file_exists($filePath)){
-            unlink($filePath);
-        }
+        // $filePath = public_path('/images/events/'.$file->file);
+        $filePath = 'events/'.$file->file;
+        Storage::disk('s3')->delete($filePath);
+
+        // if(file_exists($filePath)){
+            // unlink($filePath);
+        // }
         $file->delete();
         return response()->json(['message' => 'File deleted!'], 200);
     }
@@ -555,6 +544,7 @@ class AdminController extends Controller
         $file = $test->picture;
         if($file){
             $filePath = public_path('/images/testimonials/'.$file);
+            // Storage::disk('s3')->delete($filePath);
             if(file_exists($filePath)){
                 unlink($filePath);
             }
@@ -589,6 +579,7 @@ class AdminController extends Controller
         // unlink in storage
         $file = $test->picture;
         $filePath = public_path('/images/testimonials/'.$file);
+        // Storage::disk('s3')->delete($filePath);
         if(file_exists($filePath)){
             unlink($filePath);
         }
@@ -609,6 +600,7 @@ class AdminController extends Controller
         $oldFile = $test->picture;
         if($oldFile){
             $filePath = public_path('/images/testimonials/'.$oldFile);
+            // Storage::disk('s3')->delete($filePath);
             if(file_exists($filePath)){
                 unlink($filePath);
             }

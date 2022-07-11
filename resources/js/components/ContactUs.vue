@@ -21,7 +21,7 @@
                             </div>
                             <div class="email">
                                 <i class="uil uil-envelope-alt"></i>
-                                <span>pwan@gmail.com</span>
+                                <span>pwanplatinumwarri@gmail.com</span>
                             </div>
                         </div>
                         <div class="socials">

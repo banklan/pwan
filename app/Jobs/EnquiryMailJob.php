@@ -39,7 +39,7 @@ class EnquiryMailJob implements ShouldQueue
         Mail::to($this->enquiry['email'])->send($sent_email);
 
         //send mail with enquiry to homas
-        Mail::to('vidspectest@gmail.com')->send($rcvd_email);
+        Mail::to('pwanplatinumwarri@gmail.com')->send($rcvd_email);
 
         // send mail to all admins
         $admins = Admin::where('status', true)->get();

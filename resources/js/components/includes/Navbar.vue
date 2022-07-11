@@ -97,7 +97,7 @@ export default {
             ],
             authMenus: [
                 {title: 'Home', path: '/'},
-                {title: 'Staff Home', path: '/staff'},
+                {title: 'Staff Home', path: '/staff-dashboard'},
                 {title: 'Listing', path: '/listings'},
                 {title: 'Events', path: '/events'},
             ],

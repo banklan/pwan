@@ -63,7 +63,8 @@
                     <v-card-title class="justify-center primary subtitle-1 white--text">Event files</v-card-title>
                     <template v-if="event && event.event_files.length > 0">
                         <v-carousel min-height="700">
-                            <v-carousel-item contain v-for="(file, i) in event.event_files" :key="i" :src="`/images/events/${file.file}`" reverse-transition="fade-transition" transition="fade-transition"></v-carousel-item>
+                            <!-- <v-carousel-item contain v-for="(file, i) in event.event_files" :key="i" :src="`/images/events/${file.file}`" reverse-transition="fade-transition" transition="fade-transition"></v-carousel-item> -->
+                            <v-carousel-item contain v-for="(file, i) in event.event_files" :key="i" :src="`https://pwanplatinum.s3.amazonaws.com/events/${file.file}`" reverse-transition="fade-transition" transition="fade-transition"></v-carousel-item>
                         </v-carousel>
                         <v-card-actions class="justify-center px-5 mt-5" v-if="event.event_files.length > 0 && isAuthor">
                             <v-btn large icon color="red darken-2 mx-5" @click="delFileDial = true">

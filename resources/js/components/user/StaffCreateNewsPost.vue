@@ -16,7 +16,7 @@
                     <v-card-text>
                         <div class="subtitle-1 grey_text--text px-2">Upload Post File (Image or video)</div>
                         <v-alert type="info" class="mt-3">
-                            Only files/images of type JPEG, JPG, PNG, PDF, GIF, MP4(video) can be uploaded.
+                            Please note that you must post pictures or videos for your news post. Only files/images/videos of type JPEG, JPG, PNG, PDF, GIF, MP4(video) can be uploaded.
                         </v-alert>
                         <template v-if="!previewUpload">
                             <v-card-actions class="justify-start mt-5 pb-6">
@@ -45,7 +45,7 @@
                             </v-card-text>
                         </template>
                     </v-card-text>
-                    <v-card-actions class="justify-center pb-8" :class="previewUpload ? 'mt-n5' : ''">
+                    <v-card-actions v-if="readyToUpload" class="justify-center pb-8" :class="previewUpload ? 'mt-n5' : ''">
                         <v-btn dark outlined large color="red darken-1" width="40%" @click="clearForm">Cancel</v-btn>
                         <v-btn dark large color="primary" width="40%" @click="createPost" :loading="isBusy">Submit</v-btn>
                     </v-card-actions>
@@ -91,6 +91,13 @@ export default {
             }
             return headers
         },
+        readyToUpload(){
+            if(this.file !== '' && this.post.title !== '' && this.post.detail !== ''){
+                return true
+            }else{
+                return false
+            }
+        }
     },
     methods: {
         openUpload(){
@@ -105,11 +112,9 @@ export default {
             }else{
                 this.fileType = 'img'
             }
-            // console.log(file_name)
             this.file = file
             this.previewUpload = true
             this.prvUploadUrl = URL.createObjectURL(file)
-            // console.log(this.prvUploadUrl)
         },
         removeFile(){
             this.previewUpload = false
