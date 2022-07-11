@@ -11,7 +11,6 @@
                 <v-card light elevation="6" raised min-height="200" class="mx-auto" v-else>
                     <v-card-title class="justify-center primary white--text subtitle-1">Subscription Detail</v-card-title>
                     <v-card-text class="mt-5" v-if="sub">
-
                         <v-row justify="center" class="details">
                             <v-col cols="12" md="9">
                                 <div class="subtitle-1 text-center primary white--text py-3">Subscriber's Details</div>
@@ -129,7 +128,8 @@
                             </v-col>
                             <v-col cols="12" md="3">
                                 <div class="pspt">
-                                    <v-img :src="`/images/subscriptions/${sub.picture}`" width="200" height="240" alt="Passport Picture"></v-img>
+                                    <!-- <v-img :src="`/images/subscriptions/${sub.picture}`" width="200" height="240" alt="Passport Picture"></v-img> -->
+                                    <v-img :src="`https://pwanplatinum.s3.amazonaws.com/subscriptions/${sub.picture}`" width="200" height="240" alt="Passport Picture"></v-img>
                                 </div>
                             </v-col>
                         </v-row>

@@ -2,17 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use PDF;
 use Image;
+use App\User;
 use App\Admin;
 use App\Subscription;
+use App\PropertyListing;
 use Illuminate\Http\Request;
 use App\Mail\SubscriptionFormSent;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\SubscriptionFormReceived;
-use App\PropertyListing;
-use PDF;
-use Illuminate\Support\Facades\DB;
-use App\User;
+use Illuminate\Support\Facades\Storage;
 
 class SubscriptionController extends Controller
 {
@@ -104,8 +105,11 @@ class SubscriptionController extends Controller
             if(in_array($ext, ['jpeg', 'jpg', 'png', 'gif', 'pdf'])){
                 $upload = Image::make($file)->resize(200, 240, function($constraint){
                     $constraint->aspectRatio();
-                });
-                $upload->sharpen(2)->save($file_loc);
+                })->sharpen(2);
+
+                $fixedImg = $upload->stream();
+                Storage::disk('s3')->put($file_loc, $fixedImg->__toString());
+                // $upload->sharpen(2)->save($file_loc);
             }
         }
 

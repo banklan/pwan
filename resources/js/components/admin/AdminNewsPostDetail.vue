@@ -64,12 +64,14 @@
                     <template v-if="post && post.file">
                         <template v-if="post.file.split('.').pop() === 'mp4'">
                             <video width="100%" height="100%" controls>
-                                <source :src="`/images/news/${post.file}`" type="video/mp4">
+                                <!-- <source :src="`/images/news/${post.file}`" type="video/mp4"> -->
+                                <source :src="`https://pwanplatinum.s3.amazonaws.com/news/${post.file}`" type="video/mp4">
                                 Your browser does not support the video tag.
                             </video>
                         </template>
                         <template v-else>
-                            <v-img :src="`/images/news/${post.file}`" height="100%" transition="scale-transition"></v-img>
+                            <!-- <v-img :src="`/images/news/${post.file}`" height="100%" transition="scale-transition"></v-img> -->
+                            <v-img :src="`https://pwanplatinum.s3.amazonaws.com/news/${post.file}`" height="100%" transition="scale-transition"></v-img>
                         </template>
                         <v-card-actions class="justify-center px-5 mt-5 pb-6">
                             <v-btn v-if="post.file && !previewImg" large icon color="red darken-2" class="mx-5" @click="delFileConfDial = true">

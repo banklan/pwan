@@ -9,7 +9,8 @@
             <v-col cols="12" md="6">
                 <v-progress-circular indeterminate color="primary" :width="4" :size="40" v-if="isLoading" justify="center" class="mx-auto"></v-progress-circular>
                 <v-card v-else light raised outlined elevation="4" min-height="400" class="scroll">
-                    <v-img v-if="user.picture" :src="`/images/profiles/${user.picture}`" height="100%" transition="scale-transition"></v-img>
+                    <!-- <v-img v-if="user.picture" :src="`/images/profiles/${user.picture}`" height="100%" transition="scale-transition"></v-img> -->
+                    <v-img v-if="user.picture" :src="`https://pwanplatinum.s3.amazonaws.com/profiles/${user.picture}`" height="100%" transition="scale-transition"></v-img>
                     <v-img v-else src="/images/assets/user7.jpg" aspect-ratio="1" height="300" transition="scale-transition"></v-img>
                     <v-card-text>
                         <div class="subtitle-2 my-3 text-center">Admin Profile</div>

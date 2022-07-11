@@ -64,7 +64,8 @@
             <v-col cols="12" md="4">
                 <v-progress-circular indeterminate color="primary" :width="4" :size="40" v-if="isLoading" justify="center" class="mx-auto"></v-progress-circular>
                 <v-card v-else light raised outlined elevation="4" min-height="400">
-                    <v-img v-if="testimonial && testimonial.picture" :src="`/images/testimonials/${testimonial.picture}`" min-height="150" contain aspect-ratio="1" transition="scale-transition"></v-img>
+                    <!-- <v-img v-if="testimonial && testimonial.picture" :src="`/images/testimonials/${testimonial.picture}`" min-height="150" contain aspect-ratio="1" transition="scale-transition"></v-img> -->
+                    <v-img v-if="testimonial && testimonial.picture" :src="`https://pwanplatinum.s3.amazonaws.com/testimonials/${testimonial.picture}`" min-height="150" contain aspect-ratio="1" transition="scale-transition"></v-img>
                     <v-img v-else src="/images/assets/no-image.png" height="250" transition="scale-transition"></v-img>
                     <template v-if="!previewImg">
                         <v-card-actions class="justify-space-around mt-5 pb-6">

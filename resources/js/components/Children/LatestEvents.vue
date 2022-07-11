@@ -5,7 +5,8 @@
             <slide v-for="event in events" :key="event.id">
                <div class="slide_wrapper" @click="goToEvent(event)">
                    <div class="event_img">
-                       <v-img :src="`/images/events/${event.event_files[0].file}`"></v-img>
+                       <!-- <v-img :src="`/images/events/${event.event_files[0].file}`"></v-img> -->
+                       <v-img :src="`https://pwanplatinum.s3.amazonaws.com/events/${event.event_files[0].file}`"></v-img>
                    </div>
                    <div class="event_details" @click="goToEvent(event)">
                         <div class="subject">

@@ -12,7 +12,8 @@
                             </video>
                         </template>
                         <template v-else>
-                            <v-img :src="`/images/news/${post.file}`" transition="scale-transition"></v-img>
+                            <!-- <v-img :src="`/images/news/${post.file}`" transition="scale-transition"></v-img> -->
+                            <v-img :src="`https://pwanplatinum.s3.amazonaws.com/news/${post.file}`" transition="scale-transition"></v-img>
                         </template>
                     </div>
                     <div class="news_details">

@@ -5,7 +5,8 @@
             <v-col cols="12" md="5">
                 <v-card light raised outlined elevation="4" min-height="300" class="scroll" width="100%">
                     <template v-if="!changePic">
-                        <v-img v-if="authAdmin.picture" :src="`/images/profiles/${ authAdmin.picture }`" height="100%" transition="scale-transition"></v-img>
+                        <!-- <v-img v-if="authAdmin.picture" :src="`/images/profiles/${ authAdmin.picture }`" height="100%" transition="scale-transition"></v-img> -->
+                        <v-img v-if="authAdmin.picture" :src="`https://pwanplatinum.s3.amazonaws.com/profiles/${ authAdmin.picture }`" height="100%" transition="scale-transition"></v-img>
                         <v-img v-else src="/images/assets/user6.jpg" width="100%" height="350" transition="scale-transition"></v-img>
                         <v-card-actions class="justify-center">
                             <v-btn text color="blue darken-3" class="mt-2 mb-n4" @click="changePic = true">Change Picture</v-btn>
