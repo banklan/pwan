@@ -76,7 +76,7 @@ export default {
             height: 12rem;
             width: 100%;
             display: flex;
-            gap: 1rem;
+            // gap: 1rem;
             cursor: pointer;
 
             .event_img{
@@ -90,6 +90,7 @@ export default {
             }
 
             .event_details{
+                margin-left: -2rem;
                 display: flex;
                 flex-direction: column;
                 justify-content: space-around;

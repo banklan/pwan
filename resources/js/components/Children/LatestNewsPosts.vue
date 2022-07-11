@@ -106,15 +106,15 @@ export default {
                 .news{
                     display: flex;
                     align-items: center;
-                    gap: 1.5rem;
+                    gap: 1rem;
                     overflow: hidden;
                     height: 100%;
                     width: 100%;
                     // box-shadow: 0 5px 5px rgba(0,0,0,0.30);
 
                     .file{
-                        width: 100%;
-                        height: fit-content;
+                        width: 10rem;
+                        height: 100%;
                         overflow: hidden;
 
                         img{

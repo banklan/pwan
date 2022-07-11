@@ -436,7 +436,7 @@ class UserController extends Controller
                 // $file->move($path, $filename);
                 Storage::disk('s3')->put($path, file_get_contents($filename));
             }elseif(in_array($ext, ['jpeg', 'jpg', 'bmp', 'png', 'gif', 'pdf'])){
-                $upload = Image::make($file)->resize(540, 420, function($constraint){
+                $upload = Image::make($file)->resize(480, 420, function($constraint){
                     $constraint->aspectRatio();
                 });
                 $fixedImg = $upload->stream();
