@@ -1,7 +1,7 @@
 <template>
     <section class="latest_events">
         <h2 class="section_head"><span class="section_header">|</span>Latest Events</h2>
-       <carousel :autoplay="true" :perPage="2" :perPageCustom="[[0, 1],[1024,2]]" :speed="800" :autoplayTimeout="8000" loop :mouse-drag="false">
+        <carousel :autoplay="true" :perPage="2" :perPageCustom="[[0, 1],[1024,2]]" :speed="800" :autoplayTimeout="8000" loop :mouse-drag="false">
             <slide v-for="event in events" :key="event.id">
                <div class="slide_wrapper" @click="goToEvent(event)">
                    <div class="event_img">

@@ -30,15 +30,16 @@
         "@mdi/font": "^5.3.45",
         "animate.css": "^4.1.1",
         "bootstrap": "^4.5.3",
+        "chart.js": "^2.7.1",
         "material-design-icons-iconfont": "^5.0.1",
+        "swiper": "^6.8.4",
         "vee-validate": "^2.2.15",
         "vue-carousel": "^0.18.0",
+        "vue-chartjs": "^3.4.0",
         "vue-moment": "^4.1.0",
         "vue-router": "^3.5.1",
+        "vue-social-sharing": "^3.0.8",
         "vuetify": "^2.4.9",
-        "vuex": "^3.6.2",
-        "vue-chartjs": "^3.4.0",
-        "chart.js": "^2.7.1",
-        "vue-social-sharing": "^3.0.8"
+        "vuex": "^3.6.2"
     }
 }
