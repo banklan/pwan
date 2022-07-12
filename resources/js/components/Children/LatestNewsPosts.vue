@@ -28,8 +28,8 @@
             </div>
             <div class="swiper-pagination"></div>
         </section>
-        <div class="cta">
-            <v-btn raised elevation="12" x-large dark color="secondary" class="btn-cta justify-center" :to="{name: 'NewsPosts'}">View All News</v-btn>
+        <div class="cta mt-n3">
+            <v-btn raised elevation="12" x-large dark color="secondary" class="btn-cta justify-center" :to="{name: 'AllNewsPost'}">View All News</v-btn>
         </div>
     </div>
 </template>
@@ -95,7 +95,7 @@ export default {
 
         .swiper-wrapper{
             width: 100%;
-            margin: 0 auto 4rem;
+            margin: 0 auto 1rem;
 
             .swiper-slide{
                 border-radius: 6px;

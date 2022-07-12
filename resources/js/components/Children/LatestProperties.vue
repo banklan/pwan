@@ -15,7 +15,7 @@
             </div>
         </div>
         <div class="cta">
-            <v-btn raised elevation="12" x-large dark color="secondary" class="btn-cta justify-center">View All Listing</v-btn>
+            <v-btn raised elevation="12" x-large dark color="secondary" class="btn-cta justify-center" :to="{name: 'AllListings'}">View All Listing</v-btn>
         </div>
     </div>
 </template>
