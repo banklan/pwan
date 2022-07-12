@@ -95,7 +95,7 @@ export default {
 
         .swiper-wrapper{
             width: 100%;
-            margin: 0 auto 1rem;
+            margin: 0 auto 3rem;
 
             .swiper-slide{
                 border-radius: 6px;
