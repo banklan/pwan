@@ -13,11 +13,6 @@ class AdminAuthController extends Controller
         $this->middleware('auth:admin-api', ['except' => ['login']]);
     }
 
-    /**
-     * Get a JWT via given credentials.
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
     public function login()
     {
         $credentials = request(['email', 'password']);

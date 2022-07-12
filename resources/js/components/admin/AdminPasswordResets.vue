@@ -3,8 +3,8 @@
         <v-row class="pr-5" justify="center" >
             <v-col cols="12" md="11">
                 <v-alert type="info">
-                    Please note that this is a log of the successful password resets made by staff's accounts. This log serves only for record purposes, to help the admin keep tracks of staff accounts whose passwords were reset,
-                    so actions can be taken if resets were done illegaly.
+                    Please note that this is a log of the successful password resets made by staff's. This log serves only for information purposes, to help the admin keep tracks of staff accounts whose passwords were reset,
+                    so actions can be taken if resets were done by unauthorized persons.
                 </v-alert>
                 <v-progress-circular indeterminate color="primary" :width="4" :size="40" v-if="isLoading" justify="center" class="mx-auto"></v-progress-circular>
                 <v-card v-else light raised elevation="8" min-height="100" class="scroll">

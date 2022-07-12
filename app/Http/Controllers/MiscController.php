@@ -23,7 +23,6 @@ class MiscController extends Controller
 {
     public function download(){
         $subs = Subscription::all();
-        // $sub = '12345266jdjdhhhhhhhhhhhffsfffffffwh';
         $data = array(
             'subs' => $subs,
         );

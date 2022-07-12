@@ -14,7 +14,7 @@
                             <small>{{ event.event_date | moment('Do MMM, YYYY')}}</small>
                         </div>
                         <div class="detail">
-                            {{ event.detail | truncate(100) }} <span><router-link :to="{name: 'EventDetail', params:{id:event.id, slug:event.slug}}">Read More</router-link></span>
+                            {{ event.detail | truncate(120) }} <span><router-link :to="{name: 'EventDetail', params:{id:event.id, slug:event.slug}}">Read More</router-link></span>
                         </div>
                    </div>
                </div>
@@ -63,7 +63,7 @@ export default {
 
 <style lang="scss" scoped>
     .latest_events{
-        width: 80vw;
+        width: 75vw;
         margin: 0 auto;
         margin-top: 4rem;
 

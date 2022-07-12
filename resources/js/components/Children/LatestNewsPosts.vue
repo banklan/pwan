@@ -21,7 +21,7 @@
                         <div class="news_details">
                             <p class="tit">{{ post.title | truncate(45)}} </p>
                             <small>Published {{ post.created_at | moment('Do, MMM YYYY') }}</small>
-                            <p class="body">{{ post.detail | truncate(80) }}</p>
+                            <p class="body">{{ post.detail | truncate(120) }}</p>
                         </div>
                     </div>
                 </article>
@@ -100,7 +100,7 @@ export default {
             .swiper-slide{
                 border-radius: 6px;
                 cursor: default;
-                height: 10rem;
+                height: 11rem;
                 overflow: hidden;
                 border: 1px solid #e1e1e1;
                 .news{
@@ -110,10 +110,9 @@ export default {
                     overflow: hidden;
                     height: 100%;
                     width: 100%;
-                    // box-shadow: 0 5px 5px rgba(0,0,0,0.30);
 
                     .file{
-                        width: 10rem;
+                        width: 15rem;
                         height: 100%;
                         overflow: hidden;
 
