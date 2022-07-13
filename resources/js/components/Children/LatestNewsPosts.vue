@@ -163,8 +163,14 @@ export default {
     @media screen and (max-width: 722px){
         .swiper{
             width: 100vw;
-            .file{
-                width: 40%;
+            .swiper-wrapper{
+                .swiper-slide{
+                    .news{
+                        .file{
+                            width: 40%;
+                        }
+                    }
+                }
             }
          }
     }

@@ -6,7 +6,7 @@
                <div class="slide_wrapper" @click="goToEvent(event)">
                    <div class="event_img">
                        <!-- <v-img :src="`/images/events/${event.event_files[0].file}`"></v-img> -->
-                       <v-img :src="`https://pwanplatinum.s3.amazonaws.com/events/${event.event_files[0].file}`"></v-img>
+                       <v-img :src="`https://pwanplatinum.s3.amazonaws.com/events/${event.event_files[0].file}`" contain></v-img>
                    </div>
                    <div class="event_details" @click="goToEvent(event)">
                         <div class="subject">
@@ -128,7 +128,7 @@ export default {
             .slide_wrapper{
                 .event_img{
                     width: 40%;
-                    margin-right: 1rem;
+                    margin-right: 2rem;
                     .v-image{
                         width: 100%;
                     }

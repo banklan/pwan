@@ -11,7 +11,7 @@
                     Are you impressed about our services? Kindly take a minute to drop a short testimonial. We will appreciate it!
                 </v-alert>
                 <v-card light raised elevation="6" min-height="400" class="mx-auto pb-5">
-                    <v-card-title class="justify-center subtitle-1 primary white--text">Write Neww Testimonial</v-card-title>
+                    <v-card-title class="justify-center subtitle-1 primary white--text">Write New Testimonial</v-card-title>
                     <v-card-text class="mt-5 ml-3">
                         <v-text-field label="Fullname" v-model="testimonial.fullname" hint="Your Surname and given name" required v-validate="'required|min:4|max:200'" :error-messages="errors.collect('fullname')" name="fullname"></v-text-field>
                         <v-text-field label="Occupation" v-model="testimonial.occupation" hint="What kind of job do you do?" required v-validate="'required|min:3|max:60'" :error-messages="errors.collect('occupation')" name="occupation"></v-text-field>
@@ -74,6 +74,13 @@ export default {
         api(){
             return this.$store.getters.api
         },
+        isReady(){
+            this.$validator.validateAll().then((isValid) => {
+                if(isValid && this.image != '') {
+                    return true
+                }
+            })
+        }
     },
     methods: {
         openUpload(){

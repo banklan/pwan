@@ -280,6 +280,11 @@ export default {
             .hoz{
                  .team_wrap{
                      gap: 1.2rem;
+                     .hor_team{
+                         .details{
+                             margin-top: -2rem;
+                         }
+                     }
                  }
             }
          }

@@ -17,7 +17,8 @@
                     <template v-if="testimonials.length > 0">
                         <div class="test_card" v-for="test in testimonials" :key="test.id">
                             <div class="avatar">
-                                <img :src="`/images/testimonials/${test.picture}`" :alt="`${test.fullname}'s picture`">
+                                <!-- <img :src="`/images/testimonials/${test.picture}`" :alt="`${test.fullname}'s picture`"> -->
+                                <img :src="`https://pwanplatinum.s3.amazonaws.com/testimonials/${test.picture}`" :alt="`${test.fullname}'s picture`">
                             </div>
                             <div class="details">
                                 <div class="title">{{ test.title }}</div>
