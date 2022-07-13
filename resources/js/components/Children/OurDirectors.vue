@@ -4,74 +4,6 @@
         <div class="directors cont">
             <div class="director">
                 <div class="dir_img">
-                    <img src="/images/directors/dr_onwumere.jpg" alt="">
-                </div>
-                <div class="dir_details">
-                    <h3>Dr. Augustine Ozioma Onwumere</h3>
-                    <p class="text-muted">Chairman, PWAN Group</p>
-                </div>
-                <div class="dir_socials">
-                    <a href="https://facebook.com/PWAN-Platinum-Warri-106114298634221/?ref=page_internal" target="_blank"><i class="uil uil-facebook-f"></i></a>
-                    <a href="https://twitter.com/" target="_blank"><i class="uil uil-twitter-alt"></i></a>
-                    <a href="https://instagram.com/" target="_blank"><i class="uil uil-instagram"></i></a>
-                </div>
-                <a href="https://wa.me/2348025886719" target="_blank" class="dir_whatsapp">
-                    <i class="uil uil-whatsapp"></i>
-                </a>
-            </div>
-            <div class="director">
-                <div class="dir_img">
-                    <img src="/images/directors/mrs_onwumere.jpg" alt="">
-                </div>
-                <div class="dir_details">
-                    <h3>Dr. Jane Obioma Onwumere</h3>
-                    <p class="text-muted">Group Managing Director, PWAN Group</p>
-                </div>
-                <div class="dir_socials">
-                    <a href="https://facebook.com/PWAN-Platinum-Warri-106114298634221/?ref=page_internal" target="_blank"><i class="uil uil-facebook-f"></i></a>
-                    <a href="https://twitter.com/" target="_blank"><i class="uil uil-twitter-alt"></i></a>
-                    <a href="https://instagram.com/" target="_blank"><i class="uil uil-instagram"></i></a>
-                </div>
-                <a href="https://wa.me/2348025886719" target="_blank" class="dir_whatsapp">
-                    <i class="uil uil-whatsapp"></i>
-                </a>
-            </div>
-            <div class="director">
-                <div class="dir_img">
-                    <img src="/images/directors/dr_oberabor.jpg" alt="">
-                </div>
-                <div class="dir_details">
-                    <h3>Dr. Dennis Oberabor</h3>
-                    <p class="text-muted">Chairman/MD, PWAN Premium</p>
-                </div>
-                <div class="dir_socials">
-                    <a href="https://facebook.com/PWAN-Platinum-Warri-106114298634221/?ref=page_internal" target="_blank"><i class="uil uil-facebook-f"></i></a>
-                    <a href="https://twitter.com/" target="_blank"><i class="uil uil-twitter-alt"></i></a>
-                    <a href="https://instagram.com/" target="_blank"><i class="uil uil-instagram"></i></a>
-                </div>
-                <a href="https://wa.me/2348025886719" class="dir_whatsapp">
-                    <i class="uil uil-whatsapp"></i>
-                </a>
-            </div>
-            <div class="director">
-                <div class="dir_img">
-                    <img src="/images/directors/mrs_oberabor.jpg" alt="">
-                </div>
-                <div class="dir_details">
-                    <h3>Amb. Mrs Vera Oberabor</h3>
-                    <p class="text-muted">Executive Director, PWAN Premium</p>
-                </div>
-                <div class="dir_socials">
-                    <a href="https://facebook.com/PWAN-Platinum-Warri-106114298634221/?ref=page_internal" target="_blank"><i class="uil uil-facebook-f"></i></a>
-                    <a href="https://twitter.com/" target="_blank"><i class="uil uil-twitter-alt"></i></a>
-                    <a href="https://instagram.com/" target="_blank"><i class="uil uil-instagram"></i></a>
-                </div>
-                <a href="https://wa.me/2348025886719" class="dir_whatsapp">
-                    <i class="uil uil-whatsapp"></i>
-                </a>
-            </div>
-            <div class="director">
-                <div class="dir_img">
                     <img src="/images/directors/mr_okogbo.jpg" alt="">
                 </div>
                 <div class="dir_details">
@@ -80,8 +12,7 @@
                 </div>
                 <div class="dir_socials">
                     <a href="https://facebook.com/PWAN-Platinum-Warri-106114298634221/?ref=page_internal" target="_blank"><i class="uil uil-facebook-f"></i></a>
-                    <a href="https://twitter.com/" target="_blank"><i class="uil uil-twitter-alt"></i></a>
-                    <a href="https://instagram.com/" target="_blank"><i class="uil uil-instagram"></i></a>
+                    <a href="https://instagram.com/pwanplatinumltd" target="_blank"><i class="uil uil-instagram"></i></a>
                 </div>
                 <a href="https://wa.me/2348057165471" class="dir_whatsapp">
                     <i class="uil uil-whatsapp"></i>
@@ -93,16 +24,84 @@
                 </div>
                 <div class="dir_details">
                     <h3>Mrs Ify Okogbo</h3>
-                    <p class="text-muted">Executive Director, PWAN Premium</p>
+                    <p class="text-muted">Executive Director, PWAN Platinum</p>
                 </div>
                 <div class="dir_socials">
                     <a href="https://facebook.com/PWAN-Platinum-Warri-106114298634221/?ref=page_internal" target="_blank"><i class="uil uil-facebook-f"></i></a>
-                    <a href="https://twitter.com/" target="_blank"><i class="uil uil-twitter-alt"></i></a>
-                    <a href="https://instagram.com/" target="_blank"><i class="uil uil-instagram"></i></a>
+                    <!-- <a href="https://twitter.com/" target="_blank"><i class="uil uil-twitter-alt"></i></a> -->
+                    <a href="https://instagram.com/pwanplatinumltd" target="_blank"><i class="uil uil-instagram"></i></a>
                 </div>
                 <a href="https://wa.me/2348163451098" class="dir_whatsapp">
                     <i class="uil uil-whatsapp"></i>
                 </a>
+            </div>
+            <div class="director">
+                <div class="dir_img">
+                    <img src="/images/directors/dr_oberabor.jpg" alt="">
+                </div>
+                <div class="dir_details">
+                    <h3>Dr. Dennis Oberabor</h3>
+                    <p class="text-muted">Chairman, PWAN Platinum/MD, PWAN Premium</p>
+                </div>
+                <div class="dir_socials">
+                    <a href="https://facebook.com/PWAN-Platinum-Warri-106114298634221/?ref=page_internal" target="_blank"><i class="uil uil-facebook-f"></i></a>
+                    <!-- <a href="https://twitter.com/" target="_blank"><i class="uil uil-twitter-alt"></i></a> -->
+                    <a href="https://instagram.com/pwanplatinumltd" target="_blank"><i class="uil uil-instagram"></i></a>
+                </div>
+                <!-- <a href="https://wa.me/2348025886719" class="dir_whatsapp">
+                    <i class="uil uil-whatsapp"></i>
+                </a> -->
+            </div>
+            <div class="director">
+                <div class="dir_img">
+                    <img src="/images/directors/mrs_oberabor.jpg" alt="">
+                </div>
+                <div class="dir_details">
+                    <h3>Amb. Mrs Vera Oberabor</h3>
+                    <p class="text-muted">Group Exec. Director, Corporate Communications/ED, PWAN Premium</p>
+                </div>
+                <div class="dir_socials">
+                    <a href="https://facebook.com/PWAN-Platinum-Warri-106114298634221/?ref=page_internal" target="_blank"><i class="uil uil-facebook-f"></i></a>
+                    <!-- <a href="https://twitter.com/" target="_blank"><i class="uil uil-twitter-alt"></i></a> -->
+                    <a href="https://instagram.com/pwanplatinumltd" target="_blank"><i class="uil uil-instagram"></i></a>
+                </div>
+                <!-- <a href="https://wa.me/2348025886719" class="dir_whatsapp">
+                    <i class="uil uil-whatsapp"></i>
+                </a> -->
+            </div>
+            <div class="director">
+                <div class="dir_img">
+                    <img src="/images/directors/dr_onwumere.jpg" alt="">
+                </div>
+                <div class="dir_details">
+                    <h3>Dr. Augustine Ozioma Onwumere</h3>
+                    <p class="text-muted">Chairman, PWAN Group</p>
+                </div>
+                <div class="dir_socials">
+                    <a href="https://facebook.com/PWAN-Platinum-Warri-106114298634221/?ref=page_internal" target="_blank"><i class="uil uil-facebook-f"></i></a>
+                    <!-- <a href="https://twitter.com/" target="_blank"><i class="uil uil-twitter-alt"></i></a> -->
+                    <a href="https://instagram.com/pwanplatinumltd" target="_blank"><i class="uil uil-instagram"></i></a>
+                </div>
+                <!-- <a href="https://wa.me/2348025886719" target="_blank" class="dir_whatsapp">
+                    <i class="uil uil-whatsapp"></i>
+                </a> -->
+            </div>
+            <div class="director">
+                <div class="dir_img">
+                    <img src="/images/directors/mrs_onwumere.jpg" alt="">
+                </div>
+                <div class="dir_details">
+                    <h3>Dr. Jane Obioma Onwumere</h3>
+                    <p class="text-muted">President/CEO PWAN Group</p>
+                </div>
+                <div class="dir_socials">
+                    <a href="https://facebook.com/PWAN-Platinum-Warri-106114298634221/?ref=page_internal" target="_blank"><i class="uil uil-facebook-f"></i></a>
+                    <!-- <a href="https://twitter.com/" target="_blank"><i class="uil uil-twitter-alt"></i></a> -->
+                    <a href="https://instagram.com/pwanplatinumltd" target="_blank"><i class="uil uil-instagram"></i></a>
+                </div>
+                <!-- <a href="https://wa.me/2348025886719" target="_blank" class="dir_whatsapp">
+                    <i class="uil uil-whatsapp"></i>
+                </a> -->
             </div>
         </div>
         <div class="cta">

@@ -90,7 +90,7 @@ export default {
                 overflow: hidden;
                 display: flex;
                 gap: 1.5rem;
-                min-height: 16rem;
+                min-height: 15rem;
                 margin: 2rem auto;
                 cursor: pointer;
 

@@ -8,7 +8,7 @@
                         <fas icon="space-shuttle" size="5x" color="#fff" id="space-shuttle"></fas>
                     </v-card-title>
                     <v-card-text class="title px-5 white--text">
-                        To discover affordable land in fast developing areas and make these known to you and also show how you can make money to buy land and build your own home.
+                        To discover land everywhere and make these known to you and also show how you can make money to buy land and build your own home.
                     </v-card-text>
                 </v-card>
             </v-col>

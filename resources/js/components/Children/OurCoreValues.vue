@@ -25,7 +25,8 @@
         margin-left: 0 !important;
         margin-right: 0 !important;
         width: 100vw;
-        background-image: linear-gradient(to bottom left,  rgba(18, 19, 60, 0.87), rgba(14, 14, 53, 0.87), rgba(10, 10, 54, 0.87), rgba(6, 7, 49, .88));
+        /* background-image: linear-gradient(to bottom left,  rgba(18, 19, 60, 0.87), rgba(14, 14, 53, 0.87), rgba(10, 10, 54, 0.87), rgba(6, 7, 49, .88)); */
+        background-image: linear-gradient(to bottom left,  rgb(226 0 0 / 90%), rgb(179 0 0 / 94%), rgb(177 6 6 / 90%), rgb(255 0 0 / 90%));
         background-size: cover;
         background-position: center center;
         background-repeat: no-repeat;
