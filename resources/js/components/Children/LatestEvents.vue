@@ -14,7 +14,7 @@
                             <small>{{ event.event_date | moment('Do MMM, YYYY')}}</small>
                         </div>
                         <div class="detail">
-                            {{ event.detail | truncate(120) }} <span><router-link :to="{name: 'EventDetail', params:{id:event.id, slug:event.slug}}">Read More</router-link></span>
+                            {{ event.detail | truncate(100) }} <span><router-link :to="{name: 'EventDetail', params:{id:event.id, slug:event.slug}}">Read More</router-link></span>
                         </div>
                    </div>
                </div>
@@ -76,7 +76,7 @@ export default {
             height: 12rem;
             width: 100%;
             display: flex;
-            // gap: 1rem;
+            gap: 1rem;
             cursor: pointer;
 
             .event_img{
@@ -124,6 +124,16 @@ export default {
     @media screen and (max-width: 900px){
         .latest_events{
             width: 100vw;
+
+            .slide_wrapper{
+                .event_img{
+                    width: 40%;
+                    margin-right: 1rem;
+                    .v-image{
+                        width: 100%;
+                    }
+                }
+            }
         }
     }
 </style>

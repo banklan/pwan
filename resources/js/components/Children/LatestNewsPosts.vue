@@ -21,7 +21,7 @@
                         <div class="news_details">
                             <p class="tit">{{ post.title | truncate(45)}} </p>
                             <small>Published {{ post.created_at | moment('Do, MMM YYYY') }}</small>
-                            <p class="body">{{ post.detail | truncate(120) }}</p>
+                            <p class="body">{{ post.detail | truncate(100) }}</p>
                         </div>
                     </div>
                 </article>
@@ -160,7 +160,7 @@ export default {
             width: 100vw;
         }
     }
-    @media screen and (max-width: 900px){
+    @media screen and (max-width: 722px){
         .swiper{
             width: 100vw;
             .file{

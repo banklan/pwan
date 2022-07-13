@@ -263,6 +263,9 @@
                     .dir_img{
                         height: 22rem;
                     }
+                    .dir_details{
+                        margin-top: -2rem;
+                    }
                 }
             }
         }

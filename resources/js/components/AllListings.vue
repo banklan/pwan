@@ -18,7 +18,7 @@
                 </template>
             </template>
         </v-row>
-        <v-row v-if="listings.length > 0">
+        <v-row v-if="listings.length > 0" justify="center">
             <v-col cols="12">
                 <div class="pagination">
                     <span class="pl-4">
