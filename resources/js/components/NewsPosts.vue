@@ -69,7 +69,7 @@ export default {
 <style lang="scss" scoped>
     .cont{
         margin: 0 auto;
-        width: 84%;
+        width: 80%;
         box-sizing: border-box;
         padding: 2rem 1rem;
 
@@ -96,7 +96,7 @@ export default {
 
                 .file{
                     height: 100%;
-                    width: 100%;
+                    width: 50%;
 
                     img{
                         height: 100%;
