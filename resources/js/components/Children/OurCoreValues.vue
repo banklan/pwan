@@ -3,7 +3,7 @@
     <v-container>
         <v-row justify="center" class="mt-2 mb-5">
             <v-col cols="12" md="6">
-                <v-card elevation="12" raised rounded="12" height="300" color="white" class="px-5 ml-n2 mt-n10">
+                <v-card elevation="12" raised rounded="12" height="300" color="white" class="mx-auto px-5 mt-n10">
                     <v-card-title class="justify-center secondary--text font-weight-regular headline">Our Core values</v-card-title>
                     <v-card-text>
                         <div class="listed">A - Accountability </div>

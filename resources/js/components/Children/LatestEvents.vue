@@ -1,14 +1,12 @@
 <template>
-  <div class="swiper-container">
-      <div class="swiper-wrapper">
-          <!-- Slides -->
-
-          <!-- <div class="swiper-slide">Slide 3</div> -->
-          <div class="swiper-slide" v-for="event in events" :key="event.id">
-              <div class="slide_wrapper" @click="goToEvent(event)">
+    <section class="latest_events">
+        <h2 class="section_head"><span class="section_header">|</span>Latest Events</h2>
+        <carousel :autoplay="true" :perPage="2" :perPageCustom="[[0, 1],[1024,2]]" :speed="800" :autoplayTimeout="8000" loop :mouse-drag="false">
+            <slide v-for="event in events" :key="event.id">
+               <div class="slide_wrapper" @click="goToEvent(event)">
                    <div class="event_img">
-                       <v-img :src="`/images/events/${event.event_files[0].file}`"></v-img>
-                       <!-- <v-img :src="`https://pwanplatinum.s3.amazonaws.com/events/${event.event_files[0].file}`"></v-img> -->
+                       <!-- <v-img :src="`/images/events/${event.event_files[0].file}`"></v-img> -->
+                       <v-img :src="`https://pwanplatinum.s3.amazonaws.com/events/${event.event_files[0].file}`"></v-img>
                    </div>
                    <div class="event_details" @click="goToEvent(event)">
                         <div class="subject">
@@ -20,27 +18,21 @@
                         </div>
                    </div>
                </div>
-          </div>
-      </div>
-      <!-- If we need pagination -->
-      <div class="swiper-pagination"></div>
-
-      <!-- If we need navigation buttons -->
-      <div class="swiper-button-prev"></div>
-      <div class="swiper-button-next"></div>
-
-      <!-- If we need scrollbar -->
-      <div class="swiper-scrollbar"></div>
-  </div>
+            </slide>
+        </carousel>
+        <div class="cta">
+            <v-btn raised elevation="12" x-large dark color="secondary" class="btn-cta justify-center" :to="{name: 'AllEvents'}">All Events</v-btn>
+        </div>
+    </section>
 </template>
 
 <script>
-import Swiper, { Navigation, Pagination } from 'swiper'
-import 'swiper/swiper-bundle.css'
-
-Swiper.use([ Navigation, Pagination ])
-
+import { Carousel, Slide } from 'vue-carousel';
 export default {
+    components: {
+        Carousel,
+        Slide
+    },
     data() {
         return {
             events: [],
@@ -51,22 +43,6 @@ export default {
             return this.$store.getters.api
         }
     },
-  mounted() {
-      this.getEvents()
-    new Swiper('.swiper-container', {
-      loop: true,
-      pagination: {
-        el: '.swiper-pagination',
-      },
-      navigation: {
-        nextEl: '.swiper-button-next',
-        prevEl: '.swiper-button-prev',
-      },
-      scrollbar: {
-        el: '.swiper-scrollbar',
-      },
-    })
-  },
     methods: {
         getEvents(){
             this.isLoading = true
@@ -78,16 +54,25 @@ export default {
         goToEvent(ev){
             this.$router.push({name: 'EventDetail', params:{id:ev.id, slug:ev.slug}})
         }
-    }
+    },
+    mounted() {
+        this.getEvents()
+    },
 }
 </script>
 
 <style lang="scss" scoped>
-    .swiper-container {
-    width: 35vw;
-    height: 300px;
-    }
-    .slide_wrapper{
+    .latest_events{
+        width: 75vw;
+        margin: 0 auto;
+        margin-top: 4rem;
+
+        h2{
+            margin: 2rem 2rem 3.5rem;
+            text-align: center;
+        }
+
+        .slide_wrapper{
             height: 12rem;
             width: 100%;
             display: flex;
@@ -134,4 +119,11 @@ export default {
                 }
             }
         }
+    }
+
+    @media screen and (max-width: 900px){
+        .latest_events{
+            width: 100vw;
+        }
+    }
 </style>

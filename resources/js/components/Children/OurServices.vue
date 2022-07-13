@@ -3,7 +3,7 @@
         <v-row justify="center">
             <h2 class="section_head"><span class="section_header">|</span>Our Services</h2>
         </v-row>
-        <v-row justify="start" wrap>
+        <v-row justify="start" wrap class="mt-n2">
             <v-col cols="12" md="4">
                 <v-card elevation="4" raised min-height="350">
                     <v-img src="/images/assets/constr.jpg" height="250" transition="fab-transition"></v-img>

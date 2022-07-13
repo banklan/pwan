@@ -88,14 +88,14 @@ export default {
 
     @media screen and(max-width: 720px){
         .fliers{
-            width: 90%;
+            width: 85%;
 
             .wrap{
                 .flier_wrap{
                     grid-template-columns: 1fr;
 
                     .offer_wrap{
-                        height: 32rem;
+                        height: 34rem;
                         width: 25rem;
                     }
                 }

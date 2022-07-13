@@ -73,3 +73,13 @@ export default {
     },
 }
 </script>
+
+<style lang="scss" scoped>
+    @media screen and(max-width: 722px) {
+        .pagination{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+    }
+</style>

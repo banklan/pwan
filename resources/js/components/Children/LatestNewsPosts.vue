@@ -28,7 +28,7 @@
             </div>
             <div class="swiper-pagination"></div>
         </section>
-        <div class="cta mt-n3">
+        <div class="cta">
             <v-btn raised elevation="12" x-large dark color="secondary" class="btn-cta justify-center" :to="{name: 'AllNewsPost'}">View All News</v-btn>
         </div>
     </div>
@@ -156,8 +156,16 @@ export default {
         }
     }
     @media screen and (max-width: 900px){
-        .latest_news{
+        #latest_news{
             width: 100vw;
         }
+    }
+    @media screen and (max-width: 900px){
+        .swiper{
+            width: 100vw;
+            .file{
+                width: 40%;
+            }
+         }
     }
 </style>
