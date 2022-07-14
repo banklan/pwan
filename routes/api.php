@@ -107,6 +107,7 @@ Route::group(['middleware' => 'jwt.auth',  'prefix' => 'auth'], function($router
     Route::get('get_prop_files/{id}', 'UserController@getPropFiles');
     Route::get('get_paginated_videos', 'UserController@getPgntdVideos');
     Route::post('create_video_roll', 'UserController@createVideoRoll');
+    Route::get('get_video/{id}', 'UserController@getVideoRoll');
 });
 
 

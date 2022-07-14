@@ -843,5 +843,12 @@ class UserController extends Controller
 
             return response()->json($vid, 200);
         }
+
+    }
+
+    public function getVideoRoll($id){
+        $vid = VideoRoll::findOrFail($id);
+
+        return response()->json($vid, 200);
     }
 }
