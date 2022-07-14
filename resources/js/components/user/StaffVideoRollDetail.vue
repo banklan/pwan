@@ -2,7 +2,7 @@
     <v-container>
         <v-row justify="center">
             <v-col cols="12">
-                <v-btn rounded color="secondary" dark elevation="4" left :to="{name: 'StaffEventsList'}"><i class="uil uil-arrow-left"></i> Back</v-btn>
+                <v-btn rounded color="secondary" dark elevation="4" left :to="{name: 'StaffVideoRollList'}"><i class="uil uil-arrow-left"></i> Back</v-btn>
             </v-col>
         </v-row>
         <v-row justify="center" class="mt-5" >
@@ -36,11 +36,11 @@
                                 </table>
                             </template>
                             <v-alert type="warning" border="left" v-else>
-                                The event you are trying to view is not available. Please pick an event from the list on the Events list page.
+                                The video you are trying to view is not available. Please pick a video from the list on the Video rolls list page.
                             </v-alert>
                         </v-card-text>
-                        <v-card-actions class="justify-center pb-8 mt-n5" v-if="event && isAuthor">
-                            <v-btn icon color="primary" class="mx-7" :to="{name: 'StaffUpdateEvent', params:{id: event.id}}"><i class="uil uil-edit"></i></v-btn>
+                        <v-card-actions class="justify-center pb-8 mt-n5" v-if="video && isAuthor">
+                            <v-btn icon color="primary" class="mx-7" :to="{name: 'StaffUpdateVideoRoll', params:{id: video.id}}"><i class="uil uil-edit"></i></v-btn>
                             <v-btn icon color="red darken-2" class="mx-7"><i class="uil uil-trash-alt" @click="confirmDelDial = true"></i></v-btn>
                         </v-card-actions>
                     </v-card>
@@ -68,10 +68,10 @@
             New Video roll has been created.
             <v-btn text color="white--text" @click="newVideoRollCreated = false">Close</v-btn>
         </v-snackbar>
-        <!-- <v-snackbar v-model="eventFileDeleted" :timeout="4000" top dark color="green darken-2">
-            An event file was deleted successfully.
-            <v-btn text color="white--text" @click="eventFileDeleted = false">Close</v-btn>
-        </v-snackbar> -->
+        <v-snackbar v-model="videoRollUpdated" :timeout="4000" top dark color="green darken-2">
+            A video roll was updated successfully.
+            <v-btn text color="white--text" @click="videoRollUpdated = false">Close</v-btn>
+        </v-snackbar>
         <!-- <v-snackbar v-model="fileDelFailed" :timeout="6000" top dark color="red darken-2">
             There was an error while trying to delete the event file. Please try again.
             <v-btn text color="white--text" @click="fileDelFailed = false">Close</v-btn>
@@ -134,8 +134,8 @@ export default {
                 return false
             }
         },
-        eventCreated(){
-            return this.$store.getters.eventCreated
+        videoRollUpdated(){
+            return this.$store.getters.videoRollUpdated
         }
     },
     methods: {
@@ -144,7 +144,7 @@ export default {
             axios.get(this.api + `/auth/get_video/${this.$route.params.id}`, this.authHeaders)
             .then((res) => {
                 this.isLoading = false
-                this.event = res.data
+                this.video = res.data
             })
         },
         delEvent(){
