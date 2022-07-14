@@ -44,7 +44,7 @@
                             <v-btn icon color="red darken-2" class="mx-7"><i class="uil uil-trash-alt" @click="confirmDelDial = true"></i></v-btn>
                         </v-card-actions>
                     </v-card>
-                    <div class="video_wrap">
+                    <div class="video_wrap" v-if="video">
                         <video controls height="100%">
                             <source :src="`https://pwanplatinum.s3.amazonaws.com/videos/${video.video}`">
                             Your browser does not support the video tag.
