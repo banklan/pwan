@@ -147,7 +147,7 @@ export default {
                 this.video = res.data
             })
         },
-        delEvent(){
+        delVideoRoll(){
             axios.post(this.api + `/auth/delete_event/${this.$route.params.id}`, {}, this.authHeaders)
             .then((res) => {
                 this.confirmDelDial = false
@@ -206,8 +206,9 @@ export default {
         margin: 0 auto;
         overflow: hidden;
         width: 100%;
-        height: 40rem;
-        background: red;
+        height: 25rem;
+        margin-top: 2rem;
+        // background: red;
 
         video{
             width: 100%;

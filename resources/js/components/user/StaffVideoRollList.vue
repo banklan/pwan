@@ -26,11 +26,11 @@
                             </thead>
                             <tbody class="videos_list">
                                 <tr v-for="video in videos" :key="video.id" :class="!video.is_approved ? 'warning--text' : ''">
-                                    <td @click="showEvent(video.id)">{{ video.id }}</td>
-                                    <td @click="showEvent(video.id)">{{ video.created_at | moment('DD-MM-YYYY') }}</td>
-                                    <td @click="showEvent(video.id)" class="text-truncate">{{ video.title }}</td>
-                                    <td @click="showEvent(video.id)">{{ video.user && video.user.fullname }}</td>
-                                    <td>{{ event.is_approved ? 'Approved' : 'Not Apprvd'}} </td>
+                                    <td @click="showVideo(video.id)">{{ video.id }}</td>
+                                    <td @click="showVideo(video.id)">{{ video.created_at | moment('DD-MM-YYYY') }}</td>
+                                    <td @click="showVideo(video.id)" class="text-truncate">{{ video.title }}</td>
+                                    <td @click="showVideo(video.id)">{{ video.user && video.user.fullname }}</td>
+                                    <td>{{ video.is_approved ? 'Approved' : 'Not Apprvd'}} </td>
                                 </tr>
                             </tbody>
                         </table>
