@@ -835,8 +835,6 @@ class UserController extends Controller
                 Storage::disk('s3')->put($path, fopen($video, 'r+'));
             }
 
-            // $fileName = Storage::disk('s3')->url($fileName);
-
             $vid = new VideoRoll;
             $vid->title = $request->title;
             $vid->video = $filename;

@@ -7,11 +7,11 @@
                 <our-services />
             </v-row>
         </v-container>
-        <our-directors />
         <featured-properties />
         <our-core-values />
         <latest-properties />
         <new-offers />
+        <our-directors />
         <latest-events />
         <news-post />
         <testimonials />
