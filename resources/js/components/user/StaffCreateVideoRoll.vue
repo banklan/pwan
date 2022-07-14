@@ -13,7 +13,7 @@
                         <v-text-field label="Video Title" v-model="title" counter="450" required v-validate="'required|min:5|max:450'" :error-messages="errors.collect('title')" name="title"></v-text-field>
                         <div class="upload">
                             <v-alert type="info" class="mt-3">
-                                Only videos of mp4 format are allowed. Size must not exceed 10mb.
+                                Only videos of mp4 format are allowed. Video size must not exceed 30mb.
                             </v-alert>
                             <template v-if="!previewUpload">
                                 <v-card-actions class="justify-space-around mt-5 pb-6">
@@ -48,6 +48,10 @@
         <v-snackbar v-model="maxSizeExceeded" :timeout="6000" top dark color="red darken-2">
             Maximum file size exceeded. Please upload a video of size less than 20mb.
             <v-btn text color="white--text" @click="maxSizeExceeded = false">Close</v-btn>
+        </v-snackbar>
+        <v-snackbar v-model="createFailed" :timeout="6000" top dark color="red darken-2">
+            There was an error while trying to create the video roll. Please ensure the video is of type MP4 or MPEG and that the size is less than 30mb.
+          <v-btn text color="white--text" @click="createFailed = false">Close</v-btn>
         </v-snackbar>
     </v-container>
 </template>
@@ -97,7 +101,7 @@ export default {
             const fileName = file.name
             const fileExt = fileName.split('.').pop();
             // console.log(size)
-            if(size > 20000){
+            if(size > 30000){
                 this.maxSizeExceeded = true
                 return
             }else if(fileExt !== 'mp4'){
@@ -130,8 +134,8 @@ export default {
                      form.append('title', this.title)
                     axios.post(this.api + '/auth/create_video_roll', form, this.authHeaders).then((res) => {
                         this.isBusy = false
-                        this.$store.commit('storeCreatedEvent', res.data)
-                        this.$router.push({name: 'StaffCreateEventUpload', params:{id: res.data.id}})
+                        this.$store.commit('newVideoRollCreated')
+                        this.$router.push({name: 'StaffVideoRollDetail', params:{id: res.data.id}})
                     }).catch(() => {
                         this.isBusy = false
                         this.createFailed = true

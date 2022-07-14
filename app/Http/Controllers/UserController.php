@@ -816,7 +816,7 @@ class UserController extends Controller
 
     public function createVideoRoll(Request $request){
         $this->validate($request, [
-            'video' => 'mimes:mp4,avi,mpeg|max:20000',
+            'video' => 'mimes:mp4,avi,mpeg|max:30000',
             'title' => 'required|min:5|max:450'
         ]);
 
