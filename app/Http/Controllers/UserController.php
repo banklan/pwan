@@ -7,6 +7,7 @@ use App\Event;
 use App\NewOffer;
 use App\NewsPost;
 use App\EventFile;
+use App\VideoRoll;
 use App\PropertyFile;
 use App\Subscription;
 use App\PropertyListing;
@@ -15,6 +16,12 @@ use Illuminate\Http\Request;
 use App\Http\Requests\CreateListing;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
+
+//for video upload to s3
+// require 'vendor/autoload.php';
+// use Aws\S3\S3Client;
+// use Aws\Exception\AwsException;
+// use Aws\S3\ObjectUploader;
 
 class UserController extends Controller
 {
@@ -799,5 +806,44 @@ class UserController extends Controller
         }
 
         return response()->json($res, 200);
+    }
+
+    public function getPgntdVideos(){
+        $videos = VideoRoll::latest()->paginate(10);
+
+        return response()->json($videos, 200);
+    }
+
+    public function createVideoRoll(Request $request){
+        $this->validate($request, [
+            'video' => 'mimes:mp4,avi,mpeg|max:20000',
+            'title' => 'required|min:5|max:450'
+        ]);
+
+        $video = $request->video;
+        if($video){
+            $pool = '0123456789abcdefghijklmnopqrstuvwxyz';
+            $ext = $video->getClientOriginalExtension();
+            $filename = substr(str_shuffle($pool), 0, 8).".".$ext;
+
+            //save new file in folder
+            $path = 'videos/' .$filename;
+
+            if($ext == 'mp4' || 'mpeg' || 'avi'){
+                // Storage::disk('s3')->put($path, file_get_contents($video));
+                // Storage::disk('s3')->put($video, fopen($video, 'r+'));
+                Storage::disk('s3')->put($path, fopen($video, 'r+'));
+            }
+
+            // $fileName = Storage::disk('s3')->url($fileName);
+
+            $vid = new VideoRoll;
+            $vid->title = $request->title;
+            $vid->video = $filename;
+            $vid->user_id = auth('api')->user()->id;
+            $vid->save();
+
+            return response()->json($vid, 200);
+        }
     }
 }

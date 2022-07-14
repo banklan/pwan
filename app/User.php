@@ -105,4 +105,8 @@ class User extends Authenticatable implements JWTSubject
     public function new_offers(){
         return $this->hasMany('App\NewOffer');
     }
+
+    public function video_rolls(){
+        return $this->hasMany('App\VideoRoll');
+    }
 }

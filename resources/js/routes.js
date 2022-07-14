@@ -75,6 +75,8 @@ import StaffNewOffers from './components/user/StaffNewOffers';
 import StaffCreateNewOffer from './components/user/StaffCreateNewOffer';
 import StaffNewOfferDetail from './components/user/StaffNewOfferDetail';
 import StaffOfferEdit from './components/user/StaffOfferEdit';
+import StaffVideoRollList from './components/user/StaffVideoRollList';
+import StaffCreateVideoRoll from './components/user/StaffCreateVideoRoll';
 import StaffProfile from './components/user/StaffProfile';
 import Testimonials from './components/Testimonials';
 import CreateTestimonial from './components/CreateTestimonial';
@@ -468,6 +470,18 @@ export default [
     },
     {
         path: '/staff/new-offers/create', name: 'StaffCreateNewOffer', component: StaffCreateNewOffer,
+        meta: {
+            requiresAuth: true
+        },
+    },
+    {
+        path: '/staff/create-video-rolls', name: 'StaffCreateVideoRoll', component: StaffCreateVideoRoll,
+        meta: {
+            requiresAuth: true
+        },
+    },
+    {
+        path: '/staff/video-rolls', name: 'StaffVideoRollList', component: StaffVideoRollList,
         meta: {
             requiresAuth: true
         },

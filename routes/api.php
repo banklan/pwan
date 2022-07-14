@@ -105,6 +105,8 @@ Route::group(['middleware' => 'jwt.auth',  'prefix' => 'auth'], function($router
     Route::post('delete_new_offer/{id}', 'UserController@deleteNewOffer');
     Route::get('get_new_offer_flier/{id}', 'UserController@getNewOfferFlierFromS3');
     Route::get('get_prop_files/{id}', 'UserController@getPropFiles');
+    Route::get('get_paginated_videos', 'UserController@getPgntdVideos');
+    Route::post('create_video_roll', 'UserController@createVideoRoll');
 });
 
 

@@ -24,8 +24,10 @@
                 <div class="footer__socials">
                     <div class="social_media">
                         <a href="https://facebook.com/PWAN-Platinum-Warri-106114298634221/?ref=page_internal" target="_blank" class="fb"><i class="uil uil-facebook-f"></i></a>
-                        <a href="#" class="tw"><i class="uil uil-twitter-alt"></i></a>
-                        <a href="#" class="ig"><i class="uil uil-instagram"></i></a>
+                        <a href="https://instagram.com/pwanplatinumltd" target="_blank" class="ig"><i class="uil uil-instagram"></i></a>
+                        <a href="https://wa.me/2348057165471" class="wts" target="_blank">
+                            <i class="uil uil-whatsapp"></i>
+                        </a>
                     </div>
                     <p><i class="uil uil-map-marker"></i> 9, Airport road, Opposite Our Ladies School gate, Effurun. Delta State.</p>
                     <p><i class="uil uil-phone"></i> 08057165471, 08163451098 </p>
@@ -103,8 +105,8 @@
                             &.fb{
                                 background: #3b5998;
                             }
-                            &.tw{
-                                background: #1da1f2;
+                            &.wts{
+                                background: #25d366;
                             }
                             &.ig{
                                 background: #c32aa3;
