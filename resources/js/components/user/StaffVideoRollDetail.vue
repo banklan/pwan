@@ -95,7 +95,7 @@
             <v-btn text color="white--text" @click="deleteFailed = false">Close</v-btn>
         </v-snackbar>
         <v-snackbar v-model="invalidFileType" :timeout="6000" top dark color="red darken-2">
-            Invalid video type. You are only allowed to upload an MP$ video.
+            Invalid video type. You are only allowed to upload an MP4 video.
             <v-btn text color="white--text" @click="invalidFileType = false">Close</v-btn>
         </v-snackbar>
         <v-snackbar v-model="maxSizeExceeded" :timeout="6000" top dark color="red darken-2">
@@ -217,7 +217,7 @@ export default {
                 this.isBusy = true
                 let form = new FormData();
                 form.append('video', this.file)
-
+                // axios.post(this.api + '/auth/create_video_roll', form, this.authHeaders).then((res) => {
                 axios.post(this.api + `/auth/replace_video/${this.$route.params.id}`, form, this.authHeaders).then((res) => {
                     console.log(res.data)
                     this.video.video = res.data.video
@@ -238,7 +238,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-    .table tr{
+    table tbody tr{
         cursor: pointer;
     }
     .table tr td{
@@ -327,7 +327,5 @@ export default {
             }
         }
     }
-
-
 </style>
 

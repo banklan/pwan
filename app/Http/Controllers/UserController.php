@@ -832,7 +832,8 @@ class UserController extends Controller
 
             if($ext == 'mp4' || 'mpeg' || 'avi'){
                 // $video->move($path, $filename);
-                Storage::disk('s3')->put($path, fopen($video, 'r+'));
+               $handle = Storage::disk('s3')->put($path, fopen($video, 'r+'));
+               fclose($handle);
             }
 
             $vid = new VideoRoll;

@@ -67,11 +67,11 @@ router.beforeEach((to, from, next) => {
         store.commit('redirectOnLogin', to.path)
         next('/login')
     }else if(to.path == '/login' && authUser){
-        next('/staff')
+        next('/staff-dashboard')
     }else if(to.path == '/register' && authUser){
-        next('/staff')
+        next('/staff-dashboard')
     }else if(to.path.substring(0, 6) == '/admin' && authUser){
-        next('/staff')
+        next('/staff-dashboard')
     }else {
         next()
     }
