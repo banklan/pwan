@@ -827,11 +827,11 @@ class UserController extends Controller
             $filename = substr(str_shuffle($pool), 0, 8).".".$ext;
 
             //save new file in folder
+            // $path = public_path('/images/videos/'.$filename);
             $path = 'videos/' .$filename;
 
             if($ext == 'mp4' || 'mpeg' || 'avi'){
-                // Storage::disk('s3')->put($path, file_get_contents($video));
-                // Storage::disk('s3')->put($video, fopen($video, 'r+'));
+                // $video->move($path, $filename);
                 Storage::disk('s3')->put($path, fopen($video, 'r+'));
             }
 
@@ -848,6 +848,84 @@ class UserController extends Controller
 
     public function getVideoRoll($id){
         $vid = VideoRoll::findOrFail($id);
+
+        return response()->json($vid, 200);
+    }
+
+    public function delVideoRoll($id){
+        $vid = VideoRoll::findOrFail($id);
+
+        $video = $vid->video;
+        // local
+        // $filePath = public_path('/images/videos/'.$video);
+        // if(file_exists($filePath)){
+        //     unlink($filePath);
+        // }
+
+        // production
+        $filePath = 'videos/'.$video;
+        Storage::disk('s3')->delete($filePath);
+
+        $vid->delete();
+
+        return response()->json(['message' => 'Deleted']);
+    }
+
+    public function updateVideoRoll(Request $request, $id){
+        $vid = VideoRoll::findOrFail($id);
+
+        $this->validate($request, [
+            'title' => 'required|min:5|max:450'
+        ]);
+
+        $vid->update([
+            'title' => $request->title
+        ]);
+
+        return response()->json($vid, 200);
+    }
+
+    public function replaceVideo(Request $request, $id){
+        $this->validate($request, [
+            'video' => 'mimes:mp4,avi,mpeg|max:30000',
+        ]);
+
+        $vid = VideoRoll::findOrFail($id);
+        $video = $vid->video;
+
+        // delete old video local
+        // $filePath = public_path('/images/videos/'.$video);
+        // if(file_exists($filePath)){
+        //     unlink($filePath);
+        // }
+
+        // delete old video production
+        $path = 'videos/'.$video;
+        Storage::disk('s3')->delete($path);
+
+        // replace with new video
+        if($video){
+            $pool = '0123456789abcdefghijklmnopqrstuvwxyz';
+            $ext = $video->getClientOriginalExtension();
+            $filename = substr(str_shuffle($pool), 0, 8).".".$ext;
+
+            //save new file in folder local
+            // $path = public_path('/images/videos/'.$filename);
+            // if($ext == 'mp4' || 'mpeg' || 'avi'){
+            //     $video->move($path, $filename);
+            // }
+
+            //save new file in folder prod
+            $path = 'videos/' .$filename;
+            if($ext == 'mp4' || 'mpeg' || 'avi'){
+                Storage::disk('s3')->put($path, fopen($video, 'r+'));
+            }
+
+            // update database
+            $vid->update([
+                'video' => $filename
+            ]);
+        }
 
         return response()->json($vid, 200);
     }

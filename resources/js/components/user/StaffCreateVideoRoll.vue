@@ -17,7 +17,7 @@
                             </v-alert>
                             <template v-if="!previewUpload">
                                 <v-card-actions class="justify-space-around mt-5 pb-6">
-                                    <v-btn test dark color="primary lighten-2" @click="openUpload">Pick Video</v-btn>
+                                    <v-btn dark color="primary lighten-2" @click="openUpload">Pick Video</v-btn>
                                     <input type="file" ref="video" style="display:none" @change.prevent="pickVideo" accept="video/*">
                                 </v-card-actions>
                             </template>

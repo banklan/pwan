@@ -92,6 +92,7 @@ export const store = new Vuex.Store({
         adminDeletedNewOffer: false,
         newVideoRollCreated: false,
         videoRollUpdated: false,
+        videoDeleted: false,
     },
     getters: {
         api(state)
@@ -287,6 +288,10 @@ export const store = new Vuex.Store({
         videoRollUpdated(state)
         {
             return state.videoRollUpdated
+        },
+        videoDeleted(state)
+        {
+            return state.videoDeleted
         },
     },
     actions: {
@@ -580,6 +585,10 @@ export const store = new Vuex.Store({
         videoRollUpdated(state)
         {
             state.videoRollUpdated = true
+        },
+        videoDeleted(state)
+        {
+            state.videoDeleted = true
         },
     }
 })

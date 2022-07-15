@@ -52,10 +52,10 @@
                 </v-card>
             </v-col>
         </v-row>
-        <!-- <v-snackbar v-model="eventDeleted" :timeout="4000" top dark color="green darken-2">
+        <v-snackbar :value="videoDeleted" :timeout="4000" top dark color="green darken-2">
             An event was deleted successfully.
-            <v-btn text color="white--text" @click="eventDeleted = false">Close</v-btn>
-        </v-snackbar> -->
+            <v-btn text color="white--text" @click="videoDeleted = false">Close</v-btn>
+        </v-snackbar>
     </v-container>
 </template>
 
@@ -89,8 +89,8 @@ export default {
             }
             return headers
         },
-        eventDeleted(){
-            return this.$store.getters.eventDeleted
+        videoDeleted(){
+            return this.$store.getters.videoDeleted
         }
     },
     methods: {
@@ -115,7 +115,7 @@ export default {
             })
         },
         showVideo(vid){
-            this.$router.push({name: 'StaffVideoDetail', params:{id: vid}})
+            this.$router.push({name: 'StaffVideoRollDetail', params:{id: vid}})
         },
     },
     mounted() {
@@ -125,7 +125,7 @@ export default {
 </script>
 
 <style lang="css" scoped>
-    .table .events_list tr td{
+    .table .videos_list tr td{
         vertical-align: middle !important;
     }
     .v-btn i{

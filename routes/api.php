@@ -108,6 +108,9 @@ Route::group(['middleware' => 'jwt.auth',  'prefix' => 'auth'], function($router
     Route::get('get_paginated_videos', 'UserController@getPgntdVideos');
     Route::post('create_video_roll', 'UserController@createVideoRoll');
     Route::get('get_video/{id}', 'UserController@getVideoRoll');
+    Route::post('delete_video_roll/{id}', 'UserController@delVideoRoll');
+    Route::post('update_video/{id}', 'UserController@updateVideoRoll');
+    Route::post('replace_video/{id}', 'UserController@replaceVideo');
 });
 
 

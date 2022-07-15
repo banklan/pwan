@@ -12,7 +12,7 @@
                     <v-card light raised outlined elevation="4" min-height="150">
                         <v-card-title class="primary white--text justify-center subtile-1">Update Video Roll</v-card-title>
                         <v-card-text class="mt-5" v-if="video">
-                            <v-text-field label="Video Title" v-model="title" counter="450" required v-validate="'required|min:5|max:450'" :error-messages="errors.collect('title')" name="title"></v-text-field>
+                            <v-text-field label="Video Title" v-model="video.title" counter="450" required v-validate="'required|min:5|max:450'" :error-messages="errors.collect('title')" name="title"></v-text-field>
                         </v-card-text>
                         <v-card-actions class="justify-center pb-8 mt-n5" v-if="video && isAuthor">
                             <v-btn text @click="cancel" color="red darken-2" width="40%" large>Cancel</v-btn>
@@ -34,7 +34,7 @@
 export default {
     data() {
         return {
-            title: '',
+            video: null,
             isLoading: false,
             isBusy: false,
             confirmDelDial: false,
@@ -70,11 +70,11 @@ export default {
             axios.get(this.api + `/auth/get_video/${this.$route.params.id}`, this.authHeaders)
             .then((res) => {
                 this.isLoading = false
-                this.title = res.data.title
+                this.video = res.data
             })
         },
         cancel(){
-            this.title = ''
+            this.video.title = ''
             this.$validator.pause()
             this.$validator.fields.items.forEach(field => field.reset())
             this.$validator.errors.clear()
@@ -84,7 +84,7 @@ export default {
                 if(isValid && this.file !== '') {
                     this.isBusy = true
                     axios.post(this.api + `/auth/update_video/${this.$route.params.id}`, {
-                        title: this.title
+                        title: this.video.title
                     }, this.authHeaders).then((res) => {
                         this.isBusy = false
                         this.$store.commit('videoRollUpdated')
