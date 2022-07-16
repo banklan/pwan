@@ -9,7 +9,7 @@ class Testimonial extends Model
 {
     protected $guarded = [];
 
-    protected $with = ['user'];
+    // protected $with = ['user'];
 
     protected $appends = ['published'];
 
@@ -51,7 +51,7 @@ class Testimonial extends Model
         $this->attributes['organization'] = ucfirst($value);
     }
 
-    public function user(){
-        return $this->belongsTo('App\User');
-    }
+    // public function user(){
+    //     return $this->belongsTo('App\User');
+    // }
 }

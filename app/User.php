@@ -91,9 +91,9 @@ class User extends Authenticatable implements JWTSubject
         return $this->belongsTo('App\Admin');
     }
 
-    public function testimonials(){
-        return $this->hasMany('App\Testimonial');
-    }
+    // public function testimonials(){
+    //     return $this->hasMany('App\Testimonial');
+    // }
 
     public function news_posts(){
         return $this->hasMany('App\NewsPost');
