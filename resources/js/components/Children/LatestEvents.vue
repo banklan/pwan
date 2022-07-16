@@ -4,7 +4,7 @@
         <carousel :autoplay="true" :perPage="2" :perPageCustom="[[0, 1],[1024,2]]" :speed="800" :autoplayTimeout="8000" loop :mouse-drag="false">
             <slide v-for="event in events" :key="event.id">
                <div class="slide_wrapper" @click="goToEvent(event)">
-                   <div class="event_img">
+                   <div class="event_img" v-if="event.event_files.length > 0">
                        <!-- <v-img :src="`/images/events/${event.event_files[0].file}`"></v-img> -->
                        <v-img :src="`https://pwanplatinum.s3.amazonaws.com/events/${event.event_files[0].file}`" contain></v-img>
                    </div>
