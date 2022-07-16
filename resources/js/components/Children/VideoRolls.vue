@@ -28,7 +28,7 @@ export default {
     methods: {
         getFeaturedVideo(){
             axios.get(this.api + '/get_featured_video').then((res) => {
-                this.video = res.data
+                this.videos = res.data
             })
         },
         goToVideo(id){

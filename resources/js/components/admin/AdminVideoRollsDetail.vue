@@ -30,7 +30,7 @@
                                         </tr>
                                         <tr>
                                             <th>Feature Status:</th>
-                                            <td>{{ video.is_featured ? 'Featured' : 'Not Featured' }}</td>
+                                            <td :class="!video.is_featured ? 'warning--text': 'green_text--text'">{{ video.is_featured ? 'Featured' : 'Not Featured' }}</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -41,7 +41,7 @@
                         </v-card-text>
                         <v-card-actions class="justify-space-around pb-8 mt-n5" v-if="video">
                             <v-btn dark color="admin_a" class="" @click="confirmApprovalDial = true">{{ video.is_approved ? 'Dis-approve' : 'Approve' }}</v-btn>
-                            <v-btn dark color="admin_b" class="" @click="confirmFeatureDial = true">Feature</v-btn>
+                            <v-btn dark color="admin_b" class="" @click="confirmFeatureDial = true">{{ video.is_featured ? 'Un-Feature' : 'Feature' }}</v-btn>
                             <v-btn icon color="red darken-2"><i class="uil uil-trash-alt" @click="confirmDelDial = true"></i></v-btn>
                         </v-card-actions>
                     </v-card>

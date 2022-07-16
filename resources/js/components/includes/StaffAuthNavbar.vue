@@ -8,8 +8,8 @@
                 </router-link>
             </v-toolbar-title>
             <v-spacer></v-spacer>
-            <span>Staff Account</span>
-            <span class="mx-3"><i class="uil uil-user"></i></span>
+            <span class="pl-m">Staff</span>
+            <span class="mx-2"><i class="uil uil-user"></i></span>
             <v-toolbar-items class="">
                 <v-menu offset-y bottom nudge-bottom="3" right>
                     <template v-slot:activator="{ on, attrs }">
