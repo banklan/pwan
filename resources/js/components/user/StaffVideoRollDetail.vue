@@ -217,9 +217,9 @@ export default {
                 this.isBusy = true
                 let form = new FormData();
                 form.append('video', this.file)
-                // axios.post(this.api + '/auth/create_video_roll', form, this.authHeaders).then((res) => {
+                // axios.post(this.api + `/auth/update_news_post_file/${this.$route.params.id}`, form, this.authHeaders)
                 axios.post(this.api + `/auth/replace_video/${this.$route.params.id}`, form, this.authHeaders).then((res) => {
-                    console.log(res.data)
+                    // console.log(res.data)
                     this.video.video = res.data.video
                     this.isBusy = false
                     this.previewUpload = false
@@ -229,23 +229,6 @@ export default {
                     this.replaceFail = true
                 })
             }
-            // if(this.file !== ''){
-            //     console.log(this.file)
-            //     this.isUpdating = true
-            //     let form = new FormData();
-            //     form.append('file', this.file)
-
-            //     axios.post(this.api + `/auth/update_news_post_file/${this.$route.params.id}`, form, this.authHeaders)
-            //     .then((res) => {
-            //         this.isUpdating = false
-            //         this.post.file = res.data
-            //         this.fileUpdated = true
-            //         this.removeFile()
-            //     }).catch(() => {
-            //         this.isUpdating = false
-            //         this.fileUpdateFailed = true
-            //     })
-            // }
         }
     },
     mounted() {

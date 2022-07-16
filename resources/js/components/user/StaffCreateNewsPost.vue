@@ -8,7 +8,7 @@
         <v-row justify="center" class="mt-5">
             <v-col cols="12" md="10">
                 <v-alert type="info">
-                    News posts can be created so as to diseminate information to the clients. Pictures can be uploaded for news-post.
+                    News posts can be created so as to disseminate information to the clients. Pictures can be uploaded for news-post.
                 </v-alert>
                 <v-card light raised elevation="6" min-height="400" class="mx-auto mt-4 pb-5">
                     <v-card-title class="justify-center subtitle-1 primary white--text">Create News Post</v-card-title>
@@ -18,9 +18,6 @@
                     </v-card-text>
                     <v-card-text>
                         <div class="subtitle-1 grey_text--text px-2">Upload Post File (Image or video)</div>
-                        <v-alert type="info" class="mt-3">
-                            Please note that you must post pictures or videos for your news post. Only files/images/videos of type JPEG, JPG, PNG, PDF, GIF, MP4(video) can be uploaded.
-                        </v-alert>
                         <template v-if="!previewUpload">
                             <v-card-actions class="justify-start mt-5 pb-6">
                                 <v-btn test dark color="primary lighten-2" @click="openUpload">Pick File</v-btn>
@@ -147,7 +144,7 @@ export default {
                         this.isBusy = false
                         this.$router.push({name: 'StaffNewsPostDetail', params:{id:res.data.id}})
                         this.$store.commit('newPostCreated')
-                        console.log(res.data)
+                        // console.log(res.data)
                     }).catch(() => {
                         this.isBusy = false
                         this.createPostFaied = true

@@ -807,10 +807,10 @@ class UserController extends Controller
     }
 
     public function createVideoRoll(Request $request){
-        $this->validate($request, [
-            'video' => 'mimes:mp4,avi,mpeg|max:30000',
-            'title' => 'required|min:5|max:450'
-        ]);
+        // $this->validate($request, [
+        //     'video' => 'mimes:mp4,avi,mpeg|max:30000',
+        //     'title' => 'required|min:5|max:450'
+        // ]);
 
         $video = $request->video;
         if($video){
@@ -824,8 +824,8 @@ class UserController extends Controller
 
             if($ext == 'mp4' || 'mpeg' || 'avi'){
                 // $video->move($path, $filename);
-               $handle = Storage::disk('s3')->put($path, fopen($video, 'r+'));
-               fclose($handle);
+               Storage::disk('s3')->put($path, fopen($video, 'r+'));
+            //    fclose($handle);
             }
 
             $vid = new VideoRoll;
@@ -879,9 +879,9 @@ class UserController extends Controller
     }
 
     public function replaceVideo(Request $request, $id){
-        $this->validate($request, [
-            'video' => 'mimes:mp4,avi,mpeg|max:30000',
-        ]);
+        // $this->validate($request, [
+        //     'video' => 'mimes:mp4,avi,mpeg|max:30000',
+        // ]);
 
         $vid = VideoRoll::findOrFail($id);
         $video = $vid->video;
