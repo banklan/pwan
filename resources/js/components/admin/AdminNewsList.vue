@@ -95,7 +95,7 @@ export default {
         next()
     },
     computed:{
-         authAdmin(){
+        authAdmin(){
             return this.$store.getters.authAdmin
         },
         api(){

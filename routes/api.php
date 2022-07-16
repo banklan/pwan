@@ -215,6 +215,10 @@ Route::group(['prefix' => 'auth-admin', 'middleware' => ['assign.guard:admin-api
     Route::post('search_for_enquiries', 'AdminController@searchForEnquiries');
     Route::get('get_new_offer_flier/{id}', 'AdminController@getOfferFlierFromS3');
     Route::get('get_prop_files/{id}', 'AdminController@getPropFiles');
+    Route::get('get_paginated_videos', 'AdminController@getPgntdVideos');
+    Route::get('get_video/{id}', 'AdminController@getVideoRoll');
+    Route::post('change_video_approval/{id}', 'AdminController@changeVideoRollApproval');
+    Route::post('change_video_feature/{id}', 'AdminController@changeVideoRollFeature');
 });
 
 

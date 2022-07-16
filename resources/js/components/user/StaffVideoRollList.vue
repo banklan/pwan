@@ -53,7 +53,7 @@
             </v-col>
         </v-row>
         <v-snackbar :value="videoDeleted" :timeout="4000" top dark color="green darken-2">
-            An event was deleted successfully.
+            A video roll has been deleted successfully.
             <v-btn text color="white--text" @click="videoDeleted = false">Close</v-btn>
         </v-snackbar>
     </v-container>
@@ -131,7 +131,7 @@ export default {
     .v-btn i{
         font-size: 1.1rem !important;
     }
-    table .events_list tr{
+    table .videos_list tr{
         cursor: pointer;
     }
     table tbody tr td{

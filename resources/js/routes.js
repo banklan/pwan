@@ -15,6 +15,8 @@ import AdminDetail from './components/admin/AdminDetail';
 import AdminUpdateSuperUser from './components/admin/AdminUpdateSuperUser';
 import AdminCreateSuperUser from './components/admin/AdminCreateSuperUser';
 import AdminEmailConfirmation from './components/admin/AdminEmailConfirmation';
+import AdminVideoRollsList from './components/admin/AdminVideoRollsList';
+import AdminVideoRollsDetail from './components/admin/AdminVideoRollsDetail';
 import UserEmailConfirmation from './components/user/UserEmailConfirmation';
 import StaffRegister from './components/user/StaffRegister';
 import AdminUserDetail from './components/admin/AdminUserDetail';
@@ -303,6 +305,18 @@ export default [
     },
     {
         path: '/admin/new-offers', name: 'AdminNewOffersList', component: AdminNewOffersList,
+        meta: {
+            requireAdminsAuth: true
+        },
+    },
+    {
+        path: '/admin/video-rolls/:id', name: 'AdminVideoRollsDetail', component: AdminVideoRollsDetail,
+        meta: {
+            requireAdminsAuth: true
+        },
+    },
+    {
+        path: '/admin/video-rolls', name: 'AdminVideoRollsList', component: AdminVideoRollsList,
         meta: {
             requireAdminsAuth: true
         },

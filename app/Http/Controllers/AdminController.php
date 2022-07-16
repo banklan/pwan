@@ -30,6 +30,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Auth\Events\PasswordReset;
+use App\VideoRoll;
 
 class AdminController extends Controller
 {
@@ -1164,5 +1165,49 @@ class AdminController extends Controller
         }
 
         return response()->json($res, 200);
+    }
+
+    public function getPgntdVideos(){
+        $videos = VideoRoll::latest()->paginate(10);
+
+        return response()->json($videos, 200);
+    }
+
+    public function getVideoRoll($id){
+        $video = VideoRoll::findOrFail($id);
+
+        return response()->json($video, 200);
+    }
+
+    public function changeVideoRollApproval($id, Request $request){
+        $video = VideoRoll::findOrFail($id);
+
+        if($video->is_approved == true){
+            $video->update([
+                'is_approved' => false
+            ]);
+        }else{
+            $video->update([
+                'is_approved' => true
+            ]);
+        }
+
+        return response()->json($video->is_approved, 200);
+    }
+
+    public function changeVideoRollFeature($id, Request $request){
+        $video = VideoRoll::findOrFail($id);
+
+        if($video->is_featured == true){
+            $video->update([
+                'is_featured' => false
+            ]);
+        }else{
+            $video->update([
+                'is_featured' => true
+            ]);
+        }
+
+        return response()->json($video->is_featured, 200);
     }
 }

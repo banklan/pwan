@@ -884,7 +884,7 @@ class UserController extends Controller
         // ]);
 
         $vid = VideoRoll::findOrFail($id);
-        $video = $vid->video;
+        $video_file = $vid->video;
 
         // delete old video local
         // $filePath = public_path('/images/videos/'.$video);
@@ -893,10 +893,11 @@ class UserController extends Controller
         // }
 
         // delete old video production
-        $path = 'videos/'.$video;
+        $path = 'videos/'.$video_file;
         Storage::disk('s3')->delete($path);
 
         // replace with new video
+        $video = $request->video;
         if($video){
             $pool = '0123456789abcdefghijklmnopqrstuvwxyz';
             $ext = $video->getClientOriginalExtension();
