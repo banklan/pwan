@@ -7,6 +7,9 @@
         </v-row>
         <v-row justify="center" class="mt-5" >
             <v-col cols="12" md="10">
+                <v-alert type="info">
+                    New Offer can be created to display fliers of new offerings to clients. After creating, admins will have to approve and feature it to make it feature on the landing page.
+                </v-alert>
                 <v-card raised elevation="6" light min-height="200" class="mx-auto">
                     <v-card-title class="justify-center primary white--text subtitle-1">Create New Offer</v-card-title>
                     <v-card-text class="mt-5 ml-3">

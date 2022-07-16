@@ -64,21 +64,20 @@
                     <div class="text-center subtitle-1 grey_text--text mt-5">Post Media</div>
                     <v-card min-height="200" min-width="80%" class="mt-5 file_cont" v-if="post">
                         <template v-if="post && post.file">
-                            <template v-if="post.file.toString().split('.').pop() === 'mp4'">
+                            <!-- <template v-if="post.file.toString().split('.').pop() === 'mp4'">
                                 <video width="100%" height="100%" controls>
-                                    <!-- <source :src="`/images/news/${post.file}`" type="video/mp4"> -->
                                     <source :src="`https://pwanplatinum.s3.amazonaws.com/news/${post.file}`" type="video/mp4">
                                     Your browser does not support the video tag.
                                 </video>
-                            </template>
-                            <template v-else>
+                            </template> -->
+                            <template>
                                 <!-- <v-img :src="`/images/news/${post.file}`" transition="scale-transition"></v-img> -->
                                 <v-img :src="`https://pwanplatinum.s3.amazonaws.com/news/${post.file}`" transition="scale-transition"></v-img>
                             </template>
                             <v-card-actions class="justify-center px-5 mt-5 pb-6" v-if="isAuthor">
                                 <template v-if="!previewFile">
                                     <v-btn text dark color="admin_a" @click="openUpload" class="mx-3">Update File</v-btn>
-                                    <input type="file" ref="file" style="display:none" @change.prevent="pickImg" accept="image/video*">
+                                    <input type="file" ref="file" style="display:none" @change.prevent="pickImg" accept="image/*">
                                     <v-btn large icon color="red darken-2" class="mx-5" @click="delFileConfDial = true">
                                         <i class="uil uil-trash-alt"></i>
                                     </v-btn>
@@ -87,17 +86,9 @@
                                     <div class="preview_cont">
                                         <v-card-text class="text-center mt-n8 prev_wrap">
                                             <div class="preview">
-                                                <div v-if="fileType == 'img'" class="img_wrap">
+                                                <div class="img_wrap">
                                                     <v-img :src="previewFileUrl" alt="file preview" height="100%"></v-img>
                                                 </div>
-                                                <template v-else>
-                                                    <div class="video_wrap">
-                                                        <video controls height="100%">
-                                                            <source :src="previewFileUrl" type="video/mp4">
-                                                            Your browser does not support the video tag.
-                                                        </video>
-                                                    </div>
-                                                </template>
                                             </div>
                                             <span class="prev_action">
                                                 <v-btn icon large @click="removeFile" color="red darken-2"><i class="uil uil-times"></i></v-btn>
@@ -125,17 +116,9 @@
                                     <div class="preview_cont">
                                         <v-card-text class="text-center mt-n8 prev_wrap">
                                             <div class="preview">
-                                                <div v-if="fileType == 'img'" class="img_wrap">
+                                                <div class="img_wrap">
                                                     <v-img :src="previewFileUrl" alt="file preview" height="100%"></v-img>
                                                 </div>
-                                                <template v-else>
-                                                    <div class="video_wrap">
-                                                        <video controls height="100%">
-                                                            <source :src="previewFileUrl" type="video/mp4">
-                                                            Your browser does not support the video tag.
-                                                        </video>
-                                                    </div>
-                                                </template>
                                             </div>
                                             <span class="prev_action">
                                                 <v-btn icon large @click="removeFile" color="red darken-2"><i class="uil uil-times"></i></v-btn>
@@ -148,7 +131,6 @@
                                 </template>
                             </v-card-actions>
                         </template>
-
                     </v-card>
                 </template>
             </v-col>

@@ -735,7 +735,7 @@ class AdminController extends Controller
 
     public function updateNewsPostFile(Request $request, $id){
         $this->validate($request, [
-            'image' => 'mimes:jpeg,jpg,bmp,png,gif,pdf,mp4'
+            'image' => 'mimes:jpeg,jpg,bmp,png,gif,pdf'
         ]);
 
         $post = NewsPost::findOrFail($id);

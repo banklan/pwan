@@ -7,7 +7,10 @@
         </v-row>
         <v-row justify="center" class="mt-5">
             <v-col cols="12" md="10">
-                <v-card light raised elevation="6" min-height="400" class="mx-auto pb-5">
+                <v-alert type="info">
+                    News posts can be created so as to diseminate information to the clients. Pictures can be uploaded for news-post.
+                </v-alert>
+                <v-card light raised elevation="6" min-height="400" class="mx-auto mt-4 pb-5">
                     <v-card-title class="justify-center subtitle-1 primary white--text">Create News Post</v-card-title>
                     <v-card-text class="pl-5 mt-6">
                         <v-text-field label="Title" v-model="post.title" required v-validate="'required|min:5|max:250'" :error-messages="errors.collect('title')" name="title"></v-text-field>

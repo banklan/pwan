@@ -7,14 +7,14 @@
         </v-row>
         <v-row justify="center" class="mt-5">
             <v-col cols="12" md="8">
-                <v-card light raised elevation="6" min-height="250" class="mx-auto pb-5">
+                <v-alert type="info">
+                    Use Video-rolls to show clients short videos of events or adverts. Kindly ensure that videos are less than 30mb and of format MP4 or MPEG.
+                </v-alert>
+                <v-card light raised elevation="6" min-height="250" class="mt-4 mx-auto pb-5">
                     <v-card-title class="justify-center subtitle-1 primary white--text">Create New Video-Roll</v-card-title>
                     <v-card-text class="mt-5 text-center">
                         <v-text-field label="Video Title" v-model="title" counter="450" required v-validate="'required|min:5|max:450'" :error-messages="errors.collect('title')" name="title"></v-text-field>
                         <div class="upload">
-                            <v-alert type="info" class="mt-3">
-                                Only videos of mp4 format are allowed. Video size must not exceed 30mb.
-                            </v-alert>
                             <template v-if="!previewUpload">
                                 <v-card-actions class="justify-space-around mt-5 pb-6">
                                     <v-btn dark color="primary lighten-2" @click="openUpload">Pick Video</v-btn>

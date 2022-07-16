@@ -355,7 +355,7 @@ class UserController extends Controller
     public function updateNewsPostFile(Request $request, $id)
     {
         $this->validate($request, [
-            'file' => 'mimes:jpeg,jpg,bmp,png,gif,pdf,mp4,avi,mpeg|max:500000'
+            'file' => 'mimes:jpeg,jpg,bmp,png,gif,pdf'
         ]);
         // print_r($request->file->getClientOriginalExtension());
         $post = NewsPost::findOrFail($id);
@@ -379,14 +379,10 @@ class UserController extends Controller
 
             //save new file in folder
             // $path = public_path('/images/news');
-            $path = 'news/';
             // $file_loc = public_path('/images/news/'.$filename);
             $file_loc = 'news/'.$filename;
 
-            if($ext == 'mp4'){
-                // $file->move($path, $filename);
-                Storage::disk('s3')->put($path, file_get_contents($filename));
-            }elseif(in_array($ext, ['jpeg', 'jpg', 'png', 'bmp', 'gif', 'pdf'])){
+            if(in_array($ext, ['jpeg', 'jpg', 'png', 'bmp', 'gif', 'pdf'])){
                 $img = Image::make($file)->resize(540, 420, function($constraint){
                     $constraint->aspectRatio();
                 });
@@ -423,7 +419,7 @@ class UserController extends Controller
     public function createNewsPost(Request $request)
     {
         $this->validate($request, [
-            'image' => 'mimes:jpeg,jpg,bmp,png,gif,pdf,video/mp4,video/avi,video/mpeg|max:20000',
+            'image' => 'mimes:jpeg,jpg,bmp,png,gif,pdf',
             'title' => 'required|min:5|max:250|unique:news_posts,title',
             'detail' => 'required|min:10|max:900',
         ]);
@@ -437,12 +433,8 @@ class UserController extends Controller
 
             // $file_loc = public_path('/images/news/'.$filename);
             $file_loc = 'news/'.$filename;
-            $path = 'news/';
             // $path = public_path('/images/news');
-            if($ext == 'mp4'){
-                // $file->move($path, $filename);
-                Storage::disk('s3')->put($path, file_get_contents($filename));
-            }elseif(in_array($ext, ['jpeg', 'jpg', 'bmp', 'png', 'gif', 'pdf'])){
+            if(in_array($ext, ['jpeg', 'jpg', 'bmp', 'png', 'gif', 'pdf'])){
                 $upload = Image::make($file)->resize(480, 420, function($constraint){
                     $constraint->aspectRatio();
                 });

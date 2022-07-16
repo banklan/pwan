@@ -62,14 +62,13 @@
                 <v-card min-height="200" min-width="80%" class="mt-5" v-if="post">
                     <v-card-title class="justify-center primary subtitle-1 white--text">Post File</v-card-title>
                     <template v-if="post && post.file">
-                        <template v-if="post.file.split('.').pop() === 'mp4'">
+                        <!-- <template v-if="post.file.split('.').pop() === 'mp4'">
                             <video width="100%" height="100%" controls>
-                                <!-- <source :src="`/images/news/${post.file}`" type="video/mp4"> -->
                                 <source :src="`https://pwanplatinum.s3.amazonaws.com/news/${post.file}`" type="video/mp4">
                                 Your browser does not support the video tag.
                             </video>
-                        </template>
-                        <template v-else>
+                        </template> -->
+                        <template>
                             <!-- <v-img :src="`/images/news/${post.file}`" height="100%" transition="scale-transition"></v-img> -->
                             <v-img :src="`https://pwanplatinum.s3.amazonaws.com/news/${post.file}`" height="100%" transition="scale-transition"></v-img>
                         </template>
@@ -79,7 +78,7 @@
                             </v-btn>
                             <template v-if="!previewImg">
                                 <v-btn test dark color="admin_a" @click="openUpload" class="mx-3">Update File</v-btn>
-                                <input type="file" ref="image" style="display:none" @change.prevent="pickImg" accept="image/video*">
+                                <input type="file" ref="image" style="display:none" @change.prevent="pickImg" accept="image/*">
                             </template>
                             <v-card-text v-else class="text-center">
                                 <v-img :src="previewImgUrl" height="150" contain alt="post photo" aspect-ratio="1"></v-img>
