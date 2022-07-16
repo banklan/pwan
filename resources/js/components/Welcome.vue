@@ -12,6 +12,7 @@
         <latest-properties />
         <new-offers />
         <our-directors />
+        <video-rolls />
         <latest-events />
         <news-post />
         <testimonials />

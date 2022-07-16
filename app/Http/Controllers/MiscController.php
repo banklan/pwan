@@ -9,6 +9,7 @@ use App\Event;
 use App\Enquiry;
 use App\NewOffer;
 use App\NewsPost;
+use App\VideoRoll;
 use App\Testimonial;
 use App\Subscription;
 use App\PropertyListing;
@@ -193,5 +194,11 @@ class MiscController extends Controller
         $tests = Testimonial::where('is_featured', true)->get();
 
         return response()->json($tests, 200);
+    }
+
+    public function getFeaturedVideo(){
+        $vid = VideoRoll::where(['is_featured' => true, 'is_approved' => true])->take(1)->get();
+
+        return response()->json($vid, 200);
     }
 }

@@ -50,6 +50,7 @@ Route::group(['middleware' => 'api'], function ($router) {
     Route::get('get_listing/{id}', 'MiscController@getListing');
     Route::get('get_featured_new_offers', 'MiscController@getFeaturedOffers');
     Route::get('get_feat_testimonials', 'MiscController@getFeaturedTestimonials');
+    Route::get('get_featured_video', 'MiscController@getFeaturedVideo');
 });
 
 // staff (auth user) protected routes
