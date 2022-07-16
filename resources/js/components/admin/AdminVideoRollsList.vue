@@ -110,7 +110,7 @@ export default {
         getVideos(pag){
             this.isLoading = true
             pag = pag || `${this.api}/auth-admin/get_paginated_videos`
-            axios.get(pag, this.authHeaders)
+            axios.get(pag, this.adminHeaders)
             .then((res) => {
                 this.isLoading = false
                 this.videos = res.data.data
