@@ -1179,16 +1179,16 @@ class AdminController extends Controller
         return response()->json($video, 200);
     }
 
-    public function changeVideoRollApproval($id, Request $request){
+    public function changeVideoRollApproval(Request $request, $id){
         $video = VideoRoll::findOrFail($id);
 
-        if($video->is_approved == true){
+        if($video->is_approved){
             $video->update([
-                'is_approved' => false
+                $video->is_approved = false
             ]);
         }else{
             $video->update([
-                'is_approved' => true
+                $video->is_approved = true
             ]);
         }
 
@@ -1198,13 +1198,13 @@ class AdminController extends Controller
     public function changeVideoRollFeature($id, Request $request){
         $video = VideoRoll::findOrFail($id);
 
-        if($video->is_featured == true){
+        if($video->is_featured){
             $video->update([
-                'is_featured' => false
+                $video->is_featured = false
             ]);
         }else{
             $video->update([
-                'is_featured' => true
+                $video->is_featured = true
             ]);
         }
 

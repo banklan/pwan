@@ -13,6 +13,9 @@ class VideoRoll extends Model
 
     protected $with = ['user', 'admin'];
 
+    protected $boolean = ['is_approved', 'is_featured'];
+
+
     protected static function boot(){
         parent::boot();
         static::addGlobalScope('order', function(Builder $builder){

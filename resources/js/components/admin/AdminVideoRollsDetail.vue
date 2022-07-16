@@ -40,8 +40,8 @@
                             </v-alert>
                         </v-card-text>
                         <v-card-actions class="justify-space-around pb-8 mt-n5" v-if="video">
-                            <v-btn color="admin_a" class="" @click="confirmApprovalDial = true">{{ video.is_approved ? 'Dis-approve' : 'Approve' }}</v-btn>
-                            <v-btn color="admin_b" class="" @click="confirmFeatureDial = true">Feature</v-btn>
+                            <v-btn dark color="admin_a" class="" @click="confirmApprovalDial = true">{{ video.is_approved ? 'Dis-approve' : 'Approve' }}</v-btn>
+                            <v-btn dark color="admin_b" class="" @click="confirmFeatureDial = true">Feature</v-btn>
                             <v-btn icon color="red darken-2"><i class="uil uil-trash-alt" @click="confirmDelDial = true"></i></v-btn>
                         </v-card-actions>
                     </v-card>
@@ -155,6 +155,7 @@ export default {
                 this.isBusy = false
                 this.video.is_approved = res.data
                 this.videoRollUpdated = true
+                this.confirmApprovalDial = false
             })
         },
         changeVideoFeature(){
@@ -164,6 +165,7 @@ export default {
                 this.isBusy = false
                 this.video.is_featured = res.data
                 this.videoRollUpdated = true
+                this.confirmFeatureDial = false
             })
         }
     },
