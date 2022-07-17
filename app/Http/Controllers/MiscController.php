@@ -83,7 +83,6 @@ class MiscController extends Controller
         $test->title = $request->title;
         $test->detail = $request->detail;
         $test->picture = $filename;
-        $test->user_id = 1;
 
         $test->save();
 
