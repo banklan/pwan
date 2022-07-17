@@ -94,6 +94,7 @@ export default {
                 padding: 1.5rem;
                 border-radius: 1rem;
                 cursor: default;
+                overflow: hidden;
 
                 p{
                     margin-bottom: 1.5rem;
@@ -140,6 +141,17 @@ export default {
                         .body{
                             margin-top: .5rem;
                             font-size: .9rem;
+                        }
+                    }
+                }
+
+                @media screen and (max-width: 722px) {
+                    .client{
+                        flex-direction: column;
+                        gap: 1.2rem;
+
+                        .avatar{
+                            width: 6rem;
                         }
                     }
                 }

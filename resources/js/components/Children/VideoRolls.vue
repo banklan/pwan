@@ -64,4 +64,19 @@ export default {
             }
         }
     }
+    @media screen and (max-width: 720px) {
+        .video_rolls{
+            width: 100vw;
+
+            .video_wrapper{
+                max-height: 16rem;
+                width: 100%;
+
+                .video{
+                    height: 100%;
+                    width: 100%;
+                }
+            }
+        }
+    }
 </style>

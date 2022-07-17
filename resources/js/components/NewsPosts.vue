@@ -5,14 +5,13 @@
         <div class="news_wrap" v-else>
             <div class="news" v-for="post in newsPosts" :key="post.id" @click="showMore(post)">
                 <div class="file">
-                    <template v-if="post.file.split('.').pop() === 'mp4'">
+                    <!-- <template v-if="post.file.split('.').pop() === 'mp4'">
                         <video height="100%" controls>
-                            <!-- <source :src="`/images/news/${post.file}`" type="video/mp4"> -->
                             <source :src="`https://pwanplatinum.s3.amazonaws.com/news/${post.file}`" type="video/mp4">
                             Your browser does not support the video tag.
                         </video>
-                    </template>
-                    <template v-else>
+                    </template> -->
+                    <template>
                         <img v-if="post.file" :src="`https://pwanplatinum.s3.amazonaws.com/news/${post.file}`" alt="news picture">
                         <img v-else src="/images/assets/no-image.png" alt="news picture">
                     </template>
@@ -85,6 +84,7 @@ export default {
             box-sizing: border-box;
 
             .news{
+                width: 100%;
                 border: 1px solid #e5e5e5;
                 border-radius: 4px;
                 overflow: hidden;
@@ -186,13 +186,23 @@ export default {
 
 @media screen and (max-width: 700px){
     .cont{
-        width: 85%;
+        width: 94%;
         .news_wrap{
+            width: 100%;
             .news{
-                flex-direction: column;
+                width: 100%;
+                // flex-direction: column;
                 height: 100%;
+                gap: 1rem;
+                overflow: hidden;
 
+                .file{
+                    width: 45%;
+                    height: 100%;
+                }
                 .details{
+                    height: 100%;
+                    gap: 1rem;
                     .post_title{
                         p{
                             font-size: 1rem;
@@ -201,7 +211,7 @@ export default {
                     }
                     .body{
                         // margin: 2rem auto;
-                        padding: .8rem 1rem 1rem;
+                        padding: .5rem 1rem 1rem;
                         font-size: .95rem;
                     }
                 }
