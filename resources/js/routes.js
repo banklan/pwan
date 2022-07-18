@@ -19,6 +19,8 @@ import AdminVideoRollsList from './components/admin/AdminVideoRollsList';
 import AdminVideoRollsDetail from './components/admin/AdminVideoRollsDetail';
 import AdminNewsletterUsersList from './components/admin/AdminNewsletterUsersList';
 import AdminCreateNewsletter from './components/admin/AdminCreateNewsletter';
+import AdminNewslettersList from './components/admin/AdminNewslettersList';
+import AdminNewslettersDetail from './components/admin/AdminNewslettersDetail';
 import UserEmailConfirmation from './components/user/UserEmailConfirmation';
 import StaffRegister from './components/user/StaffRegister';
 import AdminUserDetail from './components/admin/AdminUserDetail';
@@ -331,6 +333,18 @@ export default [
     },
     {
         path: '/admin/create-newsletter', name: 'AdminCreateNewsletter', component: AdminCreateNewsletter,
+        meta: {
+            requireAdminsAuth: true
+        },
+    },
+    {
+        path: '/admin/newsletters/:id', name: 'AdminNewslettersDetail', component: AdminNewslettersDetail,
+        meta: {
+            requireAdminsAuth: true
+        },
+    },
+    {
+        path: '/admin/newsletters', name: 'AdminNewslettersList', component: AdminNewslettersList,
         meta: {
             requireAdminsAuth: true
         },

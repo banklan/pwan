@@ -68,14 +68,14 @@ export default {
 <style lang="scss" scoped>
     .cont{
         margin: 0 auto;
-        width: 50%;
+        width: 60%;
         box-sizing: border-box;
         padding: 2rem 1rem;
 
         .pg_header{
             font-size: 1.2rem;
             text-align: center;
-            FONT-WEIGHT: 400;
+            font-weight: 400;
             color: #2e2e2e;
             margin: 2rem auto;
         }
@@ -96,7 +96,7 @@ export default {
 
                 .file{
                     height: 100%;
-                    width: 45%;
+                    width: 40%;
 
                     img{
                         height: 100%;

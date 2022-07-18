@@ -1,27 +1,24 @@
 <template>
     <v-container>
         <v-row justify="center">
-            <v-col cols="12" md="5" offset-md="1">
+            <v-col cols="12" md="6" offset-md="3">
                 <admin-search model="NewsletterUser" searchFor="newsletter subscriber"/>
-            </v-col>
-            <v-col cols="12" md="4" offset-md="2">
-                <v-btn dark color="primary" :to="{name: 'AdminCreateNewsletter'}"><i class="uil uil-plus"></i>New Newsletter</v-btn>
             </v-col>
         </v-row>
         <v-row class="mt-2 pr-5" justify="center" >
             <v-col cols="12" md="11">
                 <v-progress-circular indeterminate color="primary" :width="4" :size="40" v-if="isLoading" justify="center" class="mx-auto"></v-progress-circular>
                 <v-card v-else light raised elevation="8" min-height="100" class="scroll">
-                    <v-card-title class="primary white--text subtitle-1 justify-center">Testimonials List <span v-if="subscribers && subscribers.length > 0"><v-chip color="primary lighten-2 ml-2">{{ subscribers.length }}</v-chip></span></v-card-title>
+                    <v-card-title class="primary white--text subtitle-1 justify-center">Newsletter Subscribers List <span v-if="subscribers && subscribers.length > 0"><v-chip color="primary lighten-2 ml-2">{{ subscribers.length }}</v-chip></span></v-card-title>
                     <v-card-text>
                         <table class="table table-hover table-striped" v-if="subscribers && subscribers.length > 0">
                             <thead>
                                 <tr>
-                                    <th>S/N</th>
+                                    <th>ID</th>
                                     <th>Date</th>
                                     <th>Name</th>
                                     <th>Email</th>
-                                    <th>Status</th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody class="subscribers_list">

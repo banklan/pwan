@@ -94,6 +94,7 @@ export const store = new Vuex.Store({
         videoRollUpdated: false,
         videoDeleted: false,
         adminDeletedVideo: false,
+        adminDeleteNewsletter: false,
     },
     getters: {
         api(state)
@@ -298,6 +299,10 @@ export const store = new Vuex.Store({
         {
             return state.adminDeletedVideo
         },
+        adminDeleteNewsletter(state)
+        {
+            return state.adminDeleteNewsletter
+        },
     },
     actions: {
 
@@ -334,6 +339,7 @@ export const store = new Vuex.Store({
             state.adminUpdatedListingPlan = false
             state.adminDeleteEnquiry = false
             state.adminDeletedNewOffer = false
+            state.adminDeleteNewsletter = false
         },
         adminUpdatedSuperUser(state)
         {
@@ -599,6 +605,10 @@ export const store = new Vuex.Store({
         adminDeletedVideo(state)
         {
             state.adminDeletedVideo = true
+        },
+        adminDeleteNewsletter(state)
+        {
+            state.adminDeleteNewsletter = true
         },
     }
 })

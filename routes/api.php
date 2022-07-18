@@ -224,6 +224,9 @@ Route::group(['prefix' => 'auth-admin', 'middleware' => ['assign.guard:admin-api
     Route::get('get_newsletter_subscribers', 'AdminController@getNewsletterSubscribers');
     Route::post('delete_newsletter_subscriber/{id}', 'AdminController@delNewsletterSubscriber');
     Route::post('post_newsletter', 'AdminController@postNewsletter');
+    Route::get('get_newsletters', 'AdminController@getNewsletters');
+    Route::post('delete_newsletter/{id}', 'AdminController@deleteNewsletter');
+    Route::get('get_newsletter/{id}', 'AdminController@getNewsletter');
 });
 
 

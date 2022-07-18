@@ -130,7 +130,8 @@ export default {
 
     @media screen and (max-width: 722px){
         .wrapper{
-            width: 94%;
+            width: 96%;
+            padding: 4rem .8rem;
 
             .inputs{
                 width: 100%;

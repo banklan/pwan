@@ -1250,4 +1250,23 @@ class AdminController extends Controller
 
         return response()->json($newsletter, 200);
     }
+
+    public function getNewsletters(){
+        $newsletters = Newsletter::latest()->paginate(10);
+
+        return response()->json($newsletters, 200);
+    }
+
+    public function getNewsletter($id){
+        $newsletter = Newsletter::findOrFail($id);
+        return response()->json($newsletter, 200);
+    }
+
+    public function deleteNewsletter($id){
+        $newsletter = Newsletter::findOrFail($id);
+
+        $newsletter->delete();
+
+        return response()->json(['message' => 'Deleted'], 200);
+    }
 }

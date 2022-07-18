@@ -132,7 +132,7 @@ class MiscController extends Controller
     }
 
     public function getLatestEvents(){
-        $events = Event::latest()->take(6)->get();
+        $events = Event::where('is_approved', true)->latest()->take(6)->get();
 
         return response()->json($events, 200);
     }
