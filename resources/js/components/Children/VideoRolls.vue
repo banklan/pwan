@@ -69,7 +69,8 @@ export default {
             width: 100vw;
 
             .video_wrapper{
-                max-height: 16rem;
+                margin-top: -3rem;
+                height: 16rem;
                 width: 100%;
 
                 .video{

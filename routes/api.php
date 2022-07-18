@@ -51,6 +51,7 @@ Route::group(['middleware' => 'api'], function ($router) {
     Route::get('get_featured_new_offers', 'MiscController@getFeaturedOffers');
     Route::get('get_feat_testimonials', 'MiscController@getFeaturedTestimonials');
     Route::get('get_featured_video', 'MiscController@getFeaturedVideo');
+    Route::post('subscribe_to_newsletter', 'MiscController@subscribeNewsletter');
 });
 
 // staff (auth user) protected routes
@@ -220,6 +221,9 @@ Route::group(['prefix' => 'auth-admin', 'middleware' => ['assign.guard:admin-api
     Route::get('get_video/{id}', 'AdminController@getVideoRoll');
     Route::post('change_video_approval/{id}', 'AdminController@changeVideoRollApproval');
     Route::post('change_video_feature/{id}', 'AdminController@changeVideoRollFeature');
+    Route::get('get_newsletter_subscribers', 'AdminController@getNewsletterSubscribers');
+    Route::post('delete_newsletter_subscriber/{id}', 'AdminController@delNewsletterSubscriber');
+    Route::post('post_newsletter', 'AdminController@postNewsletter');
 });
 
 

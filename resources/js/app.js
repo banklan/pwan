@@ -123,6 +123,7 @@ Vue.component('admin-search', require('./components/Children/AdminSearch.vue').d
 Vue.component('staff-search', require('./components/Children/StaffSearch.vue').default);
 Vue.component('admin-dash-brief-cards', require('./components/Children/AdminDashBriefCards.vue').default);
 Vue.component('video-rolls', require('./components/Children/VideoRolls.vue').default);
+Vue.component('newsletter', require('./components/Children/Newsletter.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

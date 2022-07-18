@@ -146,9 +146,7 @@ export default {
                 this.isDeleting = false
                 this.confirmDelDialog = false
                 this.eventDeleted = true
-                console.log(res.data)
             })
-            console.log(this.eventToDel)
         },
         search(){
             this.$router.push({name: 'AdminEventSearchResult', query: {q: this.q}})

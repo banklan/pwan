@@ -11192,3 +11192,13 @@ body {
   background: linear-gradient(135deg, #036403, #034d01);
 }
 
+.newsletter_landing {
+  width: 100vw;
+  min-height: 20rem;
+  margin: 0 auto;
+  background-image: linear-gradient(135deg, rgba(226, 0, 0, 0.9), rgba(171, 0, 0, 0.92)), url(/images/newsletter.jpg?d0d617e1690ae3cff0d495dcab1ad348);
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+

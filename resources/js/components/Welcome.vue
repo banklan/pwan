@@ -16,6 +16,7 @@
         <latest-events />
         <news-post />
         <testimonials />
+        <newsletter />
     </div>
 </template>
 

@@ -17,6 +17,7 @@ use App\Mail\EnquirySent;
 use App\Jobs\EnquiryMailJob;
 use Illuminate\Http\Request;
 use App\Mail\EnquiryReceived;
+use App\NewsletterUser;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 
@@ -199,5 +200,19 @@ class MiscController extends Controller
         $vid = VideoRoll::where(['is_featured' => true, 'is_approved' => true])->take(1)->get();
 
         return response()->json($vid, 200);
+    }
+
+    public function subscribeNewsletter(Request $request){
+        $this->validate($request, [
+            'name' => 'required|min:3|max:100',
+            'email' => 'required|email|unique:newsletter_users,email',
+        ]);
+
+        $user = new NewsletterUser;
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->save();
+
+        return response()->json($user, 200);
     }
 }

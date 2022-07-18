@@ -12,14 +12,18 @@ use App\NewOffer;
 use App\NewsPost;
 use App\Property;
 use App\EventFile;
+use App\VideoRoll;
+use App\Newsletter;
 use App\Testimonial;
 use App\PropertyFile;
 use App\Subscription;
+use App\NewsletterUser;
 use App\PropertyListing;
 use App\PasswordResetLog;
 use App\PropertyListingPlan;
 use Illuminate\Http\Request;
 use App\AdminEmailVerification;
+use App\Jobs\SendNewsletterJob;
 use App\Mail\AdminProfileSetUp;
 use App\Mail\VerifyNewAdminEmail;
 use Illuminate\Support\Facades\DB;
@@ -30,7 +34,6 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Auth\Events\PasswordReset;
-use App\VideoRoll;
 
 class AdminController extends Controller
 {
@@ -108,14 +111,13 @@ class AdminController extends Controller
     }
 
     public function updateSuperUser(Request $request, $id){
-        $user = Admin::findOrFail($id);
-
         $this->validate($request, [
             'user.first_name' => 'required|min:3|max:30',
             'user.last_name' => 'required|min:3|max:30',
             'user.phone' => 'required|max:14',
         ]);
 
+        $user = Admin::findOrFail($id);
         $user->update([
             $user->first_name = $request->user['first_name'],
             $user->last_name = $request->user['last_name'],
@@ -1209,5 +1211,43 @@ class AdminController extends Controller
         }
 
         return response()->json($video->is_featured, 200);
+    }
+
+    public function getNewsletterSubscribers(){
+        $subs = NewsletterUser::latest()->paginate(10);
+
+        return response()->json($subs, 200);
+    }
+
+    public function delNewsletterSubscriber($id){
+        $sub = NewsletterUser::findOrFail($id);
+        $sub->delete();
+
+        return response()->json(['message' => 'Deleted'], 200);
+    }
+
+    public function postNewsletter(Request $request){
+        $this->validate($request, [
+            'newsletter.subject' => 'required|min:3|max:150',
+            'newsletter.body' => 'required|min:10|max:600',
+            'newsletter.closing' => 'max:150',
+        ]);
+
+        $admin_id =  auth('admin-api')->user()->id;
+
+        // save in db
+        $newsletter = new Newsletter;
+        $newsletter->subject = $request->newsletter['subject'];
+        $newsletter->body = $request->newsletter['body'];
+        $newsletter->closing = $request->newsletter['closing'];
+        $newsletter->admin_id = $admin_id;
+        $newsletter->save();
+
+        $newsletter->fresh();
+
+        //send mails
+        dispatch(new SendNewsletterJob($newsletter));
+
+        return response()->json($newsletter, 200);
     }
 }

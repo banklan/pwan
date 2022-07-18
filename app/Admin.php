@@ -123,4 +123,8 @@ class Admin extends Authenticatable implements JWTSubject
     public function video_rolls(){
         return $this->hasMany('App\VideoRoll');
     }
+
+    public function newsletter(){
+        return $this->hasMany('App\Newsletter');
+    }
 }

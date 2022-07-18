@@ -256,3 +256,14 @@ body{
     }
 }
 
+.newsletter_landing{
+    width: 100vw;
+    min-height: 20rem;
+    margin: 0 auto;
+    // background: linear-gradient(135deg, rgb(226, 0, 0), #3E4095);
+    background-image: linear-gradient(135deg,  rgba(226, 0, 0, 0.90), rgb(171 0 0 / 92%)),url('images/assets/newsletter.jpg');
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+
