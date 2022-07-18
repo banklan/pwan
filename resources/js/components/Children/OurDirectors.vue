@@ -255,6 +255,7 @@
             margin: 0 auto;
         }
         .our_directors{
+            margin-top: 3.5rem;
             .directors{
                 grid-template-columns: 1fr;
 

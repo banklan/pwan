@@ -74,6 +74,9 @@ export default {
                         this.newsletter.subject = ''
                         this.newsletter.body = ''
                         this.newsletter.closing = ''
+                        this.$validator.pause()
+                        this.$validator.fields.items.forEach(field => field.reset())
+                        this.$validator.errors.clear()
                         this.newsletterSent = true
                         console.log(res.data)
                     }).catch(() => {

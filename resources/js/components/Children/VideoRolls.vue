@@ -66,11 +66,11 @@ export default {
     }
     @media screen and (max-width: 720px) {
         .video_rolls{
-            width: 100vw;
+            width: 94vw;
 
             .video_wrapper{
                 margin-top: -3rem;
-                height: 16rem;
+                height: 18rem;
                 width: 100%;
 
                 .video{

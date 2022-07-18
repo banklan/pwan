@@ -7,7 +7,7 @@
                     <div class="avatar">
                         <img v-if="test.picture" :src="`https://pwanplatinum.s3.amazonaws.com/testimonials/${test.picture}`" :alt="test.fullname">
                     </div>
-                    <div class="patient__details">
+                    <div class="client_details">
                         <p class="tit">{{ test.title }} </p>
                         <p class="name">{{ test.fullname }}</p>
                         <small>{{ test.occupation }}, {{ test.organization }}</small>
@@ -91,7 +91,7 @@ export default {
             .swiper-slide{
                 background: linear-gradient(135deg, #01134e, #3E4095);
                 color: #fff;
-                padding: 1.5rem;
+                padding: 1.5rem 1rem;
                 border-radius: 1rem;
                 cursor: default;
                 overflow: hidden;
@@ -104,6 +104,7 @@ export default {
                     display: flex;
                     align-items: center;
                     gap: 1.5rem;
+                    overflow: hidden;
 
                     .avatar{
                         width: 5rem;
@@ -116,7 +117,7 @@ export default {
                             height: 100%;
                         }
                     }
-                    .patient__details{
+                    .client_details{
                         display: flex;
                         flex-direction: column;
                         align-items: flex-start;
@@ -149,6 +150,7 @@ export default {
                     .client{
                         flex-direction: column;
                         gap: 1.2rem;
+                        margin: 0 auto;
 
                         .avatar{
                             width: 6rem;

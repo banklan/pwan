@@ -33,11 +33,11 @@
                     <p><i class="uil uil-phone"></i> 08057165471, 08163451098 </p>
                     <p class="ml-8 mt-n4">08025886718, 08025886719</p>
                     <p class="mt-n4"><i class="uil uil-envelope-alt"></i> pwanplatinum@gmail.com</p>
-                    <div class="newsletter">
+                    <!-- <div class="newsletter">
                         <p>Join Our Newsletter to stay informed of new listings that might interest you</p>
                         <input type="text">
                         <button>Go!</button>
-                    </div>
+                    </div> -->
                 </div>
             </article>
         </div>

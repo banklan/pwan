@@ -6,7 +6,7 @@
             <div class="inputs">
                 <input type="text" placeholder="Your name" v-model="name">
                 <input type="text" placeholder="Your email address" v-model="email">
-                <v-btn type="submit" @click="submit" :loading="isBusy">Subscribe</v-btn>
+                <v-btn large type="submit" @click="submit" :loading="isBusy">Subscribe</v-btn>
             </div>
         </div>
         <v-snackbar v-model="subscribed" :timeout="3000" top dark color="green darken-2">
@@ -56,6 +56,7 @@ export default {
     text-align: center;
     color: #fff;
     margin: 0 auto;
+    margin-top: 3.5rem;
     margin-bottom: -3rem;
 
     .wrapper{
@@ -73,8 +74,6 @@ export default {
             font-weight: 400;
             font-size: 1.4rem;
             font-weight: 400;
-            // font-size: 1.9rem;
-            // margin-top: 2.5rem;
         }
         p{
             font-size: 1rem;
@@ -125,8 +124,23 @@ export default {
                     color: #E20000;
                     border-radius: 1px solid #E20000;
                 }
-                &:active{
-                    // background: yellow;
+            }
+        }
+    }
+
+    @media screen and (max-width: 722px){
+        .wrapper{
+            width: 94%;
+
+            .inputs{
+                width: 100%;
+
+                input{
+                    width: 100%;
+                }
+
+                button{
+                    width: 100%;
                 }
             }
         }

@@ -144,6 +144,11 @@ export default {
                         height: 18rem;
                     }
                 }
+                .property_details{
+                    p{
+                        font-size: .8rem;
+                    }
+                }
             }
         }
     }

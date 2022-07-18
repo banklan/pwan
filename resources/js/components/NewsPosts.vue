@@ -22,7 +22,7 @@
                         <small>Published {{ post.published }}</small>
                     </div>
                     <div class="body">
-                        <span> {{ post.detail | truncate(300) }} <p v-if="post.detail.length > 450" class="more" @click="showMore(post)">Read More...</p></span>
+                        <span> {{ post.detail | truncate(150) }} <p v-if="post.detail.length > 150" class="more" @click="showMore(post)">Read More...</p></span>
                     </div>
                 </div>
             </div>
@@ -50,7 +50,7 @@ export default {
             axios.get(this.api + '/get_all_newsposts').then((res) => {
                 this.isLoading = false
                 this.newsPosts = res.data
-                console.log(res.data)
+                // console.log(res.data)
             }).catch(() =>{
 
             })
@@ -68,7 +68,7 @@ export default {
 <style lang="scss" scoped>
     .cont{
         margin: 0 auto;
-        width: 80%;
+        width: 50%;
         box-sizing: border-box;
         padding: 2rem 1rem;
 
@@ -90,13 +90,13 @@ export default {
                 overflow: hidden;
                 display: flex;
                 gap: 1.5rem;
-                min-height: 15rem;
+                height: 15rem;
                 margin: 2rem auto;
                 cursor: pointer;
 
                 .file{
                     height: 100%;
-                    width: 50%;
+                    width: 45%;
 
                     img{
                         height: 100%;
@@ -202,7 +202,8 @@ export default {
                 }
                 .details{
                     height: 100%;
-                    gap: 1rem;
+                    // gap: 1rem;
+                    align-items: space-around;
                     .post_title{
                         p{
                             font-size: 1rem;
@@ -222,7 +223,7 @@ export default {
 
 @media screen and (max-width: 550px){
     .cont{
-        width: 95%;
+        width: 100%;
     }
 }
 </style>
