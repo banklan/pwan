@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateNewsletterTable extends Migration
+class CreatePwanNewslettersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -19,9 +19,9 @@ class CreateNewsletterTable extends Migration
             $table->text('body');
             $table->string('closing')->nullable();
             $table->bigInteger('admin_id')->unsigned();
-            $table->timestamps();
 
             $table->foreign('admin_id')->references('id')->on('admins');
+            $table->timestamps();
         });
     }
 
