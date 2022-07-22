@@ -230,7 +230,11 @@ export default {
         max-width: 25%;
         transition: all .4s ease;
     }
-
+    a.v-list-item{
+        min-height: 39px !important;
+        padding-top: 0px !important;
+        padding-bottom: 0px !important;
+    }
     .v-list-item__icon{
         font-size: 1.1rem;
     }

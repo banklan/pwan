@@ -807,10 +807,10 @@ class UserController extends Controller
     }
 
     public function createVideoRoll(Request $request){
-        // $this->validate($request, [
-        //     'video' => 'mimes:mp4,avi,mpeg|max:30000',
-        //     'title' => 'required|min:5|max:450'
-        // ]);
+        $this->validate($request, [
+            'video' => 'mimes:mp4,mpeg,mov,mpg,mpegps.webm,mpv,m4v,avi,wmv,flv,3gpp|max:50000',
+            'title' => 'required|min:5|max:450'
+        ]);
 
         $video = $request->video;
         if($video){
@@ -821,12 +821,9 @@ class UserController extends Controller
             //save new file in folder
             // $path = public_path('/images/videos/'.$filename);
             $path = 'videos/' .$filename;
-
-            if($ext == 'mp4' || 'mpeg' || 'avi'){
-                // $video->move($path, $filename);
-               Storage::disk('s3')->put($path, fopen($video, 'r+'));
-            //    fclose($handle);
-            }
+            // $allowed_exts = ['mp4','mpeg','mov','mpg','mpegps','webm','mpv','m4v','avi','wmv','flv','3gpp'];
+            // $video->move($path, $filename);
+            Storage::disk('s3')->put($path, fopen($video, 'r+'));
 
             $vid = new VideoRoll;
             $vid->title = $request->title;
@@ -836,7 +833,6 @@ class UserController extends Controller
 
             return response()->json($vid, 200);
         }
-
     }
 
     public function getVideoRoll($id){

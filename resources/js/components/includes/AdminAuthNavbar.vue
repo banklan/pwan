@@ -244,6 +244,9 @@ export default {
     .main{
         width: 100%;
     }
+    a.v-list-item{
+        min-height: 39px !important;
+    }
     .v-list-item__icon{
         font-size: 1.1rem;
     }

@@ -5,10 +5,10 @@
                 <v-btn rounded color="secondary" dark elevation="4" left @click="$router.go(-1)"><i class="uil uil-arrow-left"></i> Back</v-btn>
             </v-col>
         </v-row>
-        <v-row justify="center" class="mt-5">
+        <v-row justify="center" class="mt-2">
             <v-col cols="12" md="8">
                 <v-alert type="info">
-                    Use Video-rolls to show clients short videos of events or adverts. Kindly ensure that videos are less than 30mb and of format MP4 or MPEG.
+                    Use Video-rolls to show clients short videos of events or adverts. Kindly ensure that videos are less than 50mb and of any of the formats listed: MP4, MPEG, MOV, MPG, MPEGPS, WEBM, MPV, M4V, AVI, WMV, FLV, and 3GPP
                 </v-alert>
                 <v-card light raised elevation="6" min-height="250" class="mt-4 mx-auto pb-5">
                     <v-card-title class="justify-center subtitle-1 primary white--text">Create New Video-Roll</v-card-title>
@@ -25,7 +25,7 @@
                                 <v-card-text>
                                     <div class="preview">
                                         <video controls height="100%">
-                                            <source :src="prvUploadUrl" type="video/mp4">
+                                            <source :src="prvUploadUrl" type="video/*">
                                             Your browser does not support the video tag.
                                         </video>
                                         <v-btn icon large @click="removeFile" color="red darken-2"><i class="uil uil-times"></i></v-btn>
@@ -42,15 +42,15 @@
             </v-col>
         </v-row>
         <v-snackbar v-model="invalidFileType" :timeout="6000" top dark color="red darken-2">
-            Invalid video type. You are only allowed to upload an MP$ video.
+            Invalid video type. Video files type must be one of the following: MP4, MPEG, MOV, MPG, MPEGPS, WEBM, MPV, M4V, AVI, WMV, FLV, and 3GPP are only allowed to upload an MP$ video.
             <v-btn text color="white--text" @click="invalidFileType = false">Close</v-btn>
         </v-snackbar>
         <v-snackbar v-model="maxSizeExceeded" :timeout="6000" top dark color="red darken-2">
-            Maximum file size exceeded. Please upload a video of size less than 20mb.
+            Maximum file size exceeded. Please upload a video not exceeding 50mb in size.
             <v-btn text color="white--text" @click="maxSizeExceeded = false">Close</v-btn>
         </v-snackbar>
         <v-snackbar v-model="createFailed" :timeout="6000" top dark color="red darken-2">
-            There was an error while trying to create the video roll. Please ensure the video is of type MP4 or MPEG and that the size is less than 30mb.
+            There was an error while trying to create the video roll. Please ensure the video format is one ov=f the allowable formats and the size is not more than 50mb.
           <v-btn text color="white--text" @click="createFailed = false">Close</v-btn>
         </v-snackbar>
     </v-container>
@@ -100,11 +100,12 @@ export default {
             let size = file.size / 1000
             const fileName = file.name
             const fileExt = fileName.split('.').pop();
+            let allowables = ['mp4', 'mpeg', 'mov', 'mpg', 'mpegps', 'webm', 'mpv', 'm4v', 'avi', 'wmv', 'flv','3gpp'];
             // console.log(size)
-            if(size > 30000){
+            if(size > 50000){
                 this.maxSizeExceeded = true
                 return
-            }else if(fileExt !== 'mp4'){
+            }else if(allowables.indexOf(fileExt) === -1){//if ext not in array
                 this.invalidFileType = true
                 return
             }else{
