@@ -17,11 +17,6 @@ use App\Http\Requests\CreateListing;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 
-//for video upload to s3
-// require 'vendor/autoload.php';
-// use Aws\S3\S3Client;
-// use Aws\Exception\AwsException;
-// use Aws\S3\ObjectUploader;
 
 class UserController extends Controller
 {
@@ -60,7 +55,7 @@ class UserController extends Controller
     public function delPropertyFile($id){
         $file = PropertyFile::findOrFail($id);
 
-        // delete file in storage
+        //delete file in storage
         $file_name = $file->image;
         if($file_name){
             // $filePath = public_path('/images/properties/'.$file_name);

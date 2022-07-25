@@ -197,7 +197,7 @@ class MiscController extends Controller
     }
 
     public function getFeaturedVideo(){
-        $vid = VideoRoll::where(['is_featured' => true, 'is_approved' => true])->take(1)->get();
+        $vid = VideoRoll::where(['is_featured' => true, 'is_approved' => true])->take(2)->get();
 
         return response()->json($vid, 200);
     }

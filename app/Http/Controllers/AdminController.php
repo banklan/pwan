@@ -924,6 +924,7 @@ class AdminController extends Controller
     {
         $prop = PropertyListing::findOrFail($id);
         $files = PropertyFile::where('property_listing_id', $id)->get();
+        $plans = PropertyListingPlan::where('property_listing_id', $id)->get();
 
         foreach ($files as $pf) {
             $file = $pf->image;
@@ -934,6 +935,11 @@ class AdminController extends Controller
             //     unlink($filePath);
             // }
             $pf->delete();
+        }
+
+         //delete plans
+        foreach ($plans as $plan) {
+            $plan->delete();
         }
 
         $prop->delete();
