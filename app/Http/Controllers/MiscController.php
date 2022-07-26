@@ -215,4 +215,10 @@ class MiscController extends Controller
 
         return response()->json($user, 200);
     }
+
+    public function getAllVideoRolls(){
+        $vids = VideoRoll::where('is_approved', 1)->get();
+
+        return response()->json($vids, 200);
+    }
 }

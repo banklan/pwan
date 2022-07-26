@@ -85,6 +85,7 @@ import StaffVideoRollList from './components/user/StaffVideoRollList';
 import StaffCreateVideoRoll from './components/user/StaffCreateVideoRoll';
 import StaffVideoRollDetail from './components/user/StaffVideoRollDetail';
 import StaffUpdateVideoRoll from './components/user/StaffUpdateVideoRoll';
+import StaffVideoRollSearchResult from './components/user/StaffVideoRollSearchResult';
 import StaffProfile from './components/user/StaffProfile';
 import Testimonials from './components/Testimonials';
 import CreateTestimonial from './components/CreateTestimonial';
@@ -98,6 +99,7 @@ import AllNewsPost from './components/NewsPosts';
 import NewsPostDetail from './components/NewsPostDetail';
 import AllListings from './components/AllListings';
 import PropertyListingDetail from './components/PropertyListingDetail';
+import AllVideos from './components/AllVideos';
 import Chart from './components/Chart';
 import TermsAndConditions from './components/TermsAndConditions'
 
@@ -537,6 +539,13 @@ export default [
         },
     },
     {
+        path: '/staff/video-rolls/search', name: 'StaffVideoRollSearchResult', component: StaffVideoRollSearchResult,
+        meta: {
+            requiresAuth: true
+        },
+    },
+
+    {
         path: '/staff/video-rolls', name: 'StaffVideoRollList', component: StaffVideoRollList,
         meta: {
             requiresAuth: true
@@ -566,6 +575,7 @@ export default [
     { path: '/news-posts', name: 'AllNewsPost', component: AllNewsPost},
     { path: '/listings', name: 'AllListings', component: AllListings},
     { path: '/listing/:id/:slug', name: 'PropertyListingDetail', component: PropertyListingDetail},
+    { path: '/video-rolls', name: 'AllVideos', component: AllVideos},
     { path: '/test', name: 'TestPage', component: TestPage},
     { path: '/terms-conditions', name: 'TermsAndConditions', component: TermsAndConditions},
     { path: '/chart', name: 'Chart', component: Chart},

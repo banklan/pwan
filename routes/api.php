@@ -52,6 +52,7 @@ Route::group(['middleware' => 'api'], function ($router) {
     Route::get('get_feat_testimonials', 'MiscController@getFeaturedTestimonials');
     Route::get('get_featured_video', 'MiscController@getFeaturedVideo');
     Route::post('subscribe_to_newsletter', 'MiscController@subscribeNewsletter');
+    Route::get('get_all_video_rolls', 'MiscController@getAllVideoRolls');
 });
 
 // staff (auth user) protected routes
@@ -113,6 +114,7 @@ Route::group(['middleware' => 'jwt.auth',  'prefix' => 'auth'], function($router
     Route::post('delete_video_roll/{id}', 'UserController@delVideoRoll');
     Route::post('update_video/{id}', 'UserController@updateVideoRoll');
     Route::post('replace_video/{id}', 'UserController@replaceVideo');
+    Route::post('search_for_videos', 'UserController@searchForVideos');
 });
 
 
@@ -221,6 +223,7 @@ Route::group(['prefix' => 'auth-admin', 'middleware' => ['assign.guard:admin-api
     Route::get('get_video/{id}', 'AdminController@getVideoRoll');
     Route::post('change_video_approval/{id}', 'AdminController@changeVideoRollApproval');
     Route::post('change_video_feature/{id}', 'AdminController@changeVideoRollFeature');
+    Route::post('delete_video_roll/{id}', 'AdminController@delVideoRoll');
     Route::get('get_newsletter_subscribers', 'AdminController@getNewsletterSubscribers');
     Route::post('delete_newsletter_subscriber/{id}', 'AdminController@delNewsletterSubscriber');
     Route::post('post_newsletter', 'AdminController@postNewsletter');

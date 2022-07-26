@@ -10,6 +10,9 @@
                 <div class="details"> {{ video.title | truncate(150) }}</div>
             </div>
         </div>
+        <div class="cta">
+            <v-btn large color="secondary" dark :to="{name: 'AllVideos'}">All Videos</v-btn>
+        </div>
     </div>
 </template>
 

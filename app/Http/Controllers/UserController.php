@@ -803,7 +803,7 @@ class UserController extends Controller
 
     public function createVideoRoll(Request $request){
         $this->validate($request, [
-            'video' => 'mimes:mp4,mpeg,mov,mpg,mpegps.webm,mpv,m4v,avi,wmv,flv,3gpp|max:50000',
+            'video' => 'mimes:mp4,mpeg,mov,mpg,mpegps.webm,mpv,m4v,avi,wmv,flv,3gpp,quicktime|max:32000',
             'title' => 'required|min:5|max:450'
         ]);
 
@@ -913,5 +913,17 @@ class UserController extends Controller
         }
 
         return response()->json($vid, 200);
+    }
+
+    public function searchForVideos(Request $request){
+        $q = $request->q;
+        $videos = VideoRoll::where('title', 'LIKE', "%".$q."%")
+                            ->orWhereHas('user', function($query) use($q){
+                                $query->where('first_name', 'LIKE', "%".$q."%")
+                                    ->orWhere('last_name', 'LIKE', "%".$q."%")
+                                    ->orWhere('email', 'LIKE', "%".$q."%");
+                                })->get();
+
+        return response()->json($videos, 200);
     }
 }

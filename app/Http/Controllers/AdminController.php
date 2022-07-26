@@ -452,7 +452,7 @@ class AdminController extends Controller
             // if(file_exists($filePath)){
             //     unlink($filePath);
             // }
-            $file->delete();
+            $ef->delete();
         }
         $event->delete();
         return response()->json(['message' => 'Event deleted!'], 200);
@@ -1217,6 +1217,25 @@ class AdminController extends Controller
         }
 
         return response()->json($video->is_featured, 200);
+    }
+
+    public function delVideoRoll($id){
+        $vid = VideoRoll::findOrFail($id);
+
+        $video = $vid->video;
+        // local
+        // $filePath = public_path('/images/videos/'.$video);
+        // if(file_exists($filePath)){
+        //     unlink($filePath);
+        // }
+
+        // production
+        $filePath = 'videos/'.$video;
+        Storage::disk('s3')->delete($filePath);
+
+        $vid->delete();
+
+        return response()->json(['message' => 'Deleted']);
     }
 
     public function getNewsletterSubscribers(){
