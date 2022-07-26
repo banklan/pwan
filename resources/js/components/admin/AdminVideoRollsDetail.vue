@@ -141,6 +141,7 @@ export default {
             axios.post(this.api + `/auth-admin/delete_video_roll/${this.$route.params.id}`, {}, this.adminHeaders)
             .then((res) => {
                 this.isBusy = false
+                this.confirmDelDial = false,
                 this.$store.commit('adminDeletedVideo')
                 this.$route.push({name: 'AdminVideoRollsList'})
             }).catch(() => {
