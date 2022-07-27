@@ -6,13 +6,16 @@
                 <v-progress-circular indeterminate color="primary" :width="3" :size="30" v-if="isLoading" justify="center" class="mx-auto"></v-progress-circular>
                 <v-card v-else raised elevation="4" min-height="400" class="mx-auto" shaped>
                     <v-card-text class="mt-5">
-                        <div class="cont">
+                        <div class="cont" v-if="faqs.length > 0">
                             <div v-for="faq in faqs" :key="faq.id" class="faq_wrapper">
                                 <div class="faq_qst font-weight-bold"><span>Q:</span>{{ faq.qstn }}</div>
                                 <div class="faq_ans"><span>A:</span>{{ faq.ans }}</div>
                                 <div v-if="faq.extra" class="faq_extra">{{ faq.extra }}</div>
                             </div>
                         </div>
+                        <v-alert class="mt-5" type="warning">
+                            There are no presently no frequently asked questions to view.
+                        </v-alert>
                     </v-card-text>
                 </v-card>
             </v-col>
@@ -75,6 +78,11 @@ export default {
                 font-style: italic;
                 margin-top: .7rem;
             }
+        }
+    }
+    @media screen and(max-width: 720px) {
+        .cont{
+            width: 96vw;
         }
     }
 </style>
