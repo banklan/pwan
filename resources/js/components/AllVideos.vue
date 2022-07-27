@@ -81,6 +81,12 @@ export default {
 
             .videos_wrapper{
                 grid-template-columns: 1fr;
+
+                .video{
+                    video{
+                        max-height: 25rem;
+                    }
+                }
             }
         }
     }

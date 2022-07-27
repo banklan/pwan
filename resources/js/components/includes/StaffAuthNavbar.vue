@@ -128,6 +128,7 @@ export default {
                 {title: "Events", path: "/staff/events", icon: "schedule"},
                 {title: "News", path: "/staff/news", icon: "newspaper"},
                 {title: "Video Rolls", path: "/staff/video-rolls", icon: "video"},
+                {title: "FAQ's", path: "/staff/faqs", icon: "question"},
                 {title: "Profile", path: "/staff/profile", icon: "cog"},
             ],
             notificationsBadge: true,

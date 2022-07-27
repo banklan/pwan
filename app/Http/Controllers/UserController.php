@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Image;
+use App\FAQ;
 use App\Event;
 use App\NewOffer;
 use App\NewsPost;
@@ -926,4 +927,60 @@ class UserController extends Controller
 
         return response()->json($videos, 200);
     }
+
+    public function getPgntdFaqs(){
+        $faqs = FAQ::latest()->paginate(10);
+
+        return response()->json($faqs, 200);
+    }
+
+    public function postFaq(Request $request){
+        $this->validate($request, [
+            'faq.qstn' => 'required|min:5|max:250|unique:faqs,qstn',
+            'faq.ans' => 'required|min:5|max:600',
+            'faq.extra' => 'max:600',
+        ]);
+
+        $staff = auth('api')->user()->id;
+
+        $faq = new FAQ;
+        $faq->qstn = $request->faq['qstn'];
+        $faq->ans = $request->faq['ans'];
+        $faq->extra = $request->faq['extra'];
+        $faq->user_id = $staff;
+        $faq->save();
+
+        return response()->json($faq, 200);
+    }
+
+    public function updateFaq(Request $request, $id){
+        $this->validate($request, [
+            'faq.qstn' => 'required|min:5|max:250',
+            'faq.ans' => 'required|min:5|max:600',
+            'faq.extra' => 'max:600',
+        ]);
+
+        $faq = FAQ::findorFail($id);
+        $faq->update([
+            'qstn' => $request->faq['qstn'],
+            'ans' => $request->faq['ans'],
+            'extra' => $request->faq['extra'],
+        ]);
+
+        return response()->json($faq, 200);
+    }
+
+    public function getFaq($id){
+        $faq = FAQ::findOrFail($id);
+
+        return response()->json($faq, 200);
+    }
+
+    public function delFaq($id){
+        $faq = FAQ::findOrFail($id);
+        $faq->delete();
+
+        return response()->json(['message' => 'Deleted'], 200);
+    }
+
 }

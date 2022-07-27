@@ -86,6 +86,10 @@ import StaffCreateVideoRoll from './components/user/StaffCreateVideoRoll';
 import StaffVideoRollDetail from './components/user/StaffVideoRollDetail';
 import StaffUpdateVideoRoll from './components/user/StaffUpdateVideoRoll';
 import StaffVideoRollSearchResult from './components/user/StaffVideoRollSearchResult';
+import StaffFaqList from './components/user/StaffFaqList';
+import StaffFaqDetail from './components/user/StaffFaqDetail';
+import StaffFaqUpdate from './components/user/StaffFaqUpdate';
+import StaffCreateFAQ from './components/user/StaffCreateFAQ';
 import StaffProfile from './components/user/StaffProfile';
 import Testimonials from './components/Testimonials';
 import CreateTestimonial from './components/CreateTestimonial';
@@ -100,6 +104,7 @@ import NewsPostDetail from './components/NewsPostDetail';
 import AllListings from './components/AllListings';
 import PropertyListingDetail from './components/PropertyListingDetail';
 import AllVideos from './components/AllVideos';
+import FAQ from './components/Faq';
 import Chart from './components/Chart';
 import TermsAndConditions from './components/TermsAndConditions'
 
@@ -557,6 +562,30 @@ export default [
             requiresAuth: true
         },
     },
+    {
+        path: '/staff/create-faq', name: 'StaffCreateFAQ', component: StaffCreateFAQ,
+        meta: {
+            requiresAuth: true
+        },
+    },
+    {
+        path: '/staff/update-faq/:id', name: 'StaffFaqUpdate', component: StaffFaqUpdate,
+        meta: {
+            requiresAuth: true
+        },
+    },
+    {
+        path: '/staff/faqs/:id', name: 'StaffFaqDetail', component: StaffFaqDetail,
+        meta: {
+            requiresAuth: true
+        },
+    },
+    {
+        path: '/staff/faqs', name: 'StaffFaqList', component: StaffFaqList,
+        meta: {
+            requiresAuth: true
+        },
+    },
     { path: '/admin-email-confirmation', name: 'AdminEmailConfirmation', component: AdminEmailConfirmation, props: true },
     { path: '/staff-register', name: 'StaffRegister', component: StaffRegister },
     { path: '/staff-email-confirmation', name: 'UserEmailConfirmation', component: UserEmailConfirmation, props: true },
@@ -577,6 +606,7 @@ export default [
     { path: '/listing/:id/:slug', name: 'PropertyListingDetail', component: PropertyListingDetail},
     { path: '/video-rolls', name: 'AllVideos', component: AllVideos},
     { path: '/test', name: 'TestPage', component: TestPage},
+    { path: '/faq', name: 'FAQ', component: FAQ},
     { path: '/terms-conditions', name: 'TermsAndConditions', component: TermsAndConditions},
     { path: '/chart', name: 'Chart', component: Chart},
 ]

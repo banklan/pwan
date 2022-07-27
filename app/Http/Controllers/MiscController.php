@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use PDF;
 use Image;
+use App\FAQ;
 use App\Admin;
 use App\Event;
 use App\Enquiry;
@@ -12,12 +13,12 @@ use App\NewsPost;
 use App\VideoRoll;
 use App\Testimonial;
 use App\Subscription;
+use App\NewsletterUser;
 use App\PropertyListing;
 use App\Mail\EnquirySent;
 use App\Jobs\EnquiryMailJob;
 use Illuminate\Http\Request;
 use App\Mail\EnquiryReceived;
-use App\NewsletterUser;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 
@@ -220,5 +221,11 @@ class MiscController extends Controller
         $vids = VideoRoll::where('is_approved', 1)->get();
 
         return response()->json($vids, 200);
+    }
+
+    public function getAllFaqs(){
+        $faqs = FAQ::all();
+
+        return response()->json($faqs, 200);
     }
 }

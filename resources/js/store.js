@@ -95,6 +95,9 @@ export const store = new Vuex.Store({
         videoDeleted: false,
         adminDeletedVideo: false,
         adminDeleteNewsletter: false,
+        faqAdded: false,
+        faqUpdated: false,
+        faqDeleted:false,
     },
     getters: {
         api(state)
@@ -303,6 +306,18 @@ export const store = new Vuex.Store({
         {
             return state.adminDeleteNewsletter
         },
+        faqAdded(state)
+        {
+            return state.faqAdded
+        },
+        faqUpdated(state)
+        {
+            return state.faqUpdated
+        },
+        faqDeleted(state)
+        {
+            return state.faqDeleted
+        },
     },
     actions: {
 
@@ -468,6 +483,9 @@ export const store = new Vuex.Store({
             state.newVideoRollCreated = false
             state.videoRollUpdated = false
             state.videoDeleted = false
+            state.faqAdded = false
+            state.faqUpdated = false
+            state.faqDeleted = false
         },
         CreatePropListing(state, payload)
         {
@@ -609,6 +627,18 @@ export const store = new Vuex.Store({
         adminDeleteNewsletter(state)
         {
             state.adminDeleteNewsletter = true
+        },
+        faqAdded(state)
+        {
+            state.faqAdded = true
+        },
+        faqUpdated(state)
+        {
+            state.faqUpdated = true
+        },
+        faqDeleted(state)
+        {
+            state.faqDeleted = true
         },
     }
 })

@@ -53,6 +53,7 @@ Route::group(['middleware' => 'api'], function ($router) {
     Route::get('get_featured_video', 'MiscController@getFeaturedVideo');
     Route::post('subscribe_to_newsletter', 'MiscController@subscribeNewsletter');
     Route::get('get_all_video_rolls', 'MiscController@getAllVideoRolls');
+    Route::get('get_all_faqs', 'MiscController@getAllFaqs');
 });
 
 // staff (auth user) protected routes
@@ -115,6 +116,12 @@ Route::group(['middleware' => 'jwt.auth',  'prefix' => 'auth'], function($router
     Route::post('update_video/{id}', 'UserController@updateVideoRoll');
     Route::post('replace_video/{id}', 'UserController@replaceVideo');
     Route::post('search_for_videos', 'UserController@searchForVideos');
+    Route::get('get_paginated_faqs', 'UserController@getPgntdFaqs');
+    Route::post('post_faq', 'UserController@postFaq');
+    Route::post('update_faq/{id}', 'UserController@updateFaq');
+    Route::get('get_faq/{id}', 'UserController@getFaq');
+    Route::post('del_faq/{id}', 'UserController@delFaq');
+
 });
 
 
