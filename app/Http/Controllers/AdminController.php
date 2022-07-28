@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use PDF;
 use Image;
+use App\FAQ;
 use App\User;
 use App\Admin;
 use App\Event;
@@ -1293,5 +1294,24 @@ class AdminController extends Controller
         $newsletter->delete();
 
         return response()->json(['message' => 'Deleted'], 200);
+    }
+
+    public function getPgntdFaqs(){
+        $faqs = FAQ::latest()->paginate(10);
+
+        return response()->json($faqs, 200);
+    }
+
+    public function delFaq($id){
+        $faq = FAQ::findOrFail($id);
+        $faq->delete();
+
+        return response()->json(['message' => 'Deleted', 201]);
+    }
+
+    public function getFaq($id){
+        $faq = FAQ::findOrFail($id);
+
+        return response()->json($faq, 200);
     }
 }

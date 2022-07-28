@@ -130,6 +130,7 @@ export default {
                 {title: "Testimonials", path: "/admin/testimonials", icon: "comment-alt-heart"},
                 {title: "News", path: "/admin/news", icon: "newspaper"},
                 {title: "Video Rolls", path: "/admin/video-rolls", icon: "video"},
+                {title: "FAQ's", path: "/admin/faqs", icon: "question-circle"},
                 {title: "Newsletter Subscribers", path: "/admin/newsletter-subscribers", icon: "envelope"},
                 {title: "Newsletters", path: "/admin/newsletters", icon: "mailbox"},
                 {title: "Enquiries", path: "/admin/enquiries", icon: "envelope-question"},

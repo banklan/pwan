@@ -54,6 +54,8 @@ import AdminEnquirySearchResult from './components/admin/AdminEnquirySearchResul
 import AdminNewOffersList from './components/admin/AdminNewOffersList';
 import AdminNewOfferDetail from './components/admin/AdminNewOfferDetail';
 import AdminNewOfferSearchResult from './components/admin/AdminNewOfferSearchResult';
+import AdminFaqDetail from './components/admin/AdminFaqDetail';
+import AdminFaqList from './components/admin/AdminFaqList';
 import StaffDashboard from './components/user/StaffDashboard';
 import StaffPropertyList from './components/user/StaffPropertyList';
 import StaffPropertySearchResult from './components/user/StaffPropertySearchResult';
@@ -352,6 +354,18 @@ export default [
     },
     {
         path: '/admin/newsletters', name: 'AdminNewslettersList', component: AdminNewslettersList,
+        meta: {
+            requireAdminsAuth: true
+        },
+    },
+    {
+        path: '/admin/faqs/:id', name: 'AdminFaqDetail', component: AdminFaqDetail,
+        meta: {
+            requireAdminsAuth: true
+        },
+    },
+    {
+        path: '/admin/faqs', name: 'AdminFaqList', component: AdminFaqList,
         meta: {
             requireAdminsAuth: true
         },

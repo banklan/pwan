@@ -355,6 +355,7 @@ export const store = new Vuex.Store({
             state.adminDeleteEnquiry = false
             state.adminDeletedNewOffer = false
             state.adminDeleteNewsletter = false
+            state.faqDeleted = false
         },
         adminUpdatedSuperUser(state)
         {

@@ -11,12 +11,12 @@
                 <v-btn dark color="primary" :to="{name: 'AdminCreateSuperUser'}"><v-icon left>add</v-icon>New Admin</v-btn>
             </v-col>
         </v-row>
-        <v-row v-if="filterView" justify="center" class="mt-n5" >
+        <v-row v-if="filterView" justify="center" class="mt-n5" :class="$vuetify.breakpoint.smAndDown ? 'ml-n10':''">
             <v-col cols="12">
                 <div class="text-center subtitle-1">Search for admin <strong>{{ q }}</strong> returns {{ filtered.length | pluralize('user') }}</div>
             </v-col>
         </v-row>
-        <v-row class="mt-2 pr-5" justify="center" >
+        <v-row class="mt-2 pr-5" justify="center" :class="$vuetify.breakpoint.smAndDown ? 'ml-n8':''">
             <v-col cols="12" md="11">
                 <v-progress-circular indeterminate color="primary" :width="4" :size="40" v-if="isLoading" justify="center" class="mx-auto"></v-progress-circular>
                 <v-card v-else light raised elevation="8" min-height="100" class="scroll">
@@ -29,7 +29,6 @@
                                     <th>Fullname</th>
                                     <th>Email</th>
                                     <th>Status</th>
-                                    <!-- <th>Action</th> -->
                                 </tr>
                             </thead>
                             <tbody class="admin_list">
@@ -39,7 +38,6 @@
                                         <td @click="showUser(user)">{{ user.fullname }}</td>
                                         <td @click="showUser(user)">{{ user.email }}</td>
                                         <td>{{ user.status ? 'Enabled' : 'Disabled'}} &nbsp; <v-btn v-if="user.id !== authAdmin.id && user.authorized_by" dark small :class="user.status == 1 ? 'primary' : 'green darken-2'" @click.prevent="toggleUserStatus(user)">{{ user.status ? 'Disable' : 'Enable'}}</v-btn> </td>
-                                        <!-- <td><v-btn v-if="user.id !== authAdmin.id" small icon color="red darken-2" @click="confirmDel(user, i)"><i class="uil uil-trash-alt"></i></v-btn></td> -->
                                     </tr>
                                 </template>
                                 <template v-else>

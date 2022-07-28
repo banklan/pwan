@@ -4,7 +4,7 @@
             <v-col cols="12" md="10">
                 <div class="title pb-5 text-center">Frequently Asked Questions</div>
                 <v-progress-circular indeterminate color="primary" :width="3" :size="30" v-if="isLoading" justify="center" class="mx-auto"></v-progress-circular>
-                <v-card v-else raised elevation="4" min-height="400" class="mx-auto" shaped>
+                <v-card v-else raised elevation="4" min-height="100" class="mx-auto" shaped>
                     <v-card-text class="mt-5">
                         <div class="cont" v-if="faqs.length > 0">
                             <div v-for="faq in faqs" :key="faq.id" class="faq_wrapper">
@@ -39,11 +39,10 @@ export default {
     methods: {
         getFaqs(){
             this.isLoading = true
-            // axios.get(this.api + '/get_all_events').then((res) => {
             axios.get(this.api + '/get_all_faqs').then((res) => {
                 this.isLoading = false
                 this.faqs = res.data
-                console.log(res.data)
+                // console.log(res.data)
             })
         }
     },
@@ -82,7 +81,7 @@ export default {
     }
     @media screen and(max-width: 720px) {
         .cont{
-            width: 96vw;
+            width: 100vw;
         }
     }
 </style>
