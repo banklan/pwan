@@ -56,6 +56,7 @@ import AdminNewOfferDetail from './components/admin/AdminNewOfferDetail';
 import AdminNewOfferSearchResult from './components/admin/AdminNewOfferSearchResult';
 import AdminFaqDetail from './components/admin/AdminFaqDetail';
 import AdminFaqList from './components/admin/AdminFaqList';
+import AdminFAQSearchResult from './components/admin/AdminFAQSearchResult';
 import StaffDashboard from './components/user/StaffDashboard';
 import StaffPropertyList from './components/user/StaffPropertyList';
 import StaffPropertySearchResult from './components/user/StaffPropertySearchResult';
@@ -89,6 +90,7 @@ import StaffVideoRollDetail from './components/user/StaffVideoRollDetail';
 import StaffUpdateVideoRoll from './components/user/StaffUpdateVideoRoll';
 import StaffVideoRollSearchResult from './components/user/StaffVideoRollSearchResult';
 import StaffFaqList from './components/user/StaffFaqList';
+import StaffFAQSearchResult from './components/user/StaffFAQSearchResult';
 import StaffFaqDetail from './components/user/StaffFaqDetail';
 import StaffFaqUpdate from './components/user/StaffFaqUpdate';
 import StaffCreateFAQ from './components/user/StaffCreateFAQ';
@@ -106,7 +108,7 @@ import NewsPostDetail from './components/NewsPostDetail';
 import AllListings from './components/AllListings';
 import PropertyListingDetail from './components/PropertyListingDetail';
 import AllVideos from './components/AllVideos';
-import FAQ from './components/Faq';
+import FAQS from './components/Faqs';
 import Chart from './components/Chart';
 import TermsAndConditions from './components/TermsAndConditions'
 
@@ -359,6 +361,12 @@ export default [
         },
     },
     {
+        path: '/admin/faqs/search', name: 'AdminFAQSearchResult', component: AdminFAQSearchResult, props:true,
+        meta: {
+            requireAdminsAuth: true
+        },
+    },
+    {
         path: '/admin/faqs/:id', name: 'AdminFaqDetail', component: AdminFaqDetail,
         meta: {
             requireAdminsAuth: true
@@ -589,6 +597,12 @@ export default [
         },
     },
     {
+        path: '/staff/faqs/search', name: 'StaffFAQSearchResult', component: StaffFAQSearchResult, props:true,
+        meta: {
+            requiresAuth: true
+        },
+    },
+    {
         path: '/staff/faqs/:id', name: 'StaffFaqDetail', component: StaffFaqDetail,
         meta: {
             requiresAuth: true
@@ -620,7 +634,7 @@ export default [
     { path: '/listing/:id/:slug', name: 'PropertyListingDetail', component: PropertyListingDetail},
     { path: '/video-rolls', name: 'AllVideos', component: AllVideos},
     { path: '/test', name: 'TestPage', component: TestPage},
-    { path: '/faq', name: 'FAQ', component: FAQ},
+    { path: '/frequently-asked-questions', name: 'FAQS', component: FAQS},
     { path: '/terms-conditions', name: 'TermsAndConditions', component: TermsAndConditions},
     { path: '/chart', name: 'Chart', component: Chart},
 ]

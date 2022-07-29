@@ -121,7 +121,7 @@ Route::group(['middleware' => 'jwt.auth',  'prefix' => 'auth'], function($router
     Route::post('update_faq/{id}', 'UserController@updateFaq');
     Route::get('get_faq/{id}', 'UserController@getFaq');
     Route::post('del_faq/{id}', 'UserController@delFaq');
-
+    Route::post('search_for_faqs', 'UserController@searchForFaq');
 });
 
 
@@ -240,6 +240,7 @@ Route::group(['prefix' => 'auth-admin', 'middleware' => ['assign.guard:admin-api
     Route::get('get_paginated_faqs', 'AdminController@getPgntdFaqs');
     Route::post('del_faq/{id}', 'AdminController@delFaq');
     Route::get('get_faq/{id}', 'AdminController@getFaq');
+    Route::post('search_for_faqs', 'AdminController@searchForFaq');
 });
 
 

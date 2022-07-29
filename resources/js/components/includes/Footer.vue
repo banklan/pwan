@@ -12,7 +12,7 @@
             </article>
             <article>
                 <h3>Quick Links</h3>
-                <router-link to="/faq">Freq Asked Qstns</router-link>
+                <router-link to="/frequently-asked-questions">Freq Asked Qstns</router-link>
                 <router-link to="/news-posts">News</router-link>
                 <router-link to="/login">Staff Login</router-link>
                 <router-link to="/terms-conditions">Terms & Conditions</router-link>

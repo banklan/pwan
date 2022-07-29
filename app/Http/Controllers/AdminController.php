@@ -1314,4 +1314,18 @@ class AdminController extends Controller
 
         return response()->json($faq, 200);
     }
+
+    public function searchForFaq(Request $request){
+        $q = $request->q;
+        $faqs = FAQ::where('qstn', 'LIKE', "%".$q."%")
+                    ->orWhere('ans', 'LIKE', "%".$q."%")
+                    ->orWhere('extra', 'LIKE', "%".$q."%")
+                    ->orWhereHas('user', function($query) use($q){
+                        $query->where('first_name', 'LIKE', "%".$q."%")
+                            ->orWhere('last_name', 'LIKE', "%".$q."%")
+                            ->orWhere('email', 'LIKE', "%".$q."%");
+                    })->get();
+
+        return response()->json($faqs, 200);
+    }
 }
