@@ -21,7 +21,7 @@
                                     </tr>
                                     <tr>
                                         <th>Answer</th>
-                                        <td>{{ faq.ans }}</td>
+                                        <td style="white-space: pre-line">{{ faq.ans }}</td>
                                     </tr>
                                     <tr>
                                         <th>Extra</th>

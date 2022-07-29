@@ -15,7 +15,7 @@
                         <v-textarea label="Other Details (extra)" rows="1" auto-grow v-model="faq.extra" v-validate="'max:600'" :error-messages="errors.collect('extra')" name="extra"></v-textarea>
                     </v-card-text>
                     <v-card-actions class="justify-center pb-8">
-                        <v-btn large width="40%" color="red darken-2" text>Cancel</v-btn>
+                        <v-btn large width="40%" color="red darken-2" text @click="cancel">Cancel</v-btn>
                         <v-btn large width="40%" color="primary" dark :loading="isBusy" @click="submit">Submit</v-btn>
                     </v-card-actions>
                 </v-card>
@@ -86,3 +86,9 @@ export default {
     }
 }
 </script>
+
+<style lang="scss" scoped>
+    textarea{
+        white-space: pre-wrap;
+    }
+</style>

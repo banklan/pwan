@@ -9,11 +9,11 @@
                         <div class="cont" v-if="faqs.length > 0">
                             <div v-for="faq in faqs" :key="faq.id" class="faq_wrapper">
                                 <div class="faq_qst font-weight-bold"><span>Q:</span>{{ faq.qstn }}</div>
-                                <div class="faq_ans"><span>A:</span>{{ faq.ans }}</div>
+                                <div class="faq_ans" style="white-space: pre-line"><span>A:</span>{{ faq.ans }}</div>
                                 <div v-if="faq.extra" class="faq_extra">{{ faq.extra }}</div>
                             </div>
                         </div>
-                        <v-alert class="mt-5" type="warning">
+                        <v-alert class="mt-5" type="warning" v-else>
                             There are no presently no frequently asked questions to view.
                         </v-alert>
                     </v-card-text>
@@ -42,7 +42,6 @@ export default {
             axios.get(this.api + '/get_all_faqs').then((res) => {
                 this.isLoading = false
                 this.faqs = res.data
-                // console.log(res.data)
             })
         }
     },
