@@ -110,7 +110,7 @@ import PropertyListingDetail from './components/PropertyListingDetail';
 import AllVideos from './components/AllVideos';
 import FAQS from './components/Faqs';
 import Chart from './components/Chart';
-import TermsAndConditions from './components/TermsAndConditions'
+// import TermsAndConditions from './components/TermsAndConditions'
 
 
 export default [
@@ -635,6 +635,6 @@ export default [
     { path: '/video-rolls', name: 'AllVideos', component: AllVideos},
     { path: '/test', name: 'TestPage', component: TestPage},
     { path: '/frequently-asked-questions', name: 'FAQS', component: FAQS},
-    { path: '/terms-conditions', name: 'TermsAndConditions', component: TermsAndConditions},
+    // { path: '/terms-conditions', name: 'TermsAndConditions', component: TermsAndConditions},
     { path: '/chart', name: 'Chart', component: Chart},
 ]
