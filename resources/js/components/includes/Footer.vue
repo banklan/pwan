@@ -8,15 +8,15 @@
                 <router-link to="/listings">Listings</router-link>
                 <router-link to="/events">Events</router-link>
                 <router-link to="/contact-us">Contact Us</router-link>
-                <router-link to="/testimonials">Testimonial</router-link>
             </article>
             <article>
                 <h3>Quick Links</h3>
                 <router-link to="/frequently-asked-questions">Freq Asked Qstns</router-link>
                 <router-link to="/news-posts">News</router-link>
                 <router-link to="/login">Staff Login</router-link>
-                <router-link to="/terms-conditions">Terms & Conditions</router-link>
-                <router-link to="/privacy-policy">Privacy Policy</router-link>
+                <!-- <router-link to="/terms-conditions">Terms & Conditions</router-link>
+                <router-link to="/privacy-policy">Privacy Policy</router-link> -->
+                <router-link to="/testimonials">Testimonial</router-link>
                 <router-link to="/subscription-form">Subscription Form</router-link>
             </article>
             <article>

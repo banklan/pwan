@@ -11,7 +11,7 @@
                     <v-card-title class="justify-center subtitle-1 primary white--text">Create New FAQ</v-card-title>
                     <v-card-text class="mt-5">
                         <v-text-field label="FAQ question" v-model="faq.qstn" required v-validate="'required|min:5|max:250'" :error-messages="errors.collect('question')" name="question" counter="250"></v-text-field>
-                        <v-textarea label="FAQ Answer" rows="2" auto-grow v-model="faq.ans" v-validate="'required|min:5|max:600'" :error-messages="errors.collect('answer')" name="answer" counter="600"></v-textarea>
+                        <v-textarea label="FAQ Answer" rows="2" auto-grow v-model="faq.ans" v-validate="'required|min:5|max:600'" :error-messages="errors.collect('answer')" name="answer" counter="600" hint="For Answers that requires been on another line/paragraph, kindly press to type on another line."></v-textarea>
                         <v-textarea label="Other Details (extra)" rows="1" auto-grow v-model="faq.extra" v-validate="'max:600'" :error-messages="errors.collect('extra')" name="extra"></v-textarea>
                     </v-card-text>
                     <v-card-actions class="justify-center pb-8">
